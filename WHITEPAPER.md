@@ -614,13 +614,13 @@ The Web3 Crypto Streaming Service employs advanced networking techniques and cod
   - Power-aware computation scheduling
 
 ##### Performance Benchmarks
-| Operation | Throughput | Latency (p95) | CPU Utilization |
-|-----------|------------|---------------|-----------------|
-| Content Streaming | 8K @ 60fps | 35ms | 12% per core |
-| Asset Transfer | 10,000 tps | 150ms | 8% per core |
-| State Synchronization | 25,000 ops/s | 75ms | 15% per core |
-| Metadata Indexing | 100,000 items/s | 20ms | 6% per core |
-| Cross-chain Communication | 5,000 msgs/s | 200ms | 10% per core |
+| Operation                 | Throughput      | Latency (p95) | CPU Utilization |
+| ------------------------- | --------------- | ------------- | --------------- |
+| Content Streaming         | 8K @ 60fps      | 35ms          | 12% per core    |
+| Asset Transfer            | 10,000 tps      | 150ms         | 8% per core     |
+| State Synchronization     | 25,000 ops/s    | 75ms          | 15% per core    |
+| Metadata Indexing         | 100,000 items/s | 20ms          | 6% per core     |
+| Cross-chain Communication | 5,000 msgs/s    | 200ms         | 10% per core    |
 
 These specifications are achieved through extensive profiling, optimization, and continuous benchmarking against industry standards.
 
@@ -665,12 +665,12 @@ The Web3 Crypto Streaming Service leverages advanced WebSocket technologies and 
   - Graceful fallback to software implementations when hardware support is unavailable
 
 ##### Device-Specific Optimizations
-| Platform | Connection Strategy | Crypto Implementation | Power Optimization |
-|----------|---------------------|------------------------|-------------------|
-| Desktop | Multiple WebSocket connections | Full suite with hardware acceleration | Performance priority |
-| Mobile | Single multiplexed connection | Battery-optimized primitives | Adaptive power mode |
-| IoT | Lightweight protocol variant | Minimal implementation set | Ultra-low power mode |
-| Web | WebTransport with WebSocket fallback | WebCrypto API with WASM extensions | Background throttling |
+| Platform | Connection Strategy                  | Crypto Implementation                 | Power Optimization    |
+| -------- | ------------------------------------ | ------------------------------------- | --------------------- |
+| Desktop  | Multiple WebSocket connections       | Full suite with hardware acceleration | Performance priority  |
+| Mobile   | Single multiplexed connection        | Battery-optimized primitives          | Adaptive power mode   |
+| IoT      | Lightweight protocol variant         | Minimal implementation set            | Ultra-low power mode  |
+| Web      | WebTransport with WebSocket fallback | WebCrypto API with WASM extensions    | Background throttling |
 
 ##### Real-time Capabilities
 - **Latency Guarantees**:
@@ -819,13 +819,13 @@ The Web3 Crypto Streaming Service implements a multi-tiered prize allocation sys
   - Annual excellence awards with significant token prizes
 
 ##### Allocation Schedule
-| Category | Percentage of Prize Pool | Distribution Frequency | Vesting |
-|----------|--------------------------|------------------------|---------|
-| Creator Rewards | 40% | Weekly | Immediate |
-| Node Operators | 25% | Daily | Immediate |
-| Ecosystem Development | 20% | Quarterly | 6-month linear |
-| Community Governance | 10% | Monthly | Immediate |
-| Emergency Reserve | 5% | As needed | N/A |
+| Category              | Percentage of Prize Pool | Distribution Frequency | Vesting        |
+| --------------------- | ------------------------ | ---------------------- | -------------- |
+| Creator Rewards       | 40%                      | Weekly                 | Immediate      |
+| Node Operators        | 25%                      | Daily                  | Immediate      |
+| Ecosystem Development | 20%                      | Quarterly              | 6-month linear |
+| Community Governance  | 10%                      | Monthly                | Immediate      |
+| Emergency Reserve     | 5%                       | As needed              | N/A            |
 
 The prize allocation system is governed by the DAO and subject to regular review and parameter optimization based on network growth metrics and economic sustainability models.
 

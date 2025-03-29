@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CryptoStream</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
+    <link rel="stylesheet" href="css/dashboard-2023.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Fallback for FontAwesome -->
+    <script>
+        window.onload = function () {
+            if (!document.querySelector('.fas')) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+                document.head.appendChild(link);
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-light">
+    <!-- Top Navigation Bar for Mobile -->
+    <nav class="navbar navbar-dark bg-dark d-md-none fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-stream me-2"></i>CryptoStream</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4 d-none d-md-block">
+                        <a href="index.html" class="text-decoration-none">
+                            <h4 class="text-white"><i class="fas fa-stream me-2"></i>CryptoStream</h4>
+                        </a>
+                    </div>
+
+                    <!-- User Profile Summary -->
+                    <div class="user-profile text-center mb-4">
+                        <div class="avatar-container mb-2">
+                            <img src="images/avatar-placeholder.jpg" alt="User Avatar" class="avatar rounded-circle"
+                                onerror="this.src='https://via.placeholder.com/60?text=User';this.onerror='';">
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <h6 class="text-white mb-0">Alex Johnson</h6>
+                        <small class="text-white-50">Premium Account</small>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-exchange-alt me-2"></i>Transactions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-wallet me-2"></i>Wallet
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-chart-line me-2"></i>Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-question-circle me-2"></i>Help Center
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr class="text-white-50 my-3">
+
+                    <div class="px-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-white-50">Storage</span>
+                            <small class="text-white-50">70%</small>
+                        </div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-bottom mt-auto text-center">
+                        <a class="btn btn-outline-primary btn-sm w-75 mb-2" href="index.html">
+                            <i class="fas fa-home me-2"></i>Portal Home
+                        </a>
+                        <a class="btn btn-outline-danger btn-sm w-75" href="#">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 content-wrapper">
+                <!-- Welcome Header with Quick Actions -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="h3 mb-2">Welcome, Alex</h1>
+                        <p class="text-muted">Here's what's happening with your account today.</p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+                        <button class="btn btn-primary me-2">
+                            <i class="fas fa-plus me-1"></i> New Stream
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="quickActions"
+                                data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h me-1"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quickActions">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i>Export
+                                        Data</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-sync me-2"></i>Refresh</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-share-alt me-2"></i>Share</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Status Alert -->
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4"
+                    role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <div>
+                        All systems operational. Network gas fees are currently low - great time for transactions!
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <!-- Balance Card -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-primary-subtle rounded-circle me-3">
+                                        <i class="fas fa-wallet text-primary"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Total Balance</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">4.28 ETH</h3>
+                                <p class="card-text text-success mb-0">+2.5% <small class="text-muted">from last
+                                        week</small></p>
+                                <div class="sparkline mt-3" id="balanceSparkline"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Streams Card -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-info-subtle rounded-circle me-3">
+                                        <i class="fas fa-stream text-info"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Active Streams</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">12</h3>
+                                <p class="card-text text-primary mb-0">+3 <small class="text-muted">new today</small>
+                                </p>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More stat cards -->
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-success-subtle rounded-circle me-3">
+                                        <i class="fas fa-arrow-down text-success"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Incoming</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">1.45 ETH</h3>
+                                <p class="card-text text-success mb-0">+0.3 ETH <small class="text-muted">today</small>
+                                </p>
+                                <div class="sparkline mt-3" id="incomingSparkline"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-danger-subtle rounded-circle me-3">
+                                        <i class="fas fa-arrow-up text-danger"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Outgoing</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">0.87 ETH</h3>
+                                <p class="card-text text-danger mb-0">-0.12 ETH <small class="text-muted">today</small>
+                                </p>
+                                <div class="sparkline mt-3" id="outgoingSparkline"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="row g-4 mb-4">
+                    <!-- Activity Chart -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div
+                                class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Payment Activity</h5>
+                                <div class="btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-outline-secondary active">Weekly</button>
+                                    <button type="button" class="btn btn-outline-secondary">Monthly</button>
+                                    <button type="button" class="btn btn-outline-secondary">Yearly</button>
+                                </div>
+                            </div>
+                            <div class="card-body chart-container">
+                                <div class="chart-wrapper">
+                                    <canvas id="activityChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Distribution Chart -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div
+                                class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Token Distribution</h5>
+                                <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" title="View Details">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="card-body chart-container">
+                                <div class="chart-wrapper">
+                                    <canvas id="distributionChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Template Links -->
+                <div class="alert alert-info mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Template Preview</strong> - This is part of the CryptoStream Template Collection
+                        </div>
+                        <div>
+                            <a href="index.html" class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fas fa-home me-1"></i> Portal Home
+                            </a>
+                            <a href="view.html" class="btn btn-sm btn-primary">
+                                <i class="fas fa-th-large me-1"></i> Template Explorer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="pt-3 mt-4 text-muted border-top">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                        <p class="mb-2 mb-sm-0">&copy; 2024 CryptoStream. All rights reserved.</p>
+                        <div>
+                            <a href="index.html" class="text-muted me-3">Home</a>
+                            <a href="html-templates/index.html" class="text-muted me-3">Templates</a>
+                            <a href="#" class="text-muted">Support</a>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="js/dashboard-2023.js"></script>
+</body>
+
+</html>

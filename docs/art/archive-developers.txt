@@ -1,0 +1,32 @@
+                   ┌─────── The Internet Archive Developers ───────┐
+                    │                                              │
+           ╭────┬───┴───┬────╮        .──.   .──.        ╭───┬────╮
+           │ ◢█▇▆▅▄▃▂▁ ▁▂▃▄▅▆▇█◣      (⚛_⚛) (⚛_⚛)       │WAY│BACK│
+           └────┴───┬───┴────┘      ╭─|──|─|──|─╮      └───┴────┘
+                    │               ╭┴┴┴┴┴┴┴┴┴┴┴┴╮
+             ∆∆∆∆   │   ∆∆∆∆        │ WAYBACK ∎│        ∆∆∆∆   ∆∆∆∆
+            ╱╲╱╲╱╲  │  ╱╲╱╲╱╲      ╰┬┬┬┬┬┬┬┬┬┬╯       ╱╲╱╲╱╲ ╱╲╱╲╱╲
+           ▕▔▔▔▔▔▔▏ │ ▕▔▔▔▔▔▔▏      ││││││││││        ▕▔▔▔▔▔▔▏▕▔▔▔▔▔▔▏
+           ▕▁▁▁▁▁▁▏ │ ▕▁▁▁▁▁▁▏      ││││││││││        ▕▁▁▁▁▁▁▏▕▁▁▁▁▁▁▏
+            ▔▔▔▔    │   ▔▔▔▔        ╰╯╰╯╰╯╰╯╰╯         ▔▔▔▔    ▔▔▔▔
+                    │
+          1996 ──── │ ──── 2001 ──── 2006 ──── 2011 ──── 2016 ──── 2023
+                    │               Timeline of Web
+                    │
+     [Document] ────┼──── [Hyperlink] ──── [Dynamic] ──── [Decentralized]
+                    │
+        Static ─────┼──── Directory ──── Social ───── Autonomous
+                    │
+     Local DB ─────┼──── Cloud ────── Distributed ── Neural
+                    │
+          ╭────────┴────────╮
+          │  Digital Memory │
+          │    Preserved    │
+          ╰────────╥────────╯
+                   ║
+            ─── Historia ───
+                Vitae
+               Magistra
+
+"Those who catalog the past illuminate the future"
+           - The Archive Keepers

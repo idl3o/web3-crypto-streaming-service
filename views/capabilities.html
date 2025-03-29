@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Capabilities - PoE Streaming</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/capabilities.css">
+    <script src="../assets/js/web3.min.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <h1>PoE Streaming</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="player.html">Player</a></li>
+                    <li><a href="progress.html">Development</a></li>
+                    <li><a href="capabilities.html" class="active">Features</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="capabilities-container">
+        <section class="system-overview">
+            <div class="container">
+                <h2>System Capabilities</h2>
+                <p class="section-intro">The PoE Streaming platform combines blockchain technology with advanced media
+                    delivery for a next-generation viewing experience.</p>
+
+                <div class="system-stats">
+                    <div class="stat-card">
+                        <h3>Processing Power</h3>
+                        <div class="stat-value" id="processing-power">0 TPS</div>
+                        <p class="stat-desc">Transactions per second across the network</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Storage Capacity</h3>
+                        <div class="stat-value" id="storage-capacity">0 TB</div>
+                        <p class="stat-desc">Available decentralized storage</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Network Nodes</h3>
+                        <div class="stat-value" id="network-nodes">0</div>
+                        <p class="stat-desc">Active nodes in the network</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Bandwidth</h3>
+                        <div class="stat-value" id="bandwidth">0 Gbps</div>
+                        <p class="stat-desc">Total network throughput</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="capabilities-grid">
+            <div class="container">
+                <h2>Technical Capabilities</h2>
+
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <img src="../assets/icons/blockchain.svg" alt="Blockchain icon">
+                    </div>
+                    <div class="capability-content">
+                        <h3>Blockchain Infrastructure</h3>
+                        <div class="capability-details">
+                            <p>Built on a custom Proof of Execution blockchain protocol optimized for streaming media.
+                            </p>
+                            <ul class="feature-list">
+                                <li>Consensus Mechanism: Proof of Execution (PoE)</li>
+                                <li>Block Time: 2 seconds</li>
+                                <li>Smart Contract Support: EVM Compatible</li>
+                                <li>Cross-chain Bridges: Ethereum, Polygon, Solana</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <img src="../assets/icons/streaming.svg" alt="Streaming icon">
+                    </div>
+                    <div class="capability-content">
+                        <h3>Media Streaming Technology</h3>
+                        <div class="capability-details">
+                            <p>Advanced decentralized content delivery network with adaptive bitrate streaming.</p>
+                            <ul class="feature-list">
+                                <li>Video Formats: H.264, H.265, VP9, AV1</li>
+                                <li>Resolution Support: Up to 8K</li>
+                                <li>Streaming Protocols: HLS, DASH</li>
+                                <li>Decentralized CDN: IPFS-based delivery</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <img src="../assets/icons/wallet.svg" alt="Wallet icon">
+                    </div>
+                    <div class="capability-content">
+                        <h3>Payment Systems</h3>
+                        <div class="capability-details">
+                            <p>Integrated micropayment framework for seamless creator compensation.</p>
+                            <ul class="feature-list">
+                                <li>Native Token: POE</li>
+                                <li>Payment Channels: State Channels, Layer 2</li>
+                                <li>External Currency Support: ETH, USDC, DAI</li>
+                                <li>Subscription Models: Time-based, Content-based</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <img src="../assets/icons/security.svg" alt="Security icon">
+                    </div>
+                    <div class="capability-content">
+                        <h3>Security Features</h3>
+                        <div class="capability-details">
+                            <p>Comprehensive security framework for content protection and user privacy.</p>
+                            <ul class="feature-list">
+                                <li>Content Encryption: AES-256</li>
+                                <li>DRM Integration: Custom blockchain-based DRM</li>
+                                <li>Authentication: Multi-sig, Hardware wallets</li>
+                                <li>Privacy: Zero-knowledge viewing history</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="performance-metrics">
+            <div class="container">
+                <h2>Performance Metrics</h2>
+                <p class="section-intro">Real-time network performance and streaming capabilities.</p>
+
+                <div class="metrics-container">
+                    <div class="metric-graph">
+                        <h3>Network Load</h3>
+                        <canvas id="networkLoadChart"></canvas>
+                    </div>
+                    <div class="metric-graph">
+                        <h3>Transaction Volume</h3>
+                        <canvas id="transactionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metrics-container">
+                    <div class="metric-graph">
+                        <h3>Streaming Quality</h3>
+                        <canvas id="qualityChart"></canvas>
+                    </div>
+                    <div class="metric-graph">
+                        <h3>Node Distribution</h3>
+                        <canvas id="nodeDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-docs">
+            <div class="container">
+                <h2>Developer Resources</h2>
+                <p class="section-intro">Integration tools and documentation for building on the PoE platform.</p>
+
+                <div class="resources-grid">
+                    <a href="#" class="resource-card">
+                        <h3>API Documentation</h3>
+                        <p>Complete reference for the PoE Streaming API endpoints.</p>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <h3>Smart Contract Library</h3>
+                        <p>Pre-built contracts for content rights management and monetization.</p>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <h3>SDK Downloads</h3>
+                        <p>Development kits for web, mobile, and desktop integration.</p>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <h3>Example Projects</h3>
+                        <p>Sample applications demonstrating platform capabilities.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>PoE Streaming</h3>
+                    <p>Web3 Crypto Streaming Service powered by Proof of Execution</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="player.html">Player</a></li>
+                        <li><a href="progress.html">Development</a></li>
+                        <li><a href="capabilities.html">Features</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="../docs/whitepaper.md">Whitepaper</a></li>
+                        <li><a href="https://github.com/username/web3-crypto-streaming-service">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Web3 Crypto Streaming Team. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/chart.min.js"></script>
+    <script src="../assets/js/capabilities.js"></script>
+</body>
+
+</html>

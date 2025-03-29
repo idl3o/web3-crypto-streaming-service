@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Content | CryptoStream</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/dashboard-2023.css">
+    <link rel="stylesheet" href="../../css/content-creator.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Fallback for FontAwesome -->
+    <script>
+        window.onload = function () {
+            if (!document.querySelector('.fas')) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+                document.head.appendChild(link);
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-light">
+    <!-- Top Navigation Bar for Mobile -->
+    <nav class="navbar navbar-dark bg-dark d-md-none fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-stream me-2"></i>CryptoStream</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4 d-none d-md-block">
+                        <a href="../landing/landing-2023.html" class="text-decoration-none">
+                            <h4 class="text-white"><i class="fas fa-stream me-2"></i>CryptoStream</h4>
+                        </a>
+                    </div>
+
+                    <!-- User Profile Summary -->
+                    <div class="user-profile text-center mb-4">
+                        <div class="avatar-container mb-2">
+                            <img src="../../images/avatar-placeholder.jpg" alt="User Avatar"
+                                class="avatar rounded-circle"
+                                onerror="this.src='https://via.placeholder.com/60?text=User';this.onerror='';">
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <h6 class="text-white mb-0">Alex Johnson</h6>
+                        <small class="text-white-50">Content Creator</small>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="../dashboard/dashboard-2023.html">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-plus-circle me-2"></i>Create Content
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="manage.html">
+                                <i class="fas fa-film me-2"></i>My Content
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-chart-line me-2"></i>Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr class="text-white-50 my-3">
+
+                    <div class="sidebar-bottom mt-auto text-center">
+                        <a class="btn btn-outline-danger btn-sm w-75" href="../index.html">
+                            <i class="fas fa-sign-out-alt me-2"></i>Return to Index
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 content-wrapper">
+                <!-- Header -->
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Create New Content</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Save Draft</button>
+                            <button type="button" class="btn btn-sm btn-primary">Publish</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Creation Progress Indicator -->
+                <div class="creation-progress mb-4">
+                    <div class="progress" style="height: 4px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="step active">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Basics</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Upload</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Monetize</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Publish</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: One-Click Wallet Connection for Creators -->
+                <div id="wallet-section" class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            <div>
+                                <h5 class="mb-1">Connect Wallet to Start Creating</h5>
+                                <p class="mb-md-0">A connected wallet is required to publish content on CryptoStream</p>
+                            </div>
+                            <button id="quick-connect-btn" class="btn btn-primary px-4">
+                                <i class="fas fa-wallet me-2"></i> Connect Wallet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Creation Form -->
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body">
+                                <form id="content-form">
+                                    <div class="mb-3">
+                                        <label for="content-title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" id="content-title"
+                                            placeholder="Enter a captivating title">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="content-description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="content-description" rows="3"
+                                            placeholder="Describe your content"></textarea>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label class="form-label">Content Type</label>
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="contentType"
+                                                    id="type-video" checked>
+                                                <label class="form-check-label" for="type-video">
+                                                    <i class="fas fa-video me-1"></i> Video
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="contentType"
+                                                    id="type-audio">
+                                                <label class="form-check-label" for="type-audio">
+                                                    <i class="fas fa-music me-1"></i> Audio
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="contentType"
+                                                    id="type-text">
+                                                <label class="form-check-label" for="type-text">
+                                                    <i class="fas fa-file-alt me-1"></i> Text
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content-upload-area mb-4">
+                                        <div
+                                            class="upload-placeholder text-center p-5 border border-dashed rounded bg-light">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-secondary mb-3"></i>
+                                            <h5>Upload your content</h5>
+                                            <p class="text-muted mb-3">Drag & drop files here or click to browse</p>
+                                            <button type="button" class="btn btn-primary" id="upload-btn">Browse
+                                                Files</button>
+                                            <input type="file" id="file-upload" class="d-none">
+                                        </div>
+                                        <div class="upload-preview d-none">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-file-video fa-2x text-primary me-3"></i>
+                                                        <div class="flex-grow-1">
+                                                            <h6 class="upload-filename mb-1">filename.mp4</h6>
+                                                            <div class="progress" style="height: 5px;">
+                                                                <div class="progress-bar" role="progressbar"
+                                                                    style="width: 0%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-outline-danger ms-3 cancel-upload">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Editor Tools (For Text Content) -->
+                        <div class="card border-0 shadow-sm editor-tools d-none">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">Editor</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="editor-toolbar border mb-3 p-2 bg-light rounded">
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-bold"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-italic"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-underline"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-list"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-list-ol"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-link"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i
+                                            class="fas fa-image"></i></button>
+                                </div>
+                                <div class="editor-content border p-3 rounded" style="min-height: 300px;">
+                                    <p>Start writing your content here...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Options -->
+                    <div class="col-lg-4">
+                        <!-- Monetization Options -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">Monetization</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="monetization-enabled">
+                                    <label class="form-check-label" for="monetization-enabled">Enable
+                                        monetization</label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="price-model" class="form-label">Pricing Model</label>
+                                    <select class="form-select" id="price-model">
+                                        <option value="free">Free</option>
+                                        <option value="one-time">One-time Payment</option>
+                                        <option value="subscription">Subscription</option>
+                                        <option value="stream">Pay-per-second Stream</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="token-type" class="form-label">Token</label>
+                                    <select class="form-select" id="token-type">
+                                        <option value="eth">ETH</option>
+                                        <option value="usdc">USDC</option>
+                                        <option value="dai">DAI</option>
+                                        <option value="custom">Custom Token</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="content-price" class="form-label">Price</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="content-price" placeholder="0.00">
+                                        <span class="input-group-text">ETH</span>
+                                    </div>
+                                    <small class="text-muted">≈ $0.00 USD</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- License & Distribution -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">License & Distribution</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="license-type" class="form-label">License Type</label>
+                                    <select class="form-select" id="license-type">
+                                        <option value="standard">Standard License</option>
+                                        <option value="exclusive">Exclusive Rights</option>
+                                        <option value="cc">Creative Commons</option>
+                                        <option value="custom">Custom License</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="ipfs-storage" checked>
+                                    <label class="form-check-label" for="ipfs-storage">
+                                        Store on IPFS (decentralized)
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="enable-embedding">
+                                    <label class="form-check-label" for="enable-embedding">
+                                        Allow embedding on other sites
+                                    </label>
+                                </div>
+
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="enable-downloads">
+                                    <label class="form-check-label" for="enable-downloads">
+                                        Allow downloads
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tags & Categories -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="card-title mb-0">Tags & Categories</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="content-category" class="form-label">Category</label>
+                                    <select class="form-select" id="content-category">
+                                        <option value="">Select a category</option>
+                                        <option value="crypto">Cryptocurrency</option>
+                                        <option value="trading">Trading</option>
+                                        <option value="nft">NFTs</option>
+                                        <option value="defi">DeFi</option>
+                                        <option value="blockchain">Blockchain</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="content-tags" class="form-label">Tags</label>
+                                    <input type="text" class="form-control" id="content-tags"
+                                        placeholder="tag1, tag2, tag3">
+                                    <small class="text-muted">Separate tags with commas</small>
+                                </div>
+
+                                <div class="tags-container mt-2">
+                                    <span class="badge bg-primary me-1 mb-1">ethereum</span>
+                                    <span class="badge bg-primary me-1 mb-1">web3</span>
+                                    <span class="badge bg-primary me-1 mb-1">crypto</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-between my-4">
+                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                    <div>
+                        <button type="button" class="btn btn-light me-2">Save Draft</button>
+                        <button type="button" class="btn btn-primary">Publish Content</button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="pt-3 mt-4 text-muted border-top">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                        <p class="mb-2 mb-sm-0">&copy; 2024 CryptoStream. All rights reserved.</p>
+                        <div>
+                            <a href="../index.html" class="text-muted me-3">Return to Template Index</a>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple script to handle file upload UI interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            const uploadBtn = document.getElementById('upload-btn');
+            const fileUpload = document.getElementById('file-upload');
+            const uploadPlaceholder = document.querySelector('.upload-placeholder');
+            const uploadPreview = document.querySelector('.upload-preview');
+            const uploadFilename = document.querySelector('.upload-filename');
+            const cancelUpload = document.querySelector('.cancel-upload');
+            const progressBar = document.querySelector('.progress-bar');
+            const contentTypeRadios = document.querySelectorAll('input[name="contentType"]');
+            const editorTools = document.querySelector('.editor-tools');
+
+            uploadBtn.addEventListener('click', function () {
+                fileUpload.click();
+            });
+
+            fileUpload.addEventListener('change', function () {
+                if (this.files.length > 0) {
+                    uploadPlaceholder.classList.add('d-none');
+                    uploadPreview.classList.remove('d-none');
+                    uploadFilename.textContent = this.files[0].name;
+
+                    // Simulate upload progress
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 5;
+                        progressBar.style.width = `${progress}%`;
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                        }
+                    }, 200);
+                }
+            });
+
+            cancelUpload.addEventListener('click', function () {
+                uploadPlaceholder.classList.remove('d-none');
+                uploadPreview.classList.add('d-none');
+                fileUpload.value = '';
+            });
+
+            // Show editor for text content
+            contentTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.id === 'type-text') {
+                        editorTools.classList.remove('d-none');
+                    } else {
+                        editorTools.classList.add('d-none');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Streaming Service</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crypto Streaming Service</h1>
+        <form id="streamForm">
+            <label for="streamId">Stream ID:</label>
+            <input type="text" id="streamId" name="streamId" required>
+            <label for="streamData">Stream Data:</label>
+            <input type="text" id="streamData" name="streamData" required>
+            <button type="submit">Create Stream</button>
+        </form>
+        <div id="streamStatus"></div>
+    </div>
+    <script>
+        document.getElementById('streamForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const streamId = document.getElementById('streamId').value;
+            const streamData = document.getElementById('streamData').value;
+
+            const response = await fetch('/api/stream/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ streamId, streamData })
+            });
+
+            const result = await response.json();
+            document.getElementById('streamStatus').innerText = result.message;
+        });
+    </script>
+</body>
+</html>

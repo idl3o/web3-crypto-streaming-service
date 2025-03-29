@@ -1,0 +1,16 @@
+roles:
+  admin:
+    permissions: ['read', 'write', 'execute', 'manage']
+  operator:
+    permissions: ['read', 'write', 'execute']
+  viewer:
+    permissions: ['read']
+
+network_access:
+  allowed_origins:
+    - 'http://localhost:3000'
+    - 'http://localhost:5500'
+    - 'http://localhost:8080'
+  rate_limits:
+    window_ms: 900000
+    max_requests: 1000

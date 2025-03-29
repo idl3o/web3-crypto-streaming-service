@@ -1,0 +1,30 @@
+- type: Developers
+  links:
+    - title: GitHub Repository
+      url: https://github.com/username/web3-crypto-streaming-service
+    - title: API Documentation
+      url: /docs/api
+    - title: Developer Grants Program
+      url: /developers/grants
+    - title: Plugin Architecture
+      url: /developers/plugins
+
+- type: Content Creators
+  links:
+    - title: Creator Onboarding Guide
+      url: /creators
+    - title: Monetization Calculator
+      url: /calculator
+    - title: Early Access Program
+      url: /creators/early-access
+
+- type: Community
+  links:
+    - title: Community Forum
+      url: /forum
+    - title: Discord Server
+      url: https://discord.gg/web3streaming
+    - title: Governance Portal
+      url: /governance
+    - title: Ambassador Program
+      url: /community/ambassadors

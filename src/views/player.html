@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player - Web3 Crypto Streaming Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #00cec9;
+            --accent-color: #fdcb6e;
+            --dark-bg: #2d3436;
+            --light-bg: #f5f6fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: #f5f5f5;
+        }
+
+        .dark-mode .card {
+            background-color: #3d3d3d;
+            color: #f5f5f5;
+        }
+
+        .wallet-btn {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .wallet-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .player-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-js {
+            width: 100%;
+            height: 0;
+            padding-top: 56.25%;
+            /* 16:9 aspect ratio */
+        }
+
+        .video-js .vjs-control-bar {
+            background-color: rgba(43, 51, 63, 0.7);
+        }
+
+        .video-js .vjs-big-play-button {
+            background-color: rgba(108, 92, 231, 0.7);
+            border-color: var(--primary-color);
+        }
+
+        .token-required {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 10;
+        }
+
+        .video-info {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .video-info {
+            background-color: #3d3d3d;
+        }
+
+        .video-thumbnail {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .resolution-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-broadcast"></i> CryptoStream
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="player.html">Player</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="capabilities.html">Capabilities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="me-3 dark-toggle" id="darkModeToggle">
+                        <i class="bi bi-moon"></i>
+                    </div>
+                    <button class="wallet-btn" id="connectWallet">
+                        <i class="bi bi-wallet2"></i> Connect Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Web3 Video Player</h1>
+
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="player-container position-relative">
+                    <div id="tokenGate" class="token-required">
+                        <h3 class="mb-3">Token Required to Watch</h3>
+                        <p class="mb-4">Connect your wallet and purchase access to this content</p>
+                        <button class="btn btn-primary" id="purchaseAccess">Purchase Access (0.001 ETH)</button>
+                    </div>
+                    <video id="cryptoPlayer" class="video-js vjs-big-play-centered" controls preload="auto"
+                        poster="https://via.placeholder.com/1280x720/6c5ce7/ffffff?text=Web3+Streaming" data-setup='{}'>
+                        <source src="" type="application/x-mpegURL" id="videoSource">
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a
+                            web browser that supports HTML5 video
+                        </p>
+                    </video>
+                </div>
+
+                <div class="card mt-3 video-info">
+                    <div class="card-body">
+                        <h3 id="videoTitle">Introduction to Web3 Streaming</h3>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="resolution-badge">1080p</span>
+                            <span class="resolution-badge">IPFS</span>
+                            <span class="text-muted small ms-2">Content ID:
+                                QmV9tSDx9UiPeWExXEeH6aoDvmihvx6jD5eLb4jbTaKGps</span>
+                        </div>
+                        <p id="videoDescription">
+                            Learn how blockchain technology is revolutionizing the way we stream and monetize video
+                            content.
+                            This tutorial explores the intersection of cryptocurrency, decentralized storage, and
+                            streaming media.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Recommended Content
+                    </div>
+                    <ul class="list-group list-group-flush" id="recommendedContent">
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="https://via.placeholder.com/100x60/00cec9/ffffff?text=Video+1"
+                                class="video-thumbnail" alt="Video thumbnail">
+                            <div>
+                                <h6 class="mb-0">Blockchain Basics</h6>
+                                <small class="text-muted">20 minutes</small>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="https://via.placeholder.com/100x60/fdcb6e/000000?text=Video+2"
+                                class="video-thumbnail" alt="Video thumbnail">
+                            <div>
+                                <h6 class="mb-0">Smart Contract Development</h6>
+                                <small class="text-muted">34 minutes</small>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="https://via.placeholder.com/100x60/e84393/ffffff?text=Video+3"
+                                class="video-thumbnail" alt="Video thumbnail">
+                            <div>
+                                <h6 class="mb-0">NFT Marketplace Creation</h6>
+                                <small class="text-muted">42 minutes</small>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Stream Information</div>
+                    <div class="card-body">
+                        <p><strong>Provider:</strong> <span id="streamProvider">Decentralized IPFS</span></p>
+                        <p><strong>Bandwidth:</strong> <span id="streamBandwidth">4.2 Mbps</span></p>
+                        <p><strong>Resolution:</strong> <span id="streamResolution">1080p</span></p>
+                        <p><strong>Payment Status:</strong> <span id="paymentStatus"
+                                class="badge bg-warning">Pending</span></p>
+                        <div class="progress mt-3" style="height: 20px;">
+                            <div id="bufferProgress" class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar" style="width: 75%"></div>
+                        </div>
+                        <small class="text-muted">Buffer: 75%</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2023 Web3 Crypto Streaming Service. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <script>
+        // Initialize video.js player
+        let player = videojs('cryptoPlayer');
+        let walletConnected = false;
+        let accessPurchased = false;
+
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('bi-moon')) {
+                icon.classList.replace('bi-moon', 'bi-sun');
+            } else {
+                icon.classList.replace('bi-sun', 'bi-moon');
+            }
+        });
+
+        // Connect wallet functionality
+        document.getElementById('connectWallet').addEventListener('click', async function () {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    this.innerHTML = `<i class="bi bi-wallet2"></i> ${account.slice(0, 6)}...${account.slice(-4)}`;
+                    this.classList.add('btn-success');
+                    walletConnected = true;
+                } catch (error) {
+                    console.error(error);
+                    alert('Error connecting wallet: ' + error.message);
+                }
+            } else {
+                alert('MetaMask is not installed. Please install it to use this feature.');
+            }
+        });
+
+        // Purchase access functionality
+        document.getElementById('purchaseAccess').addEventListener('click', async function () {
+            if (!walletConnected) {
+                alert('Please connect your wallet first.');
+                return;
+            }
+
+            try {
+                // Simulate payment transaction
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const from = accounts[0];
+
+                // This would actually send a transaction to a smart contract
+                // For demo, we'll just simulate it
+                console.log('Initiating payment from: ' + from);
+
+                // Simulated successful payment
+                setTimeout(() => {
+                    accessPurchased = true;
+                    document.getElementById('tokenGate').style.display = 'none';
+                    document.getElementById('paymentStatus').textContent = 'Paid';
+                    document.getElementById('paymentStatus').className = 'badge bg-success';
+
+                    // Set the video source (would be dynamically loaded in production)
+                    document.getElementById('videoSource').src = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8';
+                    player.src({
+                        src: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8',
+                        type: 'application/x-mpegURL'
+                    });
+                    player.play();
+
+                }, 2000);
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Error processing payment: ' + error.message);
+            }
+        });
+
+        // Simulate buffer progress updates
+        function updateBufferProgress() {
+            const progress = Math.floor(Math.random() * 30) + 70; // Random between 70-100%
+            document.getElementById('bufferProgress').style.width = progress + '%';
+            document.getElementById('streamBandwidth').textContent = (Math.random() * 5 + 2).toFixed(1) + ' Mbps';
+            setTimeout(updateBufferProgress, 5000);
+        }
+
+        // Start buffer progress simulation
+        updateBufferProgress();
+
+        // Update content details based on IPFS CID
+        async function fetchContentMetadata(cid) {
+            try {
+                // In a real app, this would fetch metadata from IPFS or API
+                console.log(`Fetching metadata for CID: ${cid}`);
+
+                // For demo, we'll use simulated data
+                setTimeout(() => {
+                    document.getElementById('videoTitle').textContent = "Blockchain Revolution: Web3 Streaming Demo";
+                    document.getElementById('videoDescription').textContent =
+                        "This exclusive content showcases how decentralized streaming works using IPFS and Ethereum smart contracts. " +
+                        "Learn about content monetization, token-gated access, and Web3 integration in media applications.";
+                }, 1000);
+
+            } catch (error) {
+                console.error('Error fetching content metadata:', error);
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Fetch content metadata (simulated)
+            fetchContentMetadata("QmV9tSDx9UiPeWExXEeH6aoDvmihvx6jD5eLb4jbTaKGps");
+        });
+    </script>
+</body>
+
+</html>

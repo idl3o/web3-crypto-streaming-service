@@ -1,0 +1,20 @@
+{
+    "name": "Web3 Streaming Service",
+    "short_name": "Web3Stream",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#FF2E63",
+    "background_color": "#F5E6D3",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

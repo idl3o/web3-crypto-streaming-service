@@ -1,0 +1,17 @@
+/* Redirect to the 2023 styles for backwards compatibility */
+@import url('styles-2023.css');
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #64748b;
+    --dark: #1e293b;
+    --light: #f8fafc;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --version: "2023";
+}
+
+/* This file serves as a backwards compatibility link to the newer styles */
+/* Full styles are in styles-2023.css */

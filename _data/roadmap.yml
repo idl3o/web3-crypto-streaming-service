@@ -1,0 +1,35 @@
+- title: Q4 2023 - Public Beta
+  order: 1
+  current: true
+  items:
+    - Core streaming functionality
+    - Basic wallet integration
+    - Creator onboarding tools
+    - Early adopter incentive program
+
+- title: Q1 2024 - Token Launch
+  order: 2
+  current: false
+  items:
+    - STREAM token public sale
+    - Staking mechanisms activated
+    - Governance portal launch
+    - Enhanced creator analytics
+
+- title: Q2 2024 - Mobile Experience
+  order: 3
+  current: false
+  items:
+    - iOS and Android applications
+    - Mobile wallet integration
+    - Push notifications
+    - Offline viewing functionality
+
+- title: Q3 2024 - Full Platform Launch
+  order: 4
+  current: false
+  items:
+    - DAO governance implementation
+    - Cross-chain bridging support
+    - Advanced recommendation engine
+    - Expanded API for developers

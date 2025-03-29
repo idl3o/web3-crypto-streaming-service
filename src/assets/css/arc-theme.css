@@ -1,0 +1,250 @@
+/**
+ * Arc Theme - Modern and Minimalist Style for Transaction UI
+ */
+
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+.arc-theme {
+    --arc-primary: #6366f1;
+    --arc-secondary: #a855f7;
+    --arc-accent: #f97316;
+    --arc-background: #ffffff;
+    --arc-surface: #f8fafc;
+    --arc-border: #e2e8f0;
+    --arc-text-primary: #1e293b;
+    --arc-text-secondary: #64748b;
+    --arc-success: #10b981;
+    --arc-warning: #f59e0b;
+    --arc-error: #ef4444;
+    --arc-info: #3b82f6;
+
+    /* Gradients */
+    --arc-gradient-primary: linear-gradient(135deg, #6366f1, #a855f7);
+    --arc-gradient-secondary: linear-gradient(135deg, #f97316, #f43f5e);
+
+    /* Shadows */
+    --arc-shadow-sm: 0 1px 2px rgba(30, 41, 59, 0.05);
+    --arc-shadow: 0 4px 12px rgba(30, 41, 59, 0.08);
+    --arc-shadow-lg: 0 8px 24px rgba(30, 41, 59, 0.1);
+
+    /* Transitions */
+    --arc-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    font-family: 'Quicksand', sans-serif;
+    color: var(--arc-text-primary);
+}
+
+/* Typography */
+.arc-theme h1,
+.arc-theme h2,
+.arc-theme h3,
+.arc-theme h4,
+.arc-theme h5,
+.arc-theme h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* Cards */
+.arc-card {
+    background-color: var(--arc-background);
+    border-radius: 16px;
+    box-shadow: var(--arc-shadow);
+    border: none;
+    overflow: hidden;
+    transition: var(--arc-transition);
+}
+
+.arc-card:hover {
+    box-shadow: var(--arc-shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* Card header */
+.arc-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--arc-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Buttons */
+.arc-btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    border: none;
+    transition: var(--arc-transition);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.arc-btn:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    opacity: 0;
+    transition: var(--arc-transition);
+}
+
+.arc-btn:hover:after {
+    opacity: 0.15;
+}
+
+.arc-btn-primary {
+    background: var(--arc-gradient-primary);
+    color: white;
+}
+
+/* Badges */
+.arc-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Stats */
+.arc-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.arc-stat {
+    background-color: var(--arc-surface);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--arc-transition);
+}
+
+.arc-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--arc-shadow);
+}
+
+.arc-stat:before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.05;
+}
+
+.arc-stat-label {
+    font-size: 0.875rem;
+    color: var(--arc-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.arc-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--arc-text-primary);
+}
+
+/* Tabs */
+.arc-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+}
+
+.arc-tab {
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--arc-transition);
+    background-color: transparent;
+    color: var(--arc-text-secondary);
+}
+
+.arc-tab.active {
+    background-color: var(--arc-primary);
+    color: white;
+}
+
+/* Lists */
+.arc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.arc-list-item {
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: var(--arc-surface);
+    transition: var(--arc-transition);
+    position: relative;
+}
+
+.arc-list-item:hover {
+    background-color: var(--arc-background);
+    transform: translateY(-2px);
+    box-shadow: var(--arc-shadow-sm);
+}
+
+/* Section headers with arc decoration */
+.arc-section-header {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    display: inline-block;
+}
+
+.arc-section-header:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--arc-gradient-primary);
+}
+
+/* Decorative arc element */
+.arc-decoration {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background-color: var(--arc-border);
+    margin: 2rem 0;
+    border-radius: 2px;
+}
+
+.arc-decoration:before {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 60px;
+    top: -30px;
+    left: 30%;
+    border-bottom: 2px solid var(--arc-accent);
+    border-radius: 50%;
+}

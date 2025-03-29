@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Manager | CryptoStream</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/dashboard-2023.css">
+    <link rel="stylesheet" href="../../css/content-creator.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Fallback for FontAwesome -->
+    <script>
+        window.onload = function () {
+            if (!document.querySelector('.fas')) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+                document.head.appendChild(link);
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-light">
+    <!-- Top Navigation Bar for Mobile -->
+    <nav class="navbar navbar-dark bg-dark d-md-none fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-stream me-2"></i>CryptoStream</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4 d-none d-md-block">
+                        <a href="../landing/landing-2023.html" class="text-decoration-none">
+                            <h4 class="text-white"><i class="fas fa-stream me-2"></i>CryptoStream</h4>
+                        </a>
+                    </div>
+
+                    <!-- User Profile Summary -->
+                    <div class="user-profile text-center mb-4">
+                        <div class="avatar-container mb-2">
+                            <img src="../../images/avatar-placeholder.jpg" alt="User Avatar"
+                                class="avatar rounded-circle"
+                                onerror="this.src='https://via.placeholder.com/60?text=User';this.onerror='';">
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <h6 class="text-white mb-0">Alex Johnson</h6>
+                        <small class="text-white-50">Content Creator</small>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="../dashboard/dashboard-2023.html">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="create.html">
+                                <i class="fas fa-plus-circle me-2"></i>Create Content
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-film me-2"></i>My Content
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-chart-line me-2"></i>Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr class="text-white-50 my-3">
+
+                    <div class="sidebar-bottom mt-auto text-center">
+                        <a class="btn btn-outline-danger btn-sm w-75" href="../index.html">
+                            <i class="fas fa-sign-out-alt me-2"></i>Return to Index
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 content-wrapper">
+                <!-- Header -->
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">My Content</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-sort me-1"></i> Sort
+                            </button>
+                        </div>
+                        <a href="create.html" class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus me-1"></i> New Content
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Content Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-primary-subtle rounded-circle me-3">
+                                        <i class="fas fa-film text-primary"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Total Content</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">12</h3>
+                                <p class="card-text text-muted mb-0">Videos, articles, and audio</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-success-subtle rounded-circle me-3">
+                                        <i class="fas fa-eye text-success"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Total Views</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">4.2K</h3>
+                                <p class="card-text text-success mb-0">+12% <small class="text-muted">from last
+                                        week</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-info-subtle rounded-circle me-3">
+                                        <i class="fas fa-coins text-info"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Total Earned</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">0.35 ETH</h3>
+                                <p class="card-text text-info mb-0">≈ $700.00 USD</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Tabs -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">All Content (12)</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Published (10)</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Drafts (2)</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Archived (0)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- Content Search -->
+                        <div class="p-3 border-bottom">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search your content...">
+                                <button class="btn btn-outline-secondary" type="button">Search</button>
+                            </div>
+                        </div>
+
+                        <!-- Content List -->
+                        <div class="content-list">
+                            <!-- Item 1 -->
+                            <div class="content-item p-3 border-bottom">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-3">
+                                                <img src="../../images/thumbnail-placeholder.jpg" alt="Thumbnail"
+                                                    width="120" height="68" class="rounded"
+                                                    onerror="this.src='https://via.placeholder.com/120x68?text=Tutorial';this.onerror='';">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">Web3 Development Tutorial Series: Episode 1</h6>
+                                                <div class="small text-muted">
+                                                    <span class="me-2"><i class="fas fa-video me-1"></i> Video</span>
+                                                    <span><i class="fas fa-calendar me-1"></i> Jul 15, 2023</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="text-muted">1,245 views</div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="text-success">0.12 ETH earned</div>
+                                    </div>
+                                    <div class="col-md-3 text-md-end mt-2 mt-md-0">
+                                        <a href="stream-viewer.html" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="fas fa-eye me-1"></i> View
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="content-item p-3 border-bottom">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-3">
+                                                <img src="../../images/thumbnail-placeholder.jpg" alt="Thumbnail"
+                                                    width="120" height="68" class="rounded"
+                                                    onerror="this.src='https://via.placeholder.com/120x68?text=Tutorial';this.onerror='';">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">Smart Contract Security Best Practices</h6>
+                                                <div class="small text-muted">
+                                                    <span class="me-2"><i class="fas fa-video me-1"></i> Video</span>
+                                                    <span><i class="fas fa-calendar me-1"></i> Jun 28, 2023</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="text-muted">2,381 views</div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="text-success">0.23 ETH earned</div>
+                                    </div>
+                                    <div class="col-md-3 text-md-end mt-2 mt-md-0">
+                                        <a href="stream-viewer.html" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="fas fa-eye me-1"></i> View
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 3 (Draft) -->
+                            <div class="content-item p-3 border-bottom bg-light">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-3">
+                                                <img src="../../images/thumbnail-placeholder.jpg" alt="Thumbnail"
+                                                    width="120" height="68" class="rounded"
+                                                    onerror="this.src='https://via.placeholder.com/120x68?text=Draft';this.onerror='';">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">Introduction to DeFi Protocols <span
+                                                        class="badge bg-secondary">Draft</span></h6>
+                                                <div class="small text-muted">
+                                                    <span class="me-2"><i class="fas fa-file-alt me-1"></i> Text</span>
+                                                    <span><i class="fas fa-calendar me-1"></i> Last edited Jul 20,
+                                                        2023</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="text-muted">—</div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="text-muted">—</div>
+                                    </div>
+                                    <div class="col-md-3 text-md-end mt-2 mt-md-0">
+                                        <button class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-primary me-1">
+                                            <i class="fas fa-upload me-1"></i> Publish
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-between align-items-center p-3">
+                            <div class="small text-muted">Showing 3 of 12 items</div>
+                            <nav aria-label="Content pagination">
+                                <ul class="pagination pagination-sm mb-0">
+                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="pt-3 mt-4 text-muted border-top">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                        <p class="mb-2 mb-sm-0">&copy; 2024 CryptoStream. All rights reserved.</p>
+                        <div>
+                            <a href="../index.html" class="text-muted me-3">Return to Template Index</a>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

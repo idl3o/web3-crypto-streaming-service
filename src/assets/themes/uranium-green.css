@@ -1,0 +1,211 @@
+/**
+ * Uranium Green Theme
+ * A vibrant, glowing theme inspired by radioactive uranium glass
+ */
+
+:root.uranium-theme {
+  /* Primary colors */
+  --uranium-primary: #4eff91;
+  --uranium-primary-light: #83ffb5;
+  --uranium-primary-dark: #00cc63;
+  --uranium-primary-glow: 0 0 20px rgba(78, 255, 145, 0.6);
+  
+  /* Secondary colors */
+  --uranium-secondary: #1e3f34;
+  --uranium-secondary-light: #2c5a4a;
+  --uranium-secondary-dark: #0d2419;
+  
+  /* Background colors */
+  --uranium-bg-dark: #0a1a14;
+  --uranium-bg-medium: #132e22;
+  --uranium-bg-light: #1d3c2f;
+  --uranium-glass: rgba(20, 59, 47, 0.7);
+  --uranium-glass-light: rgba(30, 89, 70, 0.5);
+  
+  /* Text colors */
+  --uranium-text-primary: #e0ffe9;
+  --uranium-text-secondary: #a8dcba;
+  --uranium-text-muted: #648c75;
+  
+  /* Accent colors */
+  --uranium-accent: #c4ff4d;
+  --uranium-warning: #ffcf4d;
+  --uranium-danger: #ff6b4d;
+  --uranium-info: #4dc1ff;
+  
+  /* Border colors */
+  --uranium-border: #2d5a45;
+  --uranium-border-light: #3d7a5e;
+  
+  /* Uranium glass effect gradients */
+  --uranium-gradient-primary: linear-gradient(135deg, var(--uranium-primary-dark), var(--uranium-primary), var(--uranium-primary-light));
+  --uranium-gradient-glass: linear-gradient(135deg, rgba(20, 59, 47, 0.8), rgba(30, 89, 70, 0.5));
+  
+  /* Shadow effects */
+  --uranium-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 15px rgba(78, 255, 145, 0.2);
+  --uranium-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(78, 255, 145, 0.3);
+  --uranium-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 30px rgba(78, 255, 145, 0.4);
+  
+  /* Radiation animation */
+  --uranium-radiation-pulse: uranium-pulse 3s infinite;
+  --uranium-radiation-glow: uranium-glow 4s infinite alternate;
+}
+
+/* Base style overrides for uranium theme */
+.uranium-theme {
+  background-color: var(--uranium-bg-dark);
+  color: var(--uranium-text-primary);
+}
+
+/* Component-specific styles for uranium theme */
+.uranium-theme .card, 
+.uranium-theme .panel {
+  background-color: var(--uranium-bg-medium);
+  box-shadow: var(--uranium-shadow-md);
+  border: 1px solid var(--uranium-border);
+}
+
+.uranium-theme .btn-primary {
+  background: var(--uranium-gradient-primary);
+  border: none;
+  box-shadow: var(--uranium-shadow-sm);
+  color: var(--uranium-secondary-dark);
+  font-weight: 600;
+}
+
+.uranium-theme .btn-primary:hover {
+  box-shadow: var(--uranium-shadow-md), var(--uranium-primary-glow);
+  transform: translateY(-1px);
+}
+
+.uranium-theme .header, 
+.uranium-theme .navbar {
+  background-color: var(--uranium-bg-dark);
+  border-bottom: 1px solid var(--uranium-border);
+  box-shadow: var(--uranium-shadow-md);
+}
+
+.uranium-theme .footer {
+  background-color: var(--uranium-bg-medium);
+  border-top: 1px solid var(--uranium-border);
+}
+
+.uranium-theme .input,
+.uranium-theme input[type="text"],
+.uranium-theme input[type="password"],
+.uranium-theme textarea,
+.uranium-theme select {
+  background-color: var(--uranium-bg-dark);
+  border: 1px solid var(--uranium-border);
+  color: var(--uranium-text-primary);
+}
+
+.uranium-theme .input:focus,
+.uranium-theme input:focus,
+.uranium-theme textarea:focus,
+.uranium-theme select:focus {
+  border-color: var(--uranium-primary);
+  box-shadow: 0 0 0 2px rgba(78, 255, 145, 0.25);
+}
+
+.uranium-theme .card-header,
+.uranium-theme .panel-header {
+  background-color: var(--uranium-secondary);
+  border-bottom: 1px solid var(--uranium-border);
+}
+
+/* Glass effect components */
+.uranium-theme .glass-panel {
+  background: var(--uranium-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--uranium-border-light);
+  box-shadow: var(--uranium-shadow-md);
+}
+
+/* Glowing elements */
+.uranium-theme .glow-text {
+  color: var(--uranium-primary);
+  text-shadow: 0 0 8px var(--uranium-primary);
+}
+
+.uranium-theme .glow-border {
+  border: 1px solid var(--uranium-primary);
+  box-shadow: 0 0 10px var(--uranium-primary);
+}
+
+.uranium-theme .glow-icon {
+  color: var(--uranium-primary);
+  filter: drop-shadow(0 0 5px var(--uranium-primary));
+}
+
+/* Badge and status indicators */
+.uranium-theme .badge {
+  background-color: var(--uranium-secondary);
+  color: var(--uranium-text-primary);
+}
+
+.uranium-theme .badge-primary {
+  background-color: var(--uranium-primary);
+  color: var(--uranium-secondary-dark);
+}
+
+/* Animations */
+@keyframes uranium-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+@keyframes uranium-glow {
+  0% { box-shadow: 0 0 5px var(--uranium-primary-dark); }
+  100% { box-shadow: 0 0 20px var(--uranium-primary); }
+}
+
+.uranium-theme .pulse {
+  animation: var(--uranium-radiation-pulse);
+}
+
+.uranium-theme .glow {
+  animation: var(--uranium-radiation-glow);
+}
+
+/* Blockchain visualizations */
+.uranium-theme .node {
+  background-color: var(--uranium-secondary);
+  border: 2px solid var(--uranium-primary);
+  box-shadow: var(--uranium-primary-glow);
+}
+
+.uranium-theme .connection {
+  stroke: var(--uranium-primary);
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 3px var(--uranium-primary));
+}
+
+/* Active/interactive elements */
+.uranium-theme .interactive:hover {
+  background-color: var(--uranium-bg-light);
+  border-color: var(--uranium-primary);
+  box-shadow: var(--uranium-primary-glow);
+  cursor: pointer;
+}
+
+/* Scrollbars */
+.uranium-theme ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.uranium-theme ::-webkit-scrollbar-track {
+  background-color: var(--uranium-bg-dark);
+}
+
+.uranium-theme ::-webkit-scrollbar-thumb {
+  background-color: var(--uranium-secondary);
+  border-radius: 4px;
+}
+
+.uranium-theme ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--uranium-primary-dark);
+}

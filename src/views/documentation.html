@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Web3 Crypto Streaming Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/github-dark.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #00cec9;
+            --accent-color: #fdcb6e;
+            --dark-bg: #2d3436;
+            --light-bg: #f5f6fa;
+            --code-bg: #282c34;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: #f5f5f5;
+        }
+
+        .dark-mode .card {
+            background-color: #3d3d3d;
+            color: #f5f5f5;
+        }
+
+        .dark-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .wallet-btn {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .wallet-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .doc-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 50px 0;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+
+        .toc-card {
+            position: sticky;
+            top: 100px;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .toc-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .toc-link:hover {
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+
+        .toc-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .doc-section {
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .doc-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .method-card {
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .method-signature {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: rgba(108, 92, 231, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .param-name {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .param-type {
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+
+        .api-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .api-table th {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dark-mode .api-table th {
+            background-color: rgba(108, 92, 231, 0.3);
+            color: white;
+        }
+
+        .api-endpoint {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .dark-mode .api-endpoint {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-broadcast"></i> CryptoStream
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="player.html">Player</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="capabilities.html">Capabilities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="documentation.html">Documentation</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="me-3 dark-toggle" id="darkModeToggle">
+                        <i class="bi bi-moon"></i>
+                    </div>
+                    <button class="wallet-btn" id="connectWallet">
+                        <i class="bi bi-wallet2"></i> Connect Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="doc-header">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">Documentation</h1>
+            <p class="lead mb-0">Learn how to integrate and build with our Web3 Crypto Streaming Service</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card toc-card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Contents</h5>
+                        <nav id="toc">
+                            <a href="#getting-started" class="toc-link">Getting Started</a>
+                            <a href="#api-manager" class="toc-link">API Manager</a>
+                            <a href="#blockchain" class="toc-link">Blockchain Integration</a>
+                            <a href="#ipfs" class="toc-link">IPFS Storage</a>
+                            <a href="#streaming" class="toc-link">Video Streaming</a>
+                            <a href="#authentication" class="toc-link">Authentication</a>
+                            <a href="#compatibility" class="toc-link">Compatibility</a>
+                            <a href="#examples" class="toc-link">Code Examples</a>
+                            <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <section id="getting-started" class="doc-section">
+                    <h2>Getting Started</h2>
+                    <p>
+                        Web3 Crypto Streaming Service is a decentralized platform for content streaming with
+                        blockchain-based
+                        authentication and payment processing. This documentation will guide you through using and
+                        integrating
+                        with our platform.
+                    </p>
+
+                    <h4 class="mt-4">Installation</h4>
+                    <div class="code-block">
+                        <pre class="hljs">npm install @web3-crypto-stream/core
+# or
+yarn add @web3-crypto-stream/core</pre>
+                    </div>
+
+                    <h4 class="mt-4">Basic Setup</h4>
+                    <div class="code-block">
+                        <pre class="hljs">import { ApiManager } from '@web3-crypto-stream/core';
+
+// Initialize API Manager
+const apiManager = new ApiManager({
+  endpoints: ['https://mainnet.infura.io/v3/YOUR_KEY'],
+  useIpfsGateway: true
+});
+
+// Test connection
+async function initialize() {
+  try {
+    const netVersion = await apiManager.rpcCall('net_version');
+    console.log(`Connected to network: ${netVersion}`);
+  } catch (error) {
+    console.error('Connection failed:', error);
+  }
+}
+
+initialize();</pre>
+                    </div>
+                </section>
+
+                <section id="api-manager" class="doc-section">
+                    <h2>API Manager</h2>
+                    <p>
+                        The ApiManager is a core component that handles communication with blockchain nodes and IPFS
+                        gateways.
+                        It provides features like caching, rate limiting, and automatic failover between multiple
+                        endpoints.
+                    </p>
+
+                    <h4 class="mt-4">Configuration Options</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>endpoints</td>
+                                <td>string[]</td>
+                                <td>[]</td>
+                                <td>Array of RPC endpoint URLs</td>
+                            </tr>
+                            <tr>
+                                <td>defaultTimeout</td>
+                                <td>number</td>
+                                <td>10000</td>
+                                <td>Request timeout in milliseconds</td>
+                            </tr>
+                            <tr>
+                                <td>maxRetries</td>
+                                <td>number</td>
+                                <td>3</td>
+                                <td>Maximum number of retry attempts</td>
+                            </tr>
+                            <tr>
+                                <td>cacheEnabled</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Enable response caching</td>
+                            </tr>
+                            <tr>
+                                <td>cacheSize</td>
+                                <td>number</td>
+                                <td>100</td>
+                                <td>Maximum cache size</td>
+                            </tr>
+                            <tr>
+                                <td>cacheTTL</td>
+                                <td>number</td>
+                                <td>30000</td>
+                                <td>Cache TTL in milliseconds</td>
+                            </tr>
+                            <tr>
+                                <td>useIpfsGateway</td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>Enable IPFS gateway support</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="mt-4">Core Methods</h4>
+                    <div class="card method-card">
+                        <div class="card-body">
+                            <h5>request&lt;T&gt;(method, url, data?, options?)</h5>
+                            <div class="method-signature">async request&lt;T = any&gt;(method: string, url: string,
+                                data?: any, options?: AxiosRequestConfig): Promise&lt;ApiResponse&lt;T&gt;&gt;</div>
+                            <p>Makes an HTTP request with automatic retries and failover.</p>
+                            <h6>Parameters:</h6>
+                            <ul>
+                                <li><span class="param-name">method</span> <span class="param-type">string</span> - HTTP
+                                    method (GET, POST, etc.)</li>
+                                <li><span class="param-name">url</span> <span class="param-type">string</span> - URL
+                                    path or full URL</li>
+                                <li><span class="param-name">data</span> <span class="param-type">any?</span> - Request
+                                    body data</li>
+                                <li><span class="param-name">options</span> <span
+                                        class="param-type">AxiosRequestConfig?</span> - Additional request options</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card method-card mt-3">
+                        <div class="card-body">
+                            <h5>rpcCall&lt;T&gt;(method, params?)</h5>
+                            <div class="method-signature">async rpcCall&lt;T = any&gt;(method: string, params: any[] =
+                                []): Promise&lt;T&gt;</div>
+                            <p>Makes a JSON-RPC call to a blockchain node.</p>
+                            <h6>Parameters:</h6>
+                            <ul>
+                                <li><span class="param-name">method</span> <span class="param-type">string</span> - RPC
+                                    method name</li>
+                                <li><span class="param-name">params</span> <span class="param-type">any[]?</span> -
+                                    Array of parameters</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card method-card mt-3">
+                        <div class="card-body">
+                            <h5>fetchFromIpfs(cid)</h5>
+                            <div class="method-signature">async fetchFromIpfs(cid: string): Promise&lt;Buffer&gt;</div>
+                            <p>Fetches content from IPFS using configured gateways.</p>
+                            <h6>Parameters:</h6>
+                            <ul>
+                                <li><span class="param-name">cid</span> <span class="param-type">string</span> - IPFS
+                                    Content Identifier</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="blockchain" class="doc-section">
+                    <h2>Blockchain Integration</h2>
+                    <p>
+                        Our service supports multiple blockchain networks for payments, authentication, and content
+                        verification.
+                        Below are key methods for interacting with blockchain networks.
+                    </p>
+
+                    <h4 class="mt-4">Supported Networks</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Network</th>
+                                <th>Chain ID</th>
+                                <th>Status</th>
+                                <th>Min Version</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ethereum Mainnet</td>
+                                <td>1</td>
+                                <td>✅ Full Support</td>
+                                <td>London (EIP-1559)</td>
+                            </tr>
+                            <tr>
+                                <td>Polygon</td>
+                                <td>137</td>
+                                <td>✅ Full Support</td>
+                                <td>v0.3.4+</td>
+                            </tr>
+                            <tr>
+                                <td>Arbitrum</td>
+                                <td>42161</td>
+                                <td>✅ Full Support</td>
+                                <td>Nitro</td>
+                            </tr>
+                            <tr>
+                                <td>Optimism</td>
+                                <td>10</td>
+                                <td>✅ Full Support</td>
+                                <td>Bedrock</td>
+                            </tr>
+                            <tr>
+                                <td>Binance Smart Chain</td>
+                                <td>56</td>
+                                <td>✅ Full Support</td>
+                                <td>v1.1.0+</td>
+                            </tr>
+                            <tr>
+                                <td>Avalanche</td>
+                                <td>43114</td>
+                                <td>⚠️ Limited Support</td>
+                                <td>Cortina</td>
+                            </tr>
+                            <tr>
+                                <td>Base</td>
+                                <td>8453</td>
+                                <td>✅ Full Support</td>
+                                <td>v1.0.0+</td>
+                            </tr>
+                            <tr>
+                                <td>Solana</td>
+                                <td>N/A</td>
+                                <td>🚧 Beta Support</td>
+                                <td>v1.14.0+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="mt-4">Example: Check Wallet Balance</h4>
+                    <div class="code-block">
+                        <pre class="hljs">// Check ETH balance for an address
+async function getBalance(address) {
+  const balanceHex = await apiManager.rpcCall('eth_getBalance', [address, 'latest']);
+  const balanceWei = parseInt(balanceHex, 16);
+  const balanceEth = balanceWei / 1e18;
+  return balanceEth;
+}
+
+// Check ERC-20 token balance
+async function getTokenBalance(tokenAddress, walletAddress) {
+  // ERC-20 balanceOf method signature
+  const data = `0x70a08231000000000000000000000000${walletAddress.slice(2)}`;
+  
+  const result = await apiManager.rpcCall('eth_call', [{
+    to: tokenAddress,
+    data: data
+  }, 'latest']);
+  
+  return parseInt(result, 16) / 1e18;
+}</pre>
+                    </div>
+                </section>
+
+                <section id="ipfs" class="doc-section">
+                    <h2>IPFS Storage</h2>
+                    <p>
+                        Our platform uses IPFS (InterPlanetary File System) for decentralized content storage. This
+                        ensures
+                        content remains available even if individual servers go offline.
+                    </p>
+
+                    <h4 class="mt-4">Storing Content on IPFS</h4>
+                    <div class="code-block">
+                        <pre class="hljs">// Store a file on IPFS
+async function uploadToIpfs(fileBuffer) {
+  try {
+    // Assume we're using HTTP client for IPFS
+    const formData = new FormData();
+    formData.append('file', new Blob([fileBuffer]));
+    
+    const response = await apiManager.request('POST', 'https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
+      headers: {
+        'Authorization': `Bearer ${PINATA_JWT}`
+      }
+    });
+    
+    return response.data.IpfsHash;
+  } catch (error) {
+    console.error('IPFS upload failed:', error);
+    throw error;
+  }
+}
+
+// Retrieve content from IPFS
+async function getIpfsContent(cid) {
+  try {
+    const content = await apiManager.fetchFromIpfs(cid);
+    return content;
+  } catch (error) {
+    console.error('IPFS fetch failed:', error);
+    throw error;
+  }
+}</pre>
+                    </div>
+
+                    <h4 class="mt-4">IPFS Gateway Configuration</h4>
+                    <p>
+                        You can configure multiple IPFS gateways for redundancy. If one gateway fails, the system
+                        automatically tries the next one.
+                    </p>
+                    <div class="code-block">
+                        <pre class="hljs">const apiManager = new ApiManager({
+  // Other options...
+  useIpfsGateway: true,
+  ipfsGateways: [
+    'https://ipfs.io/ipfs/',
+    'https://gateway.pinata.cloud/ipfs/',
+    'https://cloudflare-ipfs.com/ipfs/'
+  ]
+});</pre>
+                    </div>
+                </section>
+
+                <section id="streaming" class="doc-section">
+                    <h2>Video Streaming</h2>
+                    <p>
+                        Our platform supports adaptive bitrate streaming from decentralized sources. Content is
+                        segmented
+                        and distributed across IPFS for resilient delivery.
+                    </p>
+
+                    <h4 class="mt-4">Streaming Methods</h4>
+                    <ul>
+                        <li><strong>HLS (HTTP Live Streaming)</strong> - For broad device compatibility</li>
+                        <li><strong>DASH (Dynamic Adaptive Streaming over HTTP)</strong> - For advanced features</li>
+                        <li><strong>WebRTC</strong> - For low-latency streaming requirements</li>
+                    </ul>
+
+                    <h4 class="mt-4">Codec Support</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Codec</th>
+                                <th>Support Level</th>
+                                <th>Recommended Bitrate</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>H.264 (AVC)</td>
+                                <td>✅ Full Support</td>
+                                <td>1-8 Mbps</td>
+                                <td>Compatibility-focused streaming</td>
+                            </tr>
+                            <tr>
+                                <td>H.265 (HEVC)</td>
+                                <td>✅ Full Support</td>
+                                <td>0.5-6 Mbps</td>
+                                <td>High-quality, bandwidth-efficient streaming</td>
+                            </tr>
+                            <tr>
+                                <td>VP9</td>
+                                <td>✅ Full Support</td>
+                                <td>0.5-6 Mbps</td>
+                                <td>Open-source alternative to HEVC</td>
+                            </tr>
+                            <tr>
+                                <td>AV1</td>
+                                <td>⚠️ Limited Support</td>
+                                <td>0.4-5 Mbps</td>
+                                <td>Next-gen streaming, experimental</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section id="compatibility" class="doc-section">
+                    <h2>Compatibility</h2>
+                    <p>
+                        Our Web3 Crypto Streaming Service is designed to be compatible with a wide range of browsers,
+                        devices, and wallet providers. This section details the compatibility requirements.
+                    </p>
+
+                    <h4 class="mt-4">Browser Compatibility</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Browser</th>
+                                <th>Minimum Version</th>
+                                <th>Recommended Version</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Google Chrome</td>
+                                <td>80+</td>
+                                <td>110+</td>
+                                <td>Full functionality including hardware acceleration</td>
+                            </tr>
+                            <tr>
+                                <td>Mozilla Firefox</td>
+                                <td>78+</td>
+                                <td>108+</td>
+                                <td>Limited WebRTC performance on older versions</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Edge</td>
+                                <td>85+</td>
+                                <td>110+</td>
+                                <td>Full functionality (Chromium-based)</td>
+                            </tr>
+                            <tr>
+                                <td>Safari</td>
+                                <td>14+</td>
+                                <td>16+</td>
+                                <td>Limited HLS support in older versions</td>
+                            </tr>
+                            <tr>
+                                <td>Opera</td>
+                                <td>70+</td>
+                                <td>95+</td>
+                                <td>Full functionality</td>
+                            </tr>
+                            <tr>
+                                <td>Brave</td>
+                                <td>1.30+</td>
+                                <td>1.50+</td>
+                                <td>May require shield adjustments for full functionality</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="mt-4">Wallet Compatibility</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Wallet</th>
+                                <th>Support Level</th>
+                                <th>Minimum Version</th>
+                                <th>Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MetaMask</td>
+                                <td>✅ Full Support</td>
+                                <td>10.0.0+</td>
+                                <td>Authentication, payments, NFT verification</td>
+                            </tr>
+                            <tr>
+                                <td>Coinbase Wallet</td>
+                                <td>✅ Full Support</td>
+                                <td>28.0+</td>
+                                <td>Authentication, payments</td>
+                            </tr>
+                            <tr>
+                                <td>WalletConnect</td>
+                                <td>✅ Full Support</td>
+                                <td>2.0+</td>
+                                <td>Multi-chain auth, payments, mobile support</td>
+                            </tr>
+                            <tr>
+                                <td>Trust Wallet</td>
+                                <td>✅ Full Support</td>
+                                <td>6.0+</td>
+                                <td>Authentication, payments (mobile focus)</td>
+                            </tr>
+                            <tr>
+                                <td>Phantom</td>
+                                <td>⚠️ Limited Support</td>
+                                <td>22.5+</td>
+                                <td>Solana-specific features only</td>
+                            </tr>
+                            <tr>
+                                <td>Rainbow</td>
+                                <td>✅ Full Support</td>
+                                <td>1.5.0+</td>
+                                <td>Authentication, payments, NFT verification</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="mt-4">Mobile Compatibility</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>Minimum Version</th>
+                                <th>Recommended Setup</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>iOS</td>
+                                <td>14.0+</td>
+                                <td>Safari 15+ with WalletConnect</td>
+                                <td>Full functionality including in-app wallet connections</td>
+                            </tr>
+                            <tr>
+                                <td>Android</td>
+                                <td>9.0+ (API 28)</td>
+                                <td>Chrome 100+ with MetaMask</td>
+                                <td>HLS playback optimized for newer devices</td>
+                            </tr>
+                            <tr>
+                                <td>iPadOS</td>
+                                <td>14.0+</td>
+                                <td>Safari 15+ with WalletConnect</td>
+                                <td>Tablet-optimized interface</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="mt-4">Development Libraries</h4>
+                    <table class="table api-table">
+                        <thead>
+                            <tr>
+                                <th>Library/Framework</th>
+                                <th>Recommended Version</th>
+                                <th>Compatibility Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ethers.js</td>
+                                <td>5.7.0+</td>
+                                <td>Full support, ethers v6 supported in beta</td>
+                            </tr>
+                            <tr>
+                                <td>web3.js</td>
+                                <td>1.8.0+</td>
+                                <td>Full support</td>
+                            </tr>
+                            <tr>
+                                <td>video.js</td>
+                                <td>7.20.0+</td>
+                                <td>Required for player functionality</td>
+                            </tr>
+                            <tr>
+                                <td>hls.js</td>
+                                <td>1.2.0+</td>
+                                <td>Required for HLS playback on non-Safari browsers</td>
+                            </tr>
+                            <tr>
+                                <td>dash.js</td>
+                                <td>4.5.0+</td>
+                                <td>Required for DASH playback</td>
+                            </tr>
+                            <tr>
+                                <td>ipfs-http-client</td>
+                                <td>56.0.0+</td>
+                                <td>Required for IPFS integration</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="alert alert-info mt-4">
+                        <h5><i class="bi bi-info-circle"></i> Minimum System Requirements</h5>
+                        <p>For optimal playback performance, we recommend:</p>
+                        <ul>
+                            <li><strong>CPU:</strong> Dual-core 2.0 GHz or faster</li>
+                            <li><strong>RAM:</strong> 4 GB or more</li>
+                            <li><strong>Network:</strong> 5+ Mbps download speed for HD streaming</li>
+                            <li><strong>Graphics:</strong> Hardware acceleration capable GPU</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="examples" class="doc-section">
+                    <h2>Code Examples</h2>
+
+                    <h4 class="mt-4">Complete Player Integration</h4>
+                    <div class="code-block">
+                        <pre class="hljs">import { ApiManager } from '@web3-crypto-stream/core';
+import videojs from 'video.js';
+
+class CryptoStreamPlayer {
+  constructor(options) {
+    this.apiManager = new ApiManager({
+      endpoints: options.rpcEndpoints,
+      useIpfsGateway: true
+    });
+    
+    this.playerElement = options.playerElement;
+    this.contentId = options.contentId;
+    this.player = null;
+    this.accessGranted = false;
+  }
+  
+  async initialize() {
+    try {
+      // Check if user has access
+      if (window.ethereum && window.ethereum.selectedAddress) {
+        this.accessGranted = await this.checkAccess(window.ethereum.selectedAddress);
+      }
+      
+      if (this.accessGranted) {
+        await this.setupPlayer();
+      } else {
+        this.showPaywall();
+      }
+    } catch (error) {
+      console.error('Player initialization failed:', error);
+      this.showError(error.message);
+    }
+  }
+  
+  async checkAccess(address) {
+    try {
+      const result = await this.apiManager.request(
+        'GET', 
+        `/api/content/${this.contentId}/access/${address}`
+      );
+      return result.data.hasAccess;
+    } catch (error) {
+      console.error('Access check failed:', error);
+      return false;
+    }
+  }
+  
+  async setupPlayer() {
+    try {
+      // Get stream manifest
+      const manifestResult = await this.apiManager.request(
+        'GET', 
+        `/api/content/${this.contentId}/manifest`
+      );
+      
+      const manifestUrl = manifestResult.data.manifestUrl;
+      
+      // Initialize player
+      this.player = videojs(this.playerElement, {
+        controls: true,
+        autoplay: false,
+        preload: 'auto',
+        fluid: true
+      });
+      
+      this.player.src({
+        src: manifestUrl,
+        type: 'application/x-mpegURL'
+      });
+      
+      // Analytics
+      this.player.on('play', () => this.trackEvent('play'));
+      this.player.on('pause', () => this.trackEvent('pause'));
+      this.player.on('ended', () => this.trackEvent('complete'));
+      
+    } catch (error) {
+      console.error('Player setup failed:', error);
+      this.showError('Failed to load video stream');
+    }
+  }
+  
+  showPaywall() {
+    const container = document.createElement('div');
+    container.className = 'paywall';
+    container.innerHTML = `
+      <h3>Purchase Access</h3>
+      <p>You need to purchase access to view this content</p>
+      <button id="purchase-btn">Purchase (0.001 ETH)</button>
+    `;
+    
+    this.playerElement.parentNode.insertBefore(container, this.playerElement);
+    this.playerElement.style.display = 'none';
+    
+    document.getElementById('purchase-btn').addEventListener('click', 
+      () => this.handlePurchase()
+    );
+  }
+  
+  async handlePurchase() {
+    if (!window.ethereum) {
+      alert('Please install a Web3 wallet like MetaMask');
+      return;
+    }
+    
+    try {
+      const accounts = await window.ethereum.request({ 
+        method: 'eth_requestAccounts' 
+      });
+      const address = accounts[0];
+      
+      // Call smart contract for payment
+      // This is simplified - you'd typically interact with your payment contract
+      const result = await this.apiManager.request(
+        'POST',
+        `/api/content/${this.contentId}/purchase`,
+        { address }
+      );
+      
+      if (result.data.success) {
+        this.accessGranted = true;
+        
+        // Remove paywall
+        const paywall = document.querySelector('.paywall');
+        if (paywall) paywall.remove();
+        
+        this.playerElement.style.display = 'block';
+        await this.setupPlayer();
+      }
+    } catch (error) {
+      console.error('Purchase failed:', error);
+      alert('Failed to process payment: ' + error.message);
+    }
+  }
+  
+  async trackEvent(eventType) {
+    try {
+      await this.apiManager.request(
+        'POST',
+        `/api/analytics/event`,
+        {
+          contentId: this.contentId,
+          eventType,
+          timestamp: Date.now(),
+          playerTime: this.player ? this.player.currentTime() : 0
+        }
+      );
+    } catch (error) {
+      console.error('Analytics error:', error);
+    }
+  }
+  
+  showError(message) {
+    const container = document.createElement('div');
+    container.className = 'player-error';
+    container.innerHTML = `
+      <h3>Error</h3>
+      <p>${message}</p>
+      <button id="retry-btn">Retry</button>
+    `;
+    
+    this.playerElement.parentNode.insertBefore(container, this.playerElement);
+    this.playerElement.style.display = 'none';
+    
+    document.getElementById('retry-btn').addEventListener('click', 
+      () => this.initialize()
+    );
+  }
+}
+
+// Usage
+const player = new CryptoStreamPlayer({
+  rpcEndpoints: ['https://mainnet.infura.io/v3/YOUR_KEY'],
+  playerElement: document.getElementById('player'),
+  contentId: 'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi'
+});
+
+player.initialize();</pre>
+                    </div>
+                </section>
+
+                <section id="troubleshooting" class="doc-section">
+                    <h2>Troubleshooting</h2>
+
+                    <h4 class="mt-4">Common Issues</h4>
+                    <div class="accordion" id="troubleshootingAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne">
+                                    RPC Connection Issues
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#troubleshootingAccordion">
+                                <div class="accordion-body">
+                                    <p>If you're experiencing RPC connection issues:</p>
+                                    <ol>
+                                        <li>Ensure your API keys are valid and correctly configured</li>
+                                        <li>Check your network connection</li>
+                                        <li>Configure multiple fallback RPC providers</li>
+                                        <li>Verify you're using the correct network (mainnet vs testnet)</li>
+                                        <li>Check if your RPC provider has usage limits or rate limiting</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo">
+                                    IPFS Content Not Loading
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#troubleshootingAccordion">
+                                <div class="accordion-body">
+                                    <p>If IPFS content isn't loading properly:</p>
+                                    <ol>
+                                        <li>Verify the CID is correct</li>
+                                        <li>Try different IPFS gateways</li>
+                                        <li>Check if the content is still pinned on IPFS</li>
+                                        <li>Ensure content is properly formatted for streaming (HLS/DASH)</li>
+                                        <li>Verify your browser supports the media format</li>
+                                        <li>Check if your network allows IPFS gateway connections</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree">
+                                    Wallet Connection Problems
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#troubleshootingAccordion">
+                                <div class="accordion-body">
+                                    <p>If you're having trouble connecting wallets:</p>
+                                    <ol>
+                                        <li>Make sure MetaMask or another web3 wallet is installed</li>
+                                        <li>Check if the wallet is unlocked</li>
+                                        <li>Verify the wallet is connected to the correct network</li>
+                                        <li>Try using the latest version of the wallet</li>
+                                        <li>Ensure you're using a compatible browser (see Compatibility section)</li>
+                                        <li>Try disabling other wallet extensions that might conflict</li>
+                                        <li>Clear browser cache and cookies if issues persist</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour">
+                                    Playback and Streaming Issues
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#troubleshootingAccordion">
+                                <div class="accordion-body">
+                                    <p>If you're experiencing video playback problems:</p>
+                                    <ol>
+                                        <li>Check your internet connection speed (min 5 Mbps recommended)</li>
+                                        <li>Verify your browser meets minimum requirements (see Compatibility section)
+                                        </li>
+                                        <li>Enable hardware acceleration in browser settings</li>
+                                        <li>Try a different browser</li>
+                                        <li>Disable VPN or proxy services that might interfere</li>
+                                        <li>For mobile devices, ensure you have sufficient battery and aren't in power
+                                            saving mode</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="mt-4">Diagnostic Tools</h4>
+                    <div class="code-block">
+                        <pre class="hljs">// Diagnostic function to verify API connectivity
+async function runDiagnostics() {
+  console.log('Running diagnostics...');
+  
+  try {
+    // Test RPC connection
+    console.log('Testing RPC connection...');
+    const netVersion = await apiManager.rpcCall('net_version');
+    console.log(`✅ RPC connected - Network ID: ${netVersion}`);
+    
+    // Test IPFS connection
+    console.log('Testing IPFS gateway...');
+    const testCid = 'QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A'; // Small test file
+    const ipfsContent = await apiManager.fetchFromIpfs(testCid);
+    console.log(`✅ IPFS gateway working - Retrieved ${ipfsContent.length} bytes`);
+    
+    console.log('All diagnostics passed!');
+    return true;
+  } catch (error) {
+    console.error('❌ Diagnostic failed:', error);
+    return false;
+  }
+}</pre>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2023 Web3 Crypto Streaming Service. All rights reserved.</p>
+            <div class="mt-2">
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none me-3">Terms of Service</a>
+                <a href="#" class="text-decoration-none">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/lib/highlight.min.js"></script>
+    <script>
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('bi-moon')) {
+                icon.classList.replace('bi-moon', 'bi-sun');
+            } else {
+                icon.classList.replace('bi-sun', 'bi-moon');
+            }
+        });
+
+        // Connect wallet functionality
+        document.getElementById('connectWallet').addEventListener('click', async function () {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    this.innerHTML = `<i class="bi bi-wallet2"></i> ${account.slice(0, 6)}...${account.slice(-4)}`;
+                    this.classList.add('btn-success');
+                } catch (error) {
+                    console.error(error);
+                    alert('Error connecting wallet: ' + error.message);
+                }
+            } else {
+                alert('MetaMask is not installed. Please install it to use this feature.');
+            }
+        });
+
+        // Highlight code blocks
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.hljs').forEach(block => {
+                hljs.highlightBlock(block);
+            });
+
+            // Add active class to current section in TOC
+            const sections = document.querySelectorAll('.doc-section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+
+            const observerCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        tocLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${entry.target.id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, {
+                root: null,
+                threshold: 0.5,
+                rootMargin: '-100px 0px -100px 0px'
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+
+</html>

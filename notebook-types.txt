@@ -1,0 +1,96 @@
+Type Aliases:
+1. ContentFormat: 'text' | 'markdown' | 'html' | 'latex' | 'code'
+2. NotebookAccessLevel: 'private' | 'public' | 'shared' | 'organization'
+
+Notebook:
+- id: string (Unique identifier for the notebook)
+- title: string (The title of the notebook)
+- description: string (Description of the notebook)
+- ownerId: string (Owner identifier)
+- accessLevel: NotebookAccessLevel (Access level of the notebook)
+- collaborators: string[] (Optional list of collaborator IDs)
+- createdAt: Date (Creation timestamp)
+- updatedAt: Date (Last update timestamp)
+
+Note:
+- id: string (Unique identifier for the note)
+- notebookId: string (ID of the parent notebook)
+- title: string (The title of the note)
+- content: string (Content of the note)
+- format: ContentFormat (Format of the note content)
+- tags: string[] (Optional tags for the note)
+- createdAt: Date (Creation timestamp)
+- updatedAt: Date (Last update timestamp)
+- llmQueries: LLMQuery[] (Optional history of LLM queries)
+
+LLMQuery:
+- id: string (Unique identifier for the query)
+- noteId: string (ID of the associated note)
+- query: string (The prompt/query sent to the LLM)
+- response: string (The response from the LLM)
+- model: string (The LLM model used)
+- timestamp: Date (When the query was made)
+- tokens: number (Optional token count used)
+
+SearchParams:
+- query: string (Optional search query string)
+- tags: string[] (Optional tags to filter by)
+- fromDate: Date (Optional start date range)
+- toDate: Date (Optional end date range)
+- notebookId: string (Optional filter by notebook)
+- format: ContentFormat (Optional filter by content format)
+
+LLMConfig:
+- model: string (Model identifier)
+- temperature: number (Temperature setting for generation)
+- maxTokens: number (Maximum tokens to generate)
+- streaming: boolean (Whether to use streaming response)
+- additionalParams: Record<string, any> (Optional additional model parameters)
+
+ExportOptions:
+- format: 'pdf' | 'markdown' | 'html' | 'json' | 'txt' (Export format)
+- includeMetadata: boolean (Whether to include metadata in the export)
+- includeLLMQueries: boolean (Whether to include LLM queries history)
+- templateId: string (Optional template ID for formatted exports)
+
+NotebookPermission:
+- userId: string (User ID)
+- notebookId: string (Notebook ID)
+- canView: boolean (Whether user can view the notebook)
+- canEdit: boolean (Whether user can edit the notebook)
+- canShare: boolean (Whether user can share the notebook)
+- canDelete: boolean (Whether user can delete the notebook)
+
+NotebookVersion:
+- id: string (Unique identifier for the version)
+- notebookId: string (ID of the parent notebook)
+- versionNumber: string (Version number)
+- commitMessage: string (Message describing the changes)
+- userId: string (ID of the user who created this version)
+- timestamp: Date (When this version was created)
+- diff: string (Optional diff from previous version)
+
+CodeExecutionResult:
+- noteId: string (ID of the note containing the code)
+- codeBlockId: string (ID of the specific code block)
+- success: boolean (Whether execution was successful)
+- output: string (Output of the code execution)
+- error: string (Optional error message if execution failed)
+- executionTime: number (Time taken to execute in milliseconds)
+
+NotebookStats:
+- notebookId: string (ID of the notebook)
+- noteCount: number (Number of notes in the notebook)
+- totalSize: number (Total size in bytes)
+- lastAccessTimestamp: number (Last access timestamp)
+- viewCount: number (Number of times viewed)
+- editCount: number (Number of times edited)
+- llmQueryCount: number (Number of LLM queries)
+
+LLMCapabilities:
+- modelId: string (Model identifier)
+- maxContextLength: number (Maximum context length in tokens)
+- supportedLanguages: string[] (Supported languages for code generation)
+- supportsImages: boolean (Whether model can process images)
+- supportsStreaming: boolean (Whether model supports streaming responses)
+- costPerToken: number (Cost per token in credits)

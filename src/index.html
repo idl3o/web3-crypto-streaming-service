@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web3 Crypto Streaming Service</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui;
+            background: #0f0f1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #1a1a2e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric {
+            font-size: 2em;
+            color: #00ff9d;
+            margin: 10px 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: #2a2a4a;
+            margin: 5px;
+        }
+
+        .status.active {
+            background: #00ff9d33;
+            color: #00ff9d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🚀 Web3 Crypto Streaming Service</h1>
+        <div>
+            <span class="status active">Farm Online</span>
+            <span class="status active">Blockchain Connected</span>
+            <span class="status active">Metrics Live</span>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="card">
+            <h2>🖥️ Machine Stats</h2>
+            <div id="machine-metrics" class="metric">Loading...</div>
+        </div>
+        <div class="card">
+            <h2>🔗 Blockchain</h2>
+            <div id="blockchain-stats" class="metric">Loading...</div>
+        </div>
+        <div class="card">
+            <h2>📈 Farm Metrics</h2>
+            <div id="farm-metrics" class="metric">Loading...</div>
+        </div>
+    </div>
+    <script>
+        // Connection state tracking
+        let wsRetries = 0;
+        let httpRetries = 0;
+        const MAX_RETRIES = 5;
+
+        function connectWebSocket() {
+            const ws = new WebSocket('ws://localhost:8080');
+
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+                document.querySelector('[data-service="farm"]').classList.add('active');
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                document.getElementById('farm-metrics').textContent = 'Connection Error';
+                if (wsRetries < MAX_RETRIES) {
+                    wsRetries++;
+                    setTimeout(connectWebSocket, 2000 * wsRetries);
+                }
+            };
+
+            ws.onclose = () => {
+                document.querySelector('[data-service="farm"]').classList.remove('active');
+                if (wsRetries < MAX_RETRIES) {
+                    wsRetries++;
+                    setTimeout(connectWebSocket, 2000 * wsRetries);
+                }
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                document.getElementById('farm-metrics').textContent =
+                    `Traffic: ${Math.round(data.traffic)} req/s`;
+            };
+        }
+
+        function updateMetrics() {
+            fetch('http://localhost:5500/metrics')
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP Error');
+                    return r.json();
+                })
+                .then(data => {
+                    document.getElementById('machine-metrics').textContent =
+                        `CPU: ${data.cpu.toFixed(1)}%`;
+                    httpRetries = 0;
+                })
+                .catch(error => {
+                    console.error('Metrics error:', error);
+                    if (httpRetries < MAX_RETRIES) {
+                        httpRetries++;
+                        setTimeout(updateMetrics, 2000 * httpRetries);
+                    } else {
+                        document.getElementById('machine-metrics').textContent = 'Connection Failed';
+                    }
+                });
+        }
+
+        // Initialize connections
+        connectWebSocket();
+        updateMetrics();
+        setInterval(updateMetrics, 1000);
+    </script>
+</body>
+
+</html>

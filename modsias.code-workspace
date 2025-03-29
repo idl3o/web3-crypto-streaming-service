@@ -1,0 +1,64 @@
+{
+	"folders": [
+		{
+			"name": "web3-crypto-streaming-service",
+			"path": "."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit"
+		},
+		"javascript.suggestionActions.enabled": false,
+		"typescript.preferences.importModuleSpecifier": "relative",
+		"debug.javascript.autoAttachFilter": "smart",
+		"files.watcherExclude": {
+			"**/node_modules/**": true,
+			"**/dist/**": true,
+			"**/.git/objects/**": true,
+			"**/.git/subtree-cache/**": true,
+			"**/coverage/**": true
+		},
+		"npm.packageManager": "npm",
+		"git.enableSmartCommit": true,
+		"workbench.colorCustomizations": {
+			"statusBar.background": "#1a1a1a",
+			"statusBar.noFolderBackground": "#0a0a0a",
+			"statusBar.debuggingBackground": "#511f1f"
+		},
+		"search.maxResults": 10000,
+		"typescript.disableAutomaticTypeAcquisition": true,
+		"typescript.tsserver.maxTsServerMemory": 3072,
+		"typescript.tsserver.watchOptions": {
+			"watchFile": "useFsEvents",
+			"watchDirectory": "useFsEvents",
+			"fallbackPolling": "dynamicPriorityPolling"
+		},
+		"workbench.editor.limit.enabled": true,
+		"workbench.editor.limit.value": 10,
+		"files.exclude": {
+			"**/.git": true,
+			"**/node_modules": true,
+			"**/dist": true
+		},
+		"markdown.preview.breaks": true,
+		"markdown.preview.doubleClickToSwitchToEditor": true,
+		"markdown.preview.fontSize": 14,
+		"markdown.preview.lineHeight": 1.6,
+		"markdown.styles": [
+			"styles/markdown.css"
+		],
+		"[markdown]": {
+			"editor.defaultFormatter": "yzhang.markdown-all-in-one",
+			"editor.formatOnSave": true,
+			"editor.wordWrap": "on",
+			"editor.renderWhitespace": "all"
+		},
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 1000,
+		"editor.formatOnPaste": true,
+		"editor.formatOnType": false
+	}
+}

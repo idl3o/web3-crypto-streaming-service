@@ -1,0 +1,45 @@
+# Site settings
+title: Web3 Crypto Streaming Service
+email: contact@web3streaming.example
+description: Revolutionary decentralized content streaming platform powered by blockchain technology
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://username.github.io/web3-crypto-streaming-service" 
+twitter_username: web3streaming
+github_username:  username
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Collections
+collections:
+  faqs:
+    output: true
+    permalink: /faq/:name/
+  use_cases:
+    output: true
+    permalink: /use-cases/:name/
+
+# Pagination
+paginate: 6
+paginate_path: "/blog/page:num/"
+
+# Default front matter
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"

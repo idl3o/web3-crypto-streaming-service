@@ -1,0 +1,52 @@
+---
+layout: default
+title: Blog
+description: Latest news and updates about Web3 Crypto Streaming Service
+---
+
+<div class="blog-index">
+    <h1 class="page-heading">Blog</h1>
+
+    <div class="post-list">
+        {% for post in paginator.posts %}
+        <div class="post-item">
+            <h2>
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h2>
+            <p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p>
+
+            {% if post.image %}
+            <div class="post-thumbnail">
+                <a href="{{ post.url | relative_url }}">
+                    <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+                </a>
+            </div>
+            {% endif %}
+
+            <div class="post-excerpt">
+                {{ post.excerpt | strip_html | truncatewords: 50 }}
+            </div>
+
+            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination">
+        {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">&laquo; Previous</a>
+        {% else %}
+        <span class="previous">&laquo; Previous</span>
+        {% endif %}
+
+        <span class="page_number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+        {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next &raquo;</a>
+        {% else %}
+        <span class="next">Next &raquo;</span>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

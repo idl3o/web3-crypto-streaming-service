@@ -1,0 +1,28 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "task.quickOpen.detail": true,
+        "task.quickOpen.skip": false
+    },
+    "launch": {
+        "compounds": [
+            {
+                "name": "Full Stack Debug",
+                "configurations": [
+                    "Launch Program",
+                    "Modern JSON Preview",
+                    "Start Server Farm"
+                ],
+                "presentation": {
+                    "hidden": false,
+                    "group": "dev",
+                    "order": 1
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Crypto Streaming Service</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Base styles -->
+    <style>
+        :root {
+            /* Color scheme variables */
+            --primary-color: #8B4513;
+            --secondary-color: #D2B48C;
+            --accent-color: #CD853F;
+            --background-color: #FFF8F0;
+            --text-color: #333;
+            --light-text-color: #777;
+            --border-color: #d5c3aa;
+
+            /* Font settings */
+            --body-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --heading-font: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: var(--body-font);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        #app {
+            height: 100%;
+        }
+
+        /* Loading state while Vue initializes */
+        .initial-loading {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: var(--background-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .initial-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(139, 69, 19, 0.2);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .loading-text {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- App-specific styles will be injected by Vue -->
+</head>
+
+<body>
+    <header>
+        <h1>Web3 Crypto Streaming Service</h1>
+    </header>
+
+    <main>
+        <section id="fee-payment">
+            <h2>Pay Fees</h2>
+            <p>Pay your monthly service fees to continue streaming.</p>
+            <label for="fee-amount">Amount:</label>
+            <input type="number" id="fee-amount" value="10" min="1">
+            <button id="pay-fee-button">Pay Now</button>
+            <div id="fee-payment-status"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Web3 Crypto Streaming</p>
+    </footer>
+
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const payFeeButton = document.getElementById('pay-fee-button');
+            if (payFeeButton) {
+                payFeeButton.addEventListener('click', function () {
+                    const amount = document.getElementById('fee-amount').value;
+                    document.getElementById('fee-payment-status').innerText = `Paying fee of ${amount}...`;
+                    // Simulate payment process
+                    setTimeout(function () {
+                        document.getElementById('fee-payment-status').innerText = `Fee of ${amount} paid successfully!`;
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

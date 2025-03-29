@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoE Video Player</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/player.css">
+    <script src="../assets/js/web3.min.js"></script>
+    <script src="../assets/js/ethers.min.js"></script>
+</head>
+
+<body class="player-page">
+    <header class="site-header compact">
+        <div class="container">
+            <div class="logo">
+                <h1>PoE Streaming</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="player.html" class="active">Player</a></li>
+                    <li><a href="progress.html">Development</a></li>
+                    <li><a href="capabilities.html">Features</a></li>
+                </ul>
+            </nav>
+            <div class="wallet-connect">
+                <button id="connect-wallet">Connect Wallet</button>
+                <div id="wallet-status" class="hidden">
+                    <span id="wallet-address"></span>
+                    <span id="wallet-balance"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="player-container">
+        <div class="video-container">
+            <div id="player-controls" class="controls-overlay">
+                <div class="top-controls">
+                    <h2 id="video-title">Video Title</h2>
+                    <div class="quality-selector">
+                        <select id="quality-options">
+                            <option value="auto">Auto</option>
+                            <option value="1080p">1080p</option>
+                            <option value="720p">720p</option>
+                            <option value="480p">480p</option>
+                            <option value="360p">360p</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="center-controls">
+                    <button id="play-pause" class="large-button">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="bottom-controls">
+                    <div class="progress-container">
+                        <div id="progress-bar" class="progress-bar">
+                            <div id="progress-buffer" class="progress-buffer"></div>
+                            <div id="progress-indicator" class="progress-indicator"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="current-time">00:00</span> /
+                            <span id="duration">00:00</span>
+                        </div>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="mute" class="control-button">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </button>
+                        <div id="volume-slider" class="volume-slider">
+                            <div id="volume-level" class="volume-level"></div>
+                        </div>
+                        <button id="fullscreen" class="control-button">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <video id="video-player" poster="../assets/images/poster.jpg"></video>
+        </div>
+
+        <div class="content-info">
+            <div class="creator-info">
+                <img src="../assets/images/avatar.jpg" alt="Creator" class="creator-avatar">
+                <div class="creator-details">
+                    <h3 id="creator-name">Creator Name</h3>
+                    <p id="creator-address">0x123...abc</p>
+                </div>
+                <button id="tip-creator" class="tip-button">Tip Creator</button>
+            </div>
+
+            <div class="video-metadata">
+                <h2 id="video-title-main">Video Title</h2>
+                <p id="video-description">This is a description of the video content.</p>
+                <div class="video-stats">
+                    <span id="view-count">0 views</span>
+                    <span id="creation-date">Uploaded on Jan 1, 2023</span>
+                </div>
+                <div class="token-info">
+                    <p>Token ID: <span id="token-id">12345</span></p>
+                    <p>Contract: <span id="contract-address">0xabc...789</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="related-content" class="related-content">
+            <h3>Related Content</h3>
+            <div class="related-grid">
+                <!-- Placeholders for related content -->
+                <div class="related-item">
+                    <div class="thumbnail"></div>
+                    <div class="related-info">
+                        <h4>Related Video 1</h4>
+                        <p>Creator Name</p>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="thumbnail"></div>
+                    <div class="related-info">
+                        <h4>Related Video 2</h4>
+                        <p>Creator Name</p>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="thumbnail"></div>
+                    <div class="related-info">
+                        <h4>Related Video 3</h4>
+                        <p>Creator Name</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="tip-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Tip Creator</h2>
+            <p>Send POE tokens to support this creator.</p>
+            <div class="tip-amount">
+                <label for="tip-value">Amount (POE):</label>
+                <input type="number" id="tip-value" min="0.01" step="0.01" value="1.0">
+            </div>
+            <button id="send-tip" class="button primary">Send Tip</button>
+        </div>
+    </div>
+
+    <footer class="player-footer">
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2023 Web3 Crypto Streaming Team. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/player.js"></script>
+</body>
+
+</html>

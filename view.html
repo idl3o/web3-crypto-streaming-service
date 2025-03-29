@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoStream Viewer | Web3 Crypto Streaming Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles-2023.css">
+    <style>
+        .viewer-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-bar {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-frame {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: calc(100vh - 60px);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-outline-light:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .template-dropdown {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            margin-right: 10px;
+        }
+
+        .template-dropdown:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .control-panel {
+            padding: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .screen-size-controls {
+            display: flex;
+            gap: 5px;
+            margin-right: 15px;
+        }
+
+        .screen-size-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: none;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+
+        .screen-size-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="viewer-container">
+        <div class="header-bar">
+            <div class="branding">
+                <h4 class="mb-0">
+                    <a href="index.html" class="text-white text-decoration-none">
+                        <i class="fas fa-stream me-2"></i>CryptoStream Viewer
+                    </a>
+                </h4>
+            </div>
+            <div class="nav-buttons">
+                <div class="dropdown me-2">
+                    <button class="btn template-dropdown dropdown-toggle" type="button" id="templateDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-list me-1"></i> All Templates
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="templateDropdown">
+                        <li>
+                            <h6 class="dropdown-header">HTML Templates</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#" onclick="loadPage('landing-2023.html')">Landing Page
+                                (2023)</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="loadPage('dashboard-2023.html')">Dashboard
+                                (2023)</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="loadPage('app-viewer-2023.html')">App Viewer
+                                (2023)</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <h6 class="dropdown-header">Template Collections</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#" onclick="loadPage('html-templates/index.html')">Template
+                                Repository</a></li>
+                        <li><a class="dropdown-item" href="#"
+                                onclick="loadPage('html-templates/components/index.html')">Component Library</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="index.html">Return to Portal</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-outline-light" onclick="loadPage('landing-2023.html')">Landing Page</button>
+                <button class="btn btn-primary" onclick="loadPage('dashboard-2023.html')">Dashboard</button>
+                <button class="btn btn-outline-light" onclick="loadPage('index.html')">Portal Home</button>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="screen-size-controls">
+                <button class="screen-size-btn" onclick="resizeFrame('mobile')"><i class="fas fa-mobile-alt"></i>
+                    Mobile</button>
+                <button class="screen-size-btn" onclick="resizeFrame('tablet')"><i class="fas fa-tablet-alt"></i>
+                    Tablet</button>
+                <button class="screen-size-btn" onclick="resizeFrame('desktop')"><i class="fas fa-desktop"></i>
+                    Desktop</button>
+                <button class="screen-size-btn" onclick="resizeFrame('full')"><i class="fas fa-expand"></i>
+                    Full</button>
+            </div>
+            <span class="text-white-50 small" id="current-url"></span>
+        </div>
+
+        <!-- The iframe will display your selected page -->
+        <iframe id="content-frame" class="content-frame" src="dashboard-2023.html"></iframe>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function loadPage(page) {
+            document.getElementById('content-frame').src = page;
+            document.getElementById('current-url').textContent = '/' + page;
+
+            // Update active button
+            const buttons = document.querySelectorAll('.nav-buttons button');
+            buttons.forEach(btn => {
+                if ((btn.innerText.toLowerCase().includes('landing') && page.includes('landing')) ||
+                    (btn.innerText.toLowerCase().includes('dashboard') && page.includes('dashboard')) ||
+                    (btn.innerText.toLowerCase().includes('portal') && page === 'index.html')) {
+                    btn.className = 'btn btn-primary';
+                } else if (!btn.classList.contains('template-dropdown')) {
+                    btn.className = 'btn btn-outline-light';
+                }
+            });
+        }
+
+        function resizeFrame(size) {
+            const frame = document.getElementById('content-frame');
+            const container = document.querySelector('.viewer-container');
+
+            // Remove previous size classes
+            frame.classList.remove('frame-mobile', 'frame-tablet', 'frame-desktop', 'frame-full');
+            container.classList.remove('has-framed-content');
+
+            frame.style.maxWidth = '';
+            frame.style.margin = '';
+            frame.style.height = '';
+            frame.style.borderRadius = '';
+            frame.style.boxShadow = '';
+
+            if (size === 'mobile') {
+                frame.style.maxWidth = '380px';
+                frame.style.margin = '0 auto';
+                frame.style.height = 'calc(100vh - 115px)';
+                frame.style.borderRadius = '10px';
+                frame.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                container.classList.add('has-framed-content');
+                frame.classList.add('frame-mobile');
+            } else if (size === 'tablet') {
+                frame.style.maxWidth = '768px';
+                frame.style.margin = '0 auto';
+                frame.style.height = 'calc(100vh - 115px)';
+                frame.style.borderRadius = '10px';
+                frame.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                container.classList.add('has-framed-content');
+                frame.classList.add('frame-tablet');
+            } else if (size === 'desktop') {
+                frame.style.maxWidth = '1280px';
+                frame.style.margin = '0 auto';
+                frame.style.height = 'calc(100vh - 115px)';
+                frame.style.borderRadius = '10px';
+                frame.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                container.classList.add('has-framed-content');
+                frame.classList.add('frame-desktop');
+            } else {
+                frame.style.width = '100%';
+                frame.style.height = 'calc(100vh - 105px)';
+                frame.classList.add('frame-full');
+            }
+
+            // Update active button style
+            document.querySelectorAll('.screen-size-btn').forEach(btn => {
+                btn.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            });
+            event.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)';
+        }
+
+        // Initialize FontAwesome (since the original script might not load in this context)
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set the current URL display
+            document.getElementById('current-url').textContent = '/dashboard-2023.html';
+
+            // Handle FontAwesome fallback
+            if (!document.querySelector('.fas')) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+                document.head.appendChild(link);
+            }
+        });
+    </script>
+</body>
+
+</html>

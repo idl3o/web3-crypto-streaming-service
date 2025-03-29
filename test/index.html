@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web3 Streaming Service</title>
+    <meta name="description" content="Web3 streaming service featuring blockchain and cryptocurrency content">
+    <meta name="keywords" content="web3, blockchain, cryptocurrency, streaming, defi, nft">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <!-- Add Open Graph tags -->
+    <meta property="og:title" content="Web3 Streaming Service">
+    <meta property="og:description" content="Discover and stream Web3 content">
+    <meta property="og:type" content="website">
+    <!-- Add structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Web3 Streaming Service",
+      "applicationCategory": "Streaming Service",
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/OnlineOnly"
+      }
+    }
+    </script>
+    <style>
+        :root {
+            --primary-color: #FF2E63;
+            --secondary-color: #252A34;
+            --background-color: #F5E6D3;
+            --text-color: #2D232E;
+            --accent-color: #08D9D6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .metrics {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .connect-wallet {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .connect-wallet:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <h1>Web3 Streaming Service</h1>
+        <p>Decentralized content delivery with quantum-proof validation</p>
+        <button class="connect-wallet" id="connectWallet">Connect Wallet</button>
+    </div>
+
+    <div class="content-grid">
+        <stream-card content-id="test-1">
+            <h2>Introduction to Web3</h2>
+            <p>Discover the fundamentals of Web3 technology</p>
+        </stream-card>
+        <stream-card content-id="test-2">
+            <h2>Blockchain Basics</h2>
+            <p>Learn about blockchain technology and its applications</p>
+        </stream-card>
+    </div>
+
+    <div class="metrics">
+        <div>Network Status: <span id="networkStatus">Connected</span></div>
+        <div>Active Nodes: <span id="nodeCount">42</span></div>
+    </div>
+
+    <script type="module" src="/components/stream-card.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+
+        document.getElementById('connectWallet').addEventListener('click', async () => {
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    console.log('Wallet connected!');
+                } catch (error) {
+                    console.error('Connection failed:', error);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

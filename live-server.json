@@ -1,0 +1,15 @@
+{
+    "port": 3000,
+    "host": "localhost",
+    "root": "./src",
+    "open": true,
+    "file": "index.html",
+    "wait": 1000,
+    "mount": [["/node_modules", "./node_modules"]],
+    "logLevel": 2,
+    "https": {
+        "cert": "./ssl/localhost.crt",
+        "key": "./ssl/localhost.key"
+    },
+    "middleware": [["/*", "./middleware/cors.js"]]
+}

@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+.github
+
+# Dependencies
+node_modules
+.npm
+
+# Build outputs
+dist
+build
+.cache
+
+# Environment
+.env
+.env.*
+.env.local
+.env.*.local
+
+# Debug & logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# Test & coverage
+test
+tests
+coverage
+.nyc_output
+
+# IDE & editor
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# Docker
+.dockerignore
+docker-compose*.yml
+Dockerfile*
+
+# Project specific
+ssl
+.eslint*
+.prettier*
+.travis.yml
+*.md
+backups

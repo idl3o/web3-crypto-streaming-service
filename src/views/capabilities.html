@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capabilities - Web3 Crypto Streaming Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #00cec9;
+            --accent-color: #fdcb6e;
+            --dark-bg: #2d3436;
+            --light-bg: #f5f6fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: #f5f5f5;
+        }
+
+        .dark-mode .card {
+            background-color: #3d3d3d;
+            color: #f5f5f5;
+        }
+
+        .dark-mode .table {
+            color: #f5f5f5;
+        }
+
+        .dark-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .wallet-btn {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .wallet-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .capability-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            height: 100%;
+            border: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .capability-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .status-circle {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-active {
+            background-color: #2ecc71;
+        }
+
+        .status-inactive {
+            background-color: #e74c3c;
+        }
+
+        .status-partial {
+            background-color: #f39c12;
+        }
+
+        .network-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-broadcast"></i> CryptoStream
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="player.html">Player</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="capabilities.html">Capabilities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentation.html">Documentation</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="me-3 dark-toggle" id="darkModeToggle">
+                        <i class="bi bi-moon"></i>
+                    </div>
+                    <button class="wallet-btn" id="connectWallet">
+                        <i class="bi bi-wallet2"></i> Connect Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Platform Capabilities</h1>
+            <div class="d-flex align-items-center">
+                <span class="me-2">System Status:</span>
+                <span class="status-circle status-active"></span>
+                <span>Operational</span>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4 mb-4">
+                <div class="card capability-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-hdd-network feature-icon"></i>
+                        <h3>IPFS Integration</h3>
+                        <p>Store and retrieve content from the InterPlanetary File System with built-in caching and
+                            redundancy.</p>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Gateway Performance</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 92%"
+                                    aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card capability-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-currency-exchange feature-icon"></i>
+                        <h3>Multi-Chain Support</h3>
+                        <p>Interact with multiple blockchain networks for payments, authentication, and content
+                            verification.</p>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Supported Networks</span>
+                                <span>5/7</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 70%"
+                                    aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card capability-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-shield-check feature-icon"></i>
+                        <h3>Token-Gated Access</h3>
+                        <p>Control content access based on token ownership, NFT holdings, or direct crypto payments.</p>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Verification Speed</span>
+                                <span>86%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 86%"
+                                    aria-valuenow="86" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0">Supported Networks</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Network</th>
+                                <th>Chain ID</th>
+                                <th>RPC Status</th>
+                                <th>Average Block Time</th>
+                                <th>Gas Price (Gwei)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="networksTable">
+                            <tr>
+                                <td><img src="https://ethereum.org/static/6b935ac0e6194247347855dc3d328e83/13c43/eth-diamond-black.png"
+                                        alt="Ethereum" class="network-logo">Ethereum</td>
+                                <td>1</td>
+                                <td>Connected</td>
+                                <td>12.4s</td>
+                                <td id="ethGas">25.2</td>
+                                <td><span class="status-circle status-active"></span> Active</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://cryptologos.cc/logos/polygon-matic-logo.png" alt="Polygon"
+                                        class="network-logo">Polygon</td>
+                                <td>137</td>
+                                <td>Connected</td>
+                                <td>2.1s</td>
+                                <td>80.5</td>
+                                <td><span class="status-circle status-active"></span> Active</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://cryptologos.cc/logos/arbitrum-arb-logo.png" alt="Arbitrum"
+                                        class="network-logo">Arbitrum</td>
+                                <td>42161</td>
+                                <td>Connected</td>
+                                <td>0.25s</td>
+                                <td>0.3</td>
+                                <td><span class="status-circle status-active"></span> Active</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://cryptologos.cc/logos/optimism-ethereum-op-logo.png" alt="Optimism"
+                                        class="network-logo">Optimism</td>
+                                <td>10</td>
+                                <td>Connected</td>
+                                <td>0.5s</td>
+                                <td>0.01</td>
+                                <td><span class="status-circle status-active"></span> Active</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BSC"
+                                        class="network-logo">Binance Smart Chain</td>
+                                <td>56</td>
+                                <td>Connected</td>
+                                <td>3.0s</td>
+                                <td>5.0</td>
+                                <td><span class="status-circle status-active"></span> Active</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://cryptologos.cc/logos/avalanche-avax-logo.png" alt="Avalanche"
+                                        class="network-logo">Avalanche</td>
+                                <td>43114</td>
+                                <td>Fallback only</td>
+                                <td>2.5s</td>
+                                <td>25.0</td>
+                                <td><span class="status-circle status-partial"></span> Limited</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://cryptologos.cc/logos/fantom-ftm-logo.png" alt="Fantom"
+                                        class="network-logo">Fantom</td>
+                                <td>250</td>
+                                <td>Not connected</td>
+                                <td>1.0s</td>
+                                <td>150.0</td>
+                                <td><span class="status-circle status-inactive"></span> Planned</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">System Performance</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <h5>API Manager Statistics</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>Cache Hit Rate</td>
+                                        <td>87.2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Average Response Time</td>
+                                        <td>235ms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Request Success Rate</td>
+                                        <td>99.8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fallback RPC Usage</td>
+                                        <td>3.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rate Limited Requests</td>
+                                        <td>0.2%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <h5>Streaming Performance</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>Average Bitrate</td>
+                                        <td>4.8 Mbps</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Buffer Ratio</td>
+                                        <td>0.4%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Playback Success Rate</td>
+                                        <td>99.7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Avg. Load Time</td>
+                                        <td>1.8s</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CDN Offload</td>
+                                        <td>62.5%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2023 Web3 Crypto Streaming Service. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <script>
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('bi-moon')) {
+                icon.classList.replace('bi-moon', 'bi-sun');
+            } else {
+                icon.classList.replace('bi-sun', 'bi-moon');
+            }
+        });
+
+        // Connect wallet functionality
+        document.getElementById('connectWallet').addEventListener('click', async function () {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    this.innerHTML = `<i class="bi bi-wallet2"></i> ${account.slice(0, 6)}...${account.slice(-4)}`;
+                    this.classList.add('btn-success');
+
+                    // Get network info
+                    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                    console.log(`Connected to chain ${chainId}`);
+
+                    // If we're on a network we support, highlight it in the table
+                    highlightCurrentNetwork(chainId);
+
+                } catch (error) {
+                    console.error(error);
+                    alert('Error connecting wallet: ' + error.message);
+                }
+            } else {
+                alert('MetaMask is not installed. Please install it to use this feature.');
+            }
+        });
+
+        // Highlight current network in table
+        function highlightCurrentNetwork(chainId) {
+            const rows = document.querySelectorAll('#networksTable tr');
+            rows.forEach(row => {
+                const cellChainId = row.cells[1].textContent;
+                if (parseInt(cellChainId) === parseInt(chainId, 16)) {
+                    row.style.backgroundColor = 'rgba(108, 92, 231, 0.1)';
+                    row.style.fontWeight = 'bold';
+                }
+            });
+        }
+
+        // Fetch current gas prices
+        async function fetchGasPrices() {
+            try {
+                // In a real app, this would make an API call
+                // For demo, we're simulating
+
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Update with simulated data
+                document.getElementById('ethGas').textContent = (Math.random() * 30 + 15).toFixed(1);
+
+            } catch (error) {
+                console.error('Failed to fetch gas prices:', error);
+            }
+        }
+
+        // Simulate API status updates
+        async function updateApiStatus() {
+            try {
+                // In a real app, this would check actual API status
+                const apiStats = {
+                    cacheHitRate: (Math.random() * 10 + 80).toFixed(1) + '%',
+                    responseTime: Math.floor(Math.random() * 100 + 180) + 'ms',
+                    successRate: (99 + Math.random()).toFixed(1) + '%'
+                };
+
+                // Update stats in real time (in a real app)
+                console.log('Updated API stats:', apiStats);
+
+                // Schedule next update
+                setTimeout(updateApiStatus, 30000);
+
+            } catch (error) {
+                console.error('Failed to update API status:', error);
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchGasPrices();
+            updateApiStatus();
+
+            // Check if wallet is already connected
+            if (window.ethereum && window.ethereum.selectedAddress) {
+                const walletButton = document.getElementById('connectWallet');
+                const account = window.ethereum.selectedAddress;
+                walletButton.innerHTML = `<i class="bi bi-wallet2"></i> ${account.slice(0, 6)}...${account.slice(-4)}`;
+                walletButton.classList.add('btn-success');
+            }
+        });
+    </script>
+</body>
+
+</html>

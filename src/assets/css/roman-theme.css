@@ -1,0 +1,122 @@
+/**
+ * Roman Theme - Classic and Elegant Style for Transaction UI
+ */
+
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
+
+.roman-theme {
+    --roman-primary: #8B4513;
+    --roman-secondary: #D4AF37;
+    --roman-background: #fcf8f3;
+    --roman-border: #d5c3aa;
+    --roman-text-primary: #5D4037;
+    --roman-text-secondary: #8D6E63;
+    --roman-accent-red: #B71C1C;
+    --roman-accent-green: #2E7D32;
+    --roman-light-bg: #f9f5ef;
+
+    font-family: 'Cinzel', serif;
+    color: var(--roman-text-primary);
+}
+
+.roman-title {
+    font-family: 'Trajan Pro', 'Times New Roman', serif;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    color: var(--roman-primary);
+    text-transform: uppercase;
+}
+
+.roman-card {
+    background-color: var(--roman-background);
+    border: 1px solid var(--roman-border);
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 6px rgba(120, 90, 60, 0.15);
+}
+
+.roman-card-header {
+    border-bottom: 1px solid var(--roman-border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.roman-btn {
+    border: 1px solid var(--roman-border);
+    background: linear-gradient(to bottom, #f9e8d5, #e8cbae);
+    color: var(--roman-primary);
+    padding: 0.5rem 1rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.roman-btn:hover {
+    background: linear-gradient(to bottom, #e8cbae, #d5b794);
+    color: var(--roman-text-primary);
+}
+
+.roman-btn-primary {
+    background: linear-gradient(to bottom, #8B4513, #654321);
+    color: #F9E7CF;
+    border-color: #654321;
+}
+
+.roman-btn-primary:hover {
+    background: linear-gradient(to bottom, #956839, #8B4513);
+    color: #F9E7CF;
+}
+
+.roman-badge {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--roman-border);
+}
+
+/* Decorative elements */
+.roman-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--roman-border), transparent);
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.roman-divider::before {
+    content: '•';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--roman-background);
+    padding: 0 1rem;
+    color: var(--roman-secondary);
+    font-size: 1rem;
+}
+
+.roman-scroll-decoration {
+    position: relative;
+    padding: 0 1.5rem;
+}
+
+.roman-scroll-decoration::before,
+.roman-scroll-decoration::after {
+    content: '❧';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--roman-secondary);
+    font-size: 1.25rem;
+}
+
+.roman-scroll-decoration::before {
+    left: 0;
+}
+
+.roman-scroll-decoration::after {
+    right: 0;
+    transform: translateY(-50%) scaleX(-1);
+}

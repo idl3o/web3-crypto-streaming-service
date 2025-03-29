@@ -1,0 +1,16 @@
+[Unit]
+Description=Web3 Crypto Streaming Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+Environment=PODMAN_SYSTEMD_UNIT=%n
+ExecStart=/usr/local/bin/web3-crypto-service
+ExecStop=/usr/bin/podman-compose down
+WorkingDirectory=/opt/web3-crypto
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

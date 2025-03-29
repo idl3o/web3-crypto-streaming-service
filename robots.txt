@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /state/
+Disallow: /scripts/
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Crawl-delay for rate limiting
+Crawl-delay: 10

@@ -1,0 +1,265 @@
+<div class="team-container">
+    <!-- Current Contributors -->
+    <div class="team-section">
+        <h3 class="section-title">Current Contributors</h3>
+        <div class="team-grid">
+            {% assign contributors = site.data.contributors %}
+            {% for contributor in contributors %}
+            <div class="team-member">
+                <div class="member-avatar">
+                    <img src="{{ contributor.image }}" alt="{{ contributor.name }}"
+                        onerror="this.src='/assets/images/team/default-avatar.svg'">
+                </div>
+                <h4>{{ contributor.name }}</h4>
+                <div class="member-role">{{ contributor.role }}</div>
+                <p class="member-bio">{{ contributor.bio }}</p>
+                <div class="social-links">
+                    {% for link in contributor.social_links %}
+                    <a href="{{ link.url }}" target="_blank" rel="noopener" aria-label="{{ link.platform }}">
+                        {{ link.icon }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Ideal Contributors -->
+    <div class="team-section">
+        <h3 class="section-title">Join Our Team</h3>
+        <p class="section-description">We're looking for passionate individuals to build the future of decentralized
+            content streaming.</p>
+        <div class="ideal-contributors">
+            {% assign roles = site.data.ideal_roles %}
+            {% for role in roles %}
+            <div class="contributor-role">
+                <h4>{{ role.title }}</h4>
+                <ul class="role-requirements">
+                    {% for requirement in role.requirements %}
+                    <li>{{ requirement }}</li>
+                    {% endfor %}
+                </ul>
+                <a href="mailto:join@web3streaming.example" class="apply-button">Apply Now</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .team-container {
+        margin-top: 3rem;
+    }
+
+    .team-section {
+        margin-bottom: 5rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--light);
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 60%;
+        height: 3px;
+        background: var(--gradient-primary);
+        border-radius: 3px;
+    }
+
+    .section-description {
+        max-width: 800px;
+        margin-bottom: 3rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Current Team Members */
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .team-member {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius);
+        padding: 2.5rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-top: 3px solid var(--primary);
+    }
+
+    .team-member:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+    }
+
+    .member-avatar {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        overflow: hidden;
+        background: var(--gradient-secondary);
+        padding: 3px;
+    }
+
+    .member-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .team-member h4 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: var(--light);
+    }
+
+    .member-role {
+        color: var(--secondary);
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+    }
+
+    .member-bio {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--light);
+        transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+        background-color: var(--primary);
+        transform: translateY(-3px);
+        color: white;
+    }
+
+    /* Ideal Contributors */
+    .ideal-contributors {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .contributor-role {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contributor-role:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+    }
+
+    .contributor-role h4 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+        color: var(--secondary);
+        position: relative;
+        padding-bottom: 0.8rem;
+    }
+
+    .contributor-role h4:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: var(--gradient-secondary);
+    }
+
+    .role-requirements {
+        list-style-type: none;
+        margin: 0 0 1.5rem 0;
+        padding: 0;
+        flex-grow: 1;
+    }
+
+    .role-requirements li {
+        padding: 0.5rem 0;
+        position: relative;
+        padding-left: 1.5rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .role-requirements li:before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--secondary);
+    }
+
+    .apply-button {
+        display: inline-block;
+        padding: 0.7rem 1.2rem;
+        background-color: transparent;
+        border: 1px solid var(--secondary);
+        color: var(--secondary);
+        border-radius: var(--border-radius);
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+        margin-top: auto;
+    }
+
+    .apply-button:hover {
+        background-color: var(--secondary);
+        color: var(--dark);
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 1.8rem;
+        }
+
+        .team-grid,
+        .ideal-contributors {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+        }
+
+        .contributor-role {
+            padding: 1.5rem;
+        }
+    }
+</style>

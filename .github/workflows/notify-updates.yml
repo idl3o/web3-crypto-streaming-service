@@ -1,0 +1,36 @@
+name: Notify Collaborators
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get Changes
+        id: changes
+        run: |
+          echo "::set-output name=files::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | tr '\n' ' ')"
+          
+      - name: Create Summary
+        if: github.event_name == 'push'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const summary = `🔄 Repository Update
+              Branch: ${process.env.GITHUB_REF}
+              Changed files: ${process.env.CHANGED_FILES}
+              Commit: ${process.env.GITHUB_SHA}
+            `;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: summary
+            });

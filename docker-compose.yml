@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: ${NODE_ENV:-development}
+    container_name: web3-crypto-streaming-app
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=${PORT:-8080}
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - .env
+    networks:
+      - web3-network
+    depends_on:
+      - ipfs
+
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: web3-crypto-ipfs
+    restart: unless-stopped
+    volumes:
+      - ipfs_data:/data/ipfs
+      - ipfs_export:/export
+    environment:
+      - IPFS_PROFILE=server
+    ports:
+      - "5001:5001" # API
+      - "8081:8080" # Gateway
+    networks:
+      - web3-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: web3-crypto-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/ssl:/etc/nginx/ssl
+    depends_on:
+      - app
+    networks:
+      - web3-network
+    profiles:
+      - production
+
+networks:
+  web3-network:
+    driver: bridge
+
+volumes:
+  ipfs_data:
+  ipfs_export:

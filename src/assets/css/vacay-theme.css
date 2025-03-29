@@ -1,0 +1,301 @@
+/**
+ * Vacay Theme - Relaxing Beach Vacation Style for Transaction UI
+ */
+
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.vacay-theme {
+    --vacay-primary: #2196f3;
+    --vacay-secondary: #00bcd4;
+    --vacay-accent: #ff9800;
+    --vacay-background: #ffffff;
+    --vacay-card: #f7fdff;
+    --vacay-border: #e0f7fa;
+    --vacay-text: #263238;
+    --vacay-text-light: #546e7a;
+    --vacay-success: #26a69a;
+    --vacay-error: #ef5350;
+    --vacay-warning: #ffb74d;
+
+    /* Beach colors */
+    --vacay-sand: #f5e6ca;
+    --vacay-ocean: #64b5f6;
+    --vacay-sunset: #ff7043;
+    --vacay-palm: #66bb6a;
+
+    /* Shadows */
+    --vacay-shadow-sm: 0 2px 8px rgba(0, 188, 212, 0.1);
+    --vacay-shadow: 0 4px 12px rgba(0, 188, 212, 0.15);
+    --vacay-shadow-lg: 0 8px 24px rgba(0, 188, 212, 0.2);
+
+    /* Transitions */
+    --vacay-transition: all 0.3s ease;
+
+    font-family: 'Poppins', sans-serif;
+    color: var(--vacay-text);
+    background-color: #f8fdff;
+    background-image: linear-gradient(120deg, #e0f7fa 0%, #ffffff 100%);
+}
+
+/* Typography */
+.vacay-theme h1,
+.vacay-theme h2,
+.vacay-theme h3 {
+    font-family: 'Pacifico', cursive;
+    font-weight: normal;
+    color: var(--vacay-primary);
+}
+
+.vacay-theme h4,
+.vacay-theme h5,
+.vacay-theme h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+/* Cards */
+.vacay-card {
+    background-color: var(--vacay-card);
+    border-radius: 16px;
+    box-shadow: var(--vacay-shadow);
+    border: none;
+    overflow: hidden;
+    transition: var(--vacay-transition);
+}
+
+.vacay-card:hover {
+    box-shadow: var(--vacay-shadow-lg);
+}
+
+/* Card header */
+.vacay-card-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--vacay-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(224, 247, 250, 0.3);
+}
+
+/* Buttons */
+.vacay-btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    border: none;
+    transition: var(--vacay-transition);
+    box-shadow: var(--vacay-shadow-sm);
+}
+
+.vacay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vacay-shadow);
+}
+
+.vacay-btn-primary {
+    background: linear-gradient(135deg, var(--vacay-primary), var(--vacay-secondary));
+    color: white;
+}
+
+/* Badges */
+.vacay-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: var(--vacay-shadow-sm);
+}
+
+/* Stats */
+.vacay-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.vacay-stat {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--vacay-transition);
+    box-shadow: var(--vacay-shadow-sm);
+    border-bottom: 3px solid var(--vacay-primary);
+}
+
+.vacay-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--vacay-shadow);
+}
+
+.vacay-stat:nth-child(1) {
+    border-bottom-color: var(--vacay-ocean);
+}
+
+.vacay-stat:nth-child(2) {
+    border-bottom-color: var(--vacay-sunset);
+}
+
+.vacay-stat:nth-child(3) {
+    border-bottom-color: var(--vacay-palm);
+}
+
+.vacay-stat:before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--vacay-primary);
+    opacity: 0.05;
+}
+
+.vacay-stat-label {
+    font-size: 0.875rem;
+    color: var(--vacay-text-light);
+    margin-top: 0.5rem;
+}
+
+.vacay-stat-value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--vacay-text);
+}
+
+/* Tabs */
+.vacay-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    padding: 0.25rem;
+    background-color: rgba(224, 247, 250, 0.3);
+    border-radius: 50px;
+}
+
+.vacay-tab {
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--vacay-transition);
+    color: var(--vacay-text-light);
+}
+
+.vacay-tab.active {
+    background-color: white;
+    color: var(--vacay-primary);
+    box-shadow: var(--vacay-shadow-sm);
+}
+
+/* Lists */
+.vacay-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.vacay-list-item {
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: var(--vacay-transition);
+    position: relative;
+    border-left: 0px solid var(--vacay-primary);
+    box-shadow: var(--vacay-shadow-sm);
+}
+
+.vacay-list-item:hover {
+    background-color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--vacay-shadow);
+    border-left-width: 4px;
+}
+
+/* Decorative elements */
+.vacay-section-header {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    display: inline-block;
+}
+
+.vacay-section-header:after {
+    content: '🏝️';
+    position: absolute;
+    bottom: -5px;
+    right: -20px;
+    font-size: 1.25rem;
+}
+
+/* Transaction list special styling */
+.vacay-theme .transaction-item {
+    border-radius: 12px !important;
+    margin-bottom: 0.75rem;
+    border: none !important;
+    box-shadow: var(--vacay-shadow-sm);
+    overflow: hidden;
+    border-left: 3px solid var(--vacay-primary) !important;
+}
+
+.vacay-theme .transaction-item.stream-payment {
+    border-left-color: var(--vacay-ocean) !important;
+}
+
+.vacay-theme .transaction-item.essence-earned {
+    border-left-color: var(--vacay-palm) !important;
+}
+
+.vacay-theme .transaction-item.token-minted {
+    border-left-color: var(--vacay-sunset) !important;
+}
+
+/* Wave animation for the section separator */
+.vacay-wave {
+    position: relative;
+    height: 70px;
+    width: 100%;
+    background: #f8fdff;
+    margin-bottom: 2rem;
+}
+
+.vacay-wave::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 10px;
+    background-image: linear-gradient(to right,
+            transparent 0%, rgba(0, 188, 212, 0.7) 50%, transparent 100%),
+        linear-gradient(to right,
+            transparent 0%, rgba(0, 188, 212, 0.3) 50%, transparent 100%);
+    background-size: 200% 200%;
+    background-position: 0 0, 0 100%;
+    animation: wave 10s linear infinite;
+}
+
+@keyframes wave {
+
+    0%,
+    100% {
+        background-position: 0% 0%, 0% 100%;
+    }
+
+    50% {
+        background-position: 100% 0%, 100% 100%;
+    }
+}

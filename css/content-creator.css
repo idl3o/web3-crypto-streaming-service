@@ -1,0 +1,183 @@
+/* Content Creator & Streaming Styles */
+
+/* Upload Area */
+.border-dashed {
+    border-style: dashed !important;
+    border-width: 2px !important;
+    border-color: #ddd !important;
+    transition: all 0.3s ease;
+}
+
+.upload-placeholder {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.upload-placeholder:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+}
+
+/* Progress Bar Styles */
+.progress {
+    background-color: #f0f0f0;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: var(--primary);
+    transition: width 0.5s ease;
+}
+
+/* Tag Styles */
+.tags-container .badge {
+    padding: 0.5em 0.8em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.tags-container .badge:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Editor Styles */
+.editor-toolbar {
+    border-radius: 0.375rem;
+}
+
+.editor-content {
+    min-height: 200px;
+    transition: all 0.2s ease;
+    border-color: #dee2e6 !important;
+}
+
+.editor-content:focus-within {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.15);
+}
+
+/* Content Cards */
+.content-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.content-thumbnail {
+    height: 180px;
+    object-fit: cover;
+    background-color: #f0f0f0;
+}
+
+/* Streaming Player */
+.streaming-player {
+    background-color: #000;
+    position: relative;
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.streaming-player .placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #232323;
+    color: #777;
+}
+
+.streaming-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: opacity 0.3s ease;
+}
+
+.streaming-player:not(:hover) .streaming-controls {
+    opacity: 0;
+}
+
+.streaming-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--primary);
+    transition: width 0.1s linear;
+}
+
+/* Stream Info Box */
+.stream-info {
+    padding: 1.5rem;
+    border-radius: 0.375rem;
+    background-color: #f8fafc;
+    border-left: 4px solid var(--primary);
+}
+
+.stream-metrics {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.stream-metric {
+    background-color: white;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    flex: 1;
+}
+
+.stream-metric .value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Live Indicator */
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.live-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--danger);
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}

@@ -1,0 +1,46 @@
+</div><!-- /.wrapper -->
+</div><!-- /.page-content -->
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>Web3 Crypto Streaming Service</h3>
+            <p>{{ site.description }}</p>
+        </div>
+        <div class="footer-col">
+            <h3>Links</h3>
+            <ul>
+                <li><a href="{{ '/privacy' | relative_url }}">Privacy Policy</a></li>
+                <li><a href="{{ '/terms' | relative_url }}">Terms of Service</a></li>
+                <li><a href="{{ '/whitepaper' | relative_url }}">Whitepaper</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Connect</h3>
+            <ul class="social-media-list">
+                {% if site.twitter_username %}
+                <li>
+                    <a href="https://twitter.com/{{ site.twitter_username }}">
+                        <span>Twitter</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% if site.github_username %}
+                <li>
+                    <a href="https://github.com/{{ site.github_username }}">
+                        <span>GitHub</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; {{ site.time | date: '%Y' }} Web3 Crypto Streaming Service | All rights reserved</p>
+    </div>
+</footer>
+
+<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+
+</html>

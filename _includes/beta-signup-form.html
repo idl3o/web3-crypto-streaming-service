@@ -1,0 +1,30 @@
+<form class="beta-signup-form" action="#" method="post">
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+    </div>
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+        <label>I am a:</label>
+        <div class="checkbox-group">
+            <input type="checkbox" id="creator" name="user_type" value="creator">
+            <label for="creator">Content Creator</label>
+
+            <input type="checkbox" id="viewer" name="user_type" value="viewer">
+            <label for="viewer">Viewer</label>
+
+            <input type="checkbox" id="developer" name="user_type" value="developer">
+            <label for="developer">Developer</label>
+        </div>
+    </div>
+
+    <button type="submit" class="button primary">Sign Up for Beta</button>
+
+    <p class="form-disclaimer">By signing up, you agree to our <a href="{{ '/terms' | relative_url }}">Terms of
+            Service</a> and <a href="{{ '/privacy' | relative_url }}">Privacy Policy</a>.</p>
+</form>

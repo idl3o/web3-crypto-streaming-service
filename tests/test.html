@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Crypto Streaming - Test Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            color: #8B4513;
+        }
+
+        .container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #704012;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .wallet-section {
+            margin-bottom: 20px;
+        }
+
+        .wallet-address {
+            font-family: monospace;
+            padding: 5px;
+            background-color: #f5f5f5;
+            border-radius: 3px;
+        }
+
+        .stream-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .log-section {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Web3 Crypto Streaming Test Page</h1>
+    <p>Use this page to test basic functionality of the Web3 Crypto Streaming Service</p>
+
+    <div class="container wallet-section">
+        <h2>Wallet Connection</h2>
+        <div id="wallet-status">Not connected</div>
+        <button id="connect-wallet">Connect Wallet</button>
+        <div id="wallet-address" class="wallet-address" style="display:none;"></div>
+    </div>
+
+    <div class="container">
+        <h2>Test Stream</h2>
+        <div>
+            <label for="stream-url">Stream URL:</label>
+            <input type="text" id="stream-url" value="https://example.com/test-stream" style="width:100%;">
+        </div>
+        <div class="stream-controls">
+            <button id="start-stream" disabled>Start Stream</button>
+            <button id="stop-stream" disabled>Stop Stream</button>
+            <span id="stream-status">Inactive</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Test Payment</h2>
+        <div>
+            <label for="amount">Amount ($STREAM):</label>
+            <input type="number" id="amount" value="1.0" min="0.1" step="0.1">
+        </div>
+        <button id="send-payment" disabled>Send Payment</button>
+    </div>
+
+    <div class="container">
+        <h2>Event Log</h2>
+        <div id="log-output" class="log-section"></div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const connectWalletBtn = document.getElementById('connect-wallet');
+        const walletStatus = document.getElementById('wallet-status');
+        const walletAddressElement = document.getElementById('wallet-address');
+        const startStreamBtn = document.getElementById('start-stream');
+        const stopStreamBtn = document.getElementById('stop-stream');
+        const streamStatus = document.getElementById('stream-status');
+        const sendPaymentBtn = document.getElementById('send-payment');
+        const logOutput = document.getElementById('log-output');
+
+        // State
+        let walletConnected = false;
+        let walletAddress = '';
+        let streamActive = false;
+
+        // Helper to log events
+        function logEvent(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logOutput.appendChild(logEntry);
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        // Connect wallet
+        connectWalletBtn.addEventListener('click', async () => {
+            logEvent('Requesting wallet connection...');
+
+            try {
+                // Check if MetaMask is available
+                if (typeof window.ethereum !== 'undefined') {
+                    const accounts = await window.ethereum.request({
+                        method: 'eth_requestAccounts'
+                    });
+
+                    walletAddress = accounts[0];
+                    walletConnected = true;
+
+                    // Update UI
+                    walletStatus.textContent = 'Connected';
+                    walletAddressElement.textContent = walletAddress;
+                    walletAddressElement.style.display = 'block';
+
+                    // Enable buttons
+                    startStreamBtn.disabled = false;
+                    sendPaymentBtn.disabled = false;
+
+                    logEvent(`Connected to wallet: ${walletAddress}`);
+                } else {
+                    logEvent('Error: MetaMask not detected');
+                    walletStatus.textContent = 'Error: MetaMask not detected';
+                }
+            } catch (error) {
+                logEvent(`Connection error: ${error.message}`);
+                walletStatus.textContent = 'Connection failed';
+            }
+        });
+
+        // Stream controls
+        startStreamBtn.addEventListener('click', () => {
+            const streamUrl = document.getElementById('stream-url').value;
+
+            streamActive = true;
+            startStreamBtn.disabled = true;
+            stopStreamBtn.disabled = false;
+            streamStatus.textContent = 'Active';
+
+            logEvent(`Started stream: ${streamUrl}`);
+        });
+
+        stopStreamBtn.addEventListener('click', () => {
+            streamActive = false;
+            startStreamBtn.disabled = false;
+            stopStreamBtn.disabled = true;
+            streamStatus.textContent = 'Inactive';
+
+            logEvent('Stopped stream');
+        });
+
+        // Payment
+        sendPaymentBtn.addEventListener('click', async () => {
+            const amount = document.getElementById('amount').value;
+
+            logEvent(`Sending payment of ${amount} $STREAM tokens...`);
+
+            // Simulate payment delay
+            setTimeout(() => {
+                logEvent(`Payment of ${amount} $STREAM tokens successful!`);
+            }, 1500);
+        });
+
+        // Init
+        logEvent('Page loaded, ready for testing');
+    </script>
+</body>
+
+</html>

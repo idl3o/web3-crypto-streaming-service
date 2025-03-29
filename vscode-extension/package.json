@@ -1,0 +1,53 @@
+{
+    "name": "crypto-codex",
+    "displayName": "Crypto Codex",
+    "description": "Interactive coding assistant for Web3 Crypto Streaming Service",
+    "version": "0.1.0",
+    "publisher": "your-publisher",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:cryptoCodex.optimize",
+        "onCommand:cryptoCodex.analyze",
+        "onCommand:cryptoCodex.startStream"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "cryptoCodex.optimize",
+                "title": "Crypto Codex: Optimize Code"
+            },
+            {
+                "command": "cryptoCodex.analyze",
+                "title": "Crypto Codex: Analyze Code"
+            },
+            {
+                "command": "cryptoCodex.startStream",
+                "title": "Crypto Codex: Start Price Stream"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "cryptoCodex.optimize",
+                "key": "ctrl+shift+o",
+                "mac": "cmd+shift+o"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.60.0",
+        "@types/node": "^16.x",
+        "typescript": "^4.x"
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "JuanBlanco.solidity",
+    "Vue.volar",
+    "redhat.vscode-yaml",
+    "mikestead.dotenv",
+    "streetsidesoftware.code-spell-checker",
+    "christian-kohler.npm-intellisense",
+    "eamodio.gitlens",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode-remote.remote-containers",
+    "visualstudioexptteam.vscodeintellicode"
+  ]
+}

@@ -1,0 +1,286 @@
+/* Global Responsive Utilities */
+
+/* Breakpoints */
+:root {
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
+}
+
+/* Responsive Containers */
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Responsive Grid System */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+/* Responsive Column Classes */
+.col {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Responsive Visibility Classes */
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+/* Responsive Text Classes */
+.text-center-sm {
+    text-align: center;
+}
+
+/* Responsive Spacing */
+.mt-resp {
+    margin-top: 1rem;
+}
+
+.mb-resp {
+    margin-bottom: 1rem;
+}
+
+/* Media Queries */
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+
+    .d-sm-none {
+        display: none !important;
+    }
+
+    .d-sm-block {
+        display: block !important;
+    }
+
+    .d-sm-flex {
+        display: flex !important;
+    }
+
+    .text-center-sm {
+        text-align: inherit;
+    }
+
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .d-md-none {
+        display: none !important;
+    }
+
+    .d-md-block {
+        display: block !important;
+    }
+
+    .d-md-flex {
+        display: flex !important;
+    }
+
+    .col-md-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-md-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .mt-resp-md {
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .d-lg-none {
+        display: none !important;
+    }
+
+    .d-lg-block {
+        display: block !important;
+    }
+
+    .d-lg-flex {
+        display: flex !important;
+    }
+
+    .col-lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+
+    .col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-lg-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+    }
+
+    .col-lg-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    .d-xl-none {
+        display: none !important;
+    }
+
+    .d-xl-block {
+        display: block !important;
+    }
+}
+
+/* Touch-friendly adjustments */
+@media (hover: none) {
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .card-hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Responsive Flex Utilities */
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .flex-md-row {
+        flex-direction: row;
+    }
+
+    .flex-md-column {
+        flex-direction: column;
+    }
+}
+
+/* Responsive Font Sizes */
+.responsive-text {
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .responsive-text {
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* Responsive styles for Web3 Crypto Streaming Service */
+
+/* Theme imports */
+@import './themes/uranium-green.css';
+
+/* Theme support */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Allows theme classes to override defaults */
+.container, .card, .panel, .form-control, input, select, button {
+    transition: all 0.3s ease;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+    /* Theme-specific responsive adjustments */
+    .uranium-theme .glass-panel {
+        backdrop-filter: blur(5px); /* Less intensive blur on mobile */
+    }
+
+    .uranium-theme .glow-text {
+        text-shadow: 0 0 5px var(--uranium-primary); /* Reduced glow effect on mobile */
+    }
+}

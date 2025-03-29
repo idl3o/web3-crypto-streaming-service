@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CryptoStream</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
+    <link rel="stylesheet" href="css/dashboard-2023.css">
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-light">
+    <!-- Top Navigation Bar for Mobile -->
+    <nav class="navbar navbar-dark bg-dark d-md-none fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-stream me-2"></i>CryptoStream</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4 d-none d-md-block">
+                        <a href="index.html" class="text-decoration-none">
+                            <h4 class="text-white"><i class="fas fa-stream me-2"></i>CryptoStream</h4>
+                        </a>
+                    </div>
+
+                    <!-- User Profile Summary -->
+                    <div class="user-profile text-center mb-4">
+                        <div class="avatar-container mb-2">
+                            <img src="images/avatar-placeholder.jpg" alt="User Avatar" class="avatar rounded-circle">
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <h6 class="text-white mb-0">Alex Johnson</h6>
+                        <small class="text-white-50">Premium Account</small>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-exchange-alt me-2"></i>Transactions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-wallet me-2"></i>Wallet
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-chart-line me-2"></i>Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white-50" href="#">
+                                <i class="fas fa-question-circle me-2"></i>Help Center
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr class="text-white-50 my-3">
+
+                    <div class="px-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-white-50">Storage</span>
+                            <small class="text-white-50">70%</small>
+                        </div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-bottom mt-auto text-center">
+                        <a class="btn btn-outline-danger btn-sm w-75" href="#">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 content-wrapper">
+                <!-- Welcome Header with Quick Actions -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="h3 mb-2">Welcome, Alex</h1>
+                        <p class="text-muted">Here's what's happening with your account today.</p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+                        <button class="btn btn-primary me-2">
+                            <i class="fas fa-plus me-1"></i> New Stream
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="quickActions"
+                                data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h me-1"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quickActions">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i>Export
+                                        Data</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-sync me-2"></i>Refresh</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-share-alt me-2"></i>Share</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Status Alert -->
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4"
+                    role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <div>
+                        All systems operational. Network gas fees are currently low - great time for transactions!
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-primary-subtle rounded-circle me-3">
+                                        <i class="fas fa-wallet text-primary"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Total Balance</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">4.28 ETH</h3>
+                                <p class="card-text text-success mb-0">+2.5% <small class="text-muted">from last
+                                        week</small></p>
+                                <div class="sparkline mt-3" id="balanceSparkline"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-info-subtle rounded-circle me-3">
+                                        <i class="fas fa-stream text-info"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Active Streams</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">12</h3>
+                                <p class="card-text text-primary mb-0">+3 <small class="text-muted">new today</small>
+                                </p>
+                                <div class="progress mt-3" style="height: 6px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-success-subtle rounded-circle me-3">
+                                        <i class="fas fa-arrow-down text-success"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Incoming</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">1.45 ETH</h3>
+                                <p class="card-text text-success mb-0">+0.3 ETH <small class="text-muted">today</small>
+                                </p>
+                                <div class="sparkline mt-3" id="incomingSparkline"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card border-0 shadow-sm h-100 stat-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="stat-icon bg-danger-subtle rounded-circle me-3">
+                                        <i class="fas fa-arrow-up text-danger"></i>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted mb-0">Outgoing</h6>
+                                </div>
+                                <h3 class="card-text fw-bold">0.87 ETH</h3>
+                                <p class="card-text text-danger mb-0">-0.12 ETH <small class="text-muted">today</small>
+                                </p>
+                                <div class="sparkline mt-3" id="outgoingSparkline"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div
+                                class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Payment Activity</h5>
+                                <div class="btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-outline-secondary active">Weekly</button>
+                                    <button type="button" class="btn btn-outline-secondary">Monthly</button>
+                                    <button type="button" class="btn btn-outline-secondary">Yearly</button>
+                                </div>
+                            </div>
+                            <div class="card-body chart-container">
+                                <div class="chart-wrapper">
+                                    <canvas id="activityChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div
+                                class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Token Distribution</h5>
+                                <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" title="View Details">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="card-body chart-container">
+                                <div class="chart-wrapper">
+                                    <canvas id="distributionChart" height="250"></canvas>
+                                </div>
+                                <div class="token-stats mt-3 text-center">
+                                    <div class="row g-2">
+                                        <div class="col-4">
+                                            <div class="token-stat p-2">
+                                                <h6 class="mb-0 text-primary">ETH</h6>
+                                                <p class="mb-0 small">65%</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="token-stat p-2">
+                                                <h6 class="mb-0 text-success">USDC</h6>
+                                                <p class="mb-0 small">15%</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="token-stat p-2">
+                                                <h6 class="mb-0 text-warning">DAI</h6>
+                                                <p class="mb-0 small">10%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Streams & Recent Transactions -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div
+                                class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Active Streams</h5>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Manage All</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="stream-icon bg-primary-subtle rounded-circle me-3">
+                                                <i class="fas fa-arrow-down text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">Monthly Subscription</h6>
+                                                <small class="text-muted">0.05 ETH/month</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="stream-icon bg-danger-subtle rounded-circle me-3">
+                                                <i class="fas fa-arrow-up text-danger"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">Team Payroll</h6>
+                                                <small class="text-muted">0.2 ETH/week</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="stream-icon bg-warning-subtle rounded-circle me-3">
+                                                <i class="fas fa-arrow-up text-warning"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">Server Costs</h6>
+                                                <small class="text-muted">0.01 ETH/day</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-warning">Low Balance</span>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="stream-icon bg-info-subtle rounded-circle me-3">
+                                                <i class="fas fa-arrow-down text-info"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">Client Payment</h6>
+                                                <small class="text-muted">0.3 ETH/project</small>
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- Recent Transactions Table -->
+                        <div class="card border-0 shadow-sm h-100">
+                            <div
+                                class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Recent Transactions</h5>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col">Transaction ID</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>0x83f...7e2b</td>
+                                                <td><span class="badge bg-success">Incoming</span></td>
+                                                <td>2023-06-15 14:32</td>
+                                                <td>0.5 ETH</td>
+                                                <td><span class="badge bg-success">Completed</span></td>
+                                                <td><button class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        title="View Details"><i class="fas fa-eye"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>0x72a...9c1d</td>
+                                                <td><span class="badge bg-danger">Outgoing</span></td>
+                                                <td>2023-06-14 09:17</td>
+                                                <td>0.3 ETH</td>
+                                                <td><span class="badge bg-success">Completed</span></td>
+                                                <td><button class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        title="View Details"><i class="fas fa-eye"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>0x91c...4f6a</td>
+                                                <td><span class="badge bg-success">Incoming</span></td>
+                                                <td>2023-06-13 22:05</td>
+                                                <td>0.8 ETH</td>
+                                                <td><span class="badge bg-warning">Pending</span></td>
+                                                <td><button class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        title="View Details"><i class="fas fa-eye"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>0x45e...2d8f</td>
+                                                <td><span class="badge bg-danger">Outgoing</span></td>
+                                                <td>2023-06-12 11:30</td>
+                                                <td>0.2 ETH</td>
+                                                <td><span class="badge bg-success">Completed</span></td>
+                                                <td><button class="btn btn-sm btn-icon" data-bs-toggle="tooltip"
+                                                        title="View Details"><i class="fas fa-eye"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions & Gas Tracker -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <h5 class="card-title mb-0">Quick Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="quick-action d-flex flex-column align-items-center p-3">
+                                            <div class="quick-action-icon bg-primary-subtle rounded-circle mb-2">
+                                                <i class="fas fa-plus text-primary"></i>
+                                            </div>
+                                            <span>New Stream</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="quick-action d-flex flex-column align-items-center p-3">
+                                            <div class="quick-action-icon bg-success-subtle rounded-circle mb-2">
+                                                <i class="fas fa-exchange-alt text-success"></i>
+                                            </div>
+                                            <span>Transfer</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="quick-action d-flex flex-column align-items-center p-3">
+                                            <div class="quick-action-icon bg-info-subtle rounded-circle mb-2">
+                                                <i class="fas fa-qrcode text-info"></i>
+                                            </div>
+                                            <span>Receive</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="quick-action d-flex flex-column align-items-center p-3">
+                                            <div class="quick-action-icon bg-warning-subtle rounded-circle mb-2">
+                                                <i class="fas fa-history text-warning"></i>
+                                            </div>
+                                            <span>History</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="quick-action d-flex flex-column align-items-center p-3">
+                                            <div class="quick-action-icon bg-danger-subtle rounded-circle mb-2">
+                                                <i class="fas fa-stop-circle text-danger"></i>
+                                            </div>
+                                            <span>Stop Stream</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="quick-action d-flex flex-column align-items-center p-3">
+                                            <div class="quick-action-icon bg-secondary-subtle rounded-circle mb-2">
+                                                <i class="fas fa-cog text-secondary"></i>
+                                            </div>
+                                            <span>Settings</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <h5 class="card-title mb-0">Gas Tracker</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-center mb-4">
+                                    <div class="col">
+                                        <h6 class="mb-2">Current Gas Price</h6>
+                                        <div class="d-flex align-items-center">
+                                            <h3 class="mb-0">15</h3>
+                                            <span class="ms-2 text-muted">GWEI</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="gas-indicator text-success">
+                                            <i class="fas fa-circle me-1"></i> Low
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="gas-options">
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-4">
+                                            <div class="gas-option p-2 text-center active">
+                                                <div class="d-flex justify-content-between px-1">
+                                                    <span class="text-muted small">Slow</span>
+                                                    <span class="text-success small">10 GWEI</span>
+                                                </div>
+                                                <p class="mb-0 small text-muted">~3 min</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="gas-option p-2 text-center">
+                                                <div class="d-flex justify-content-between px-1">
+                                                    <span class="text-muted small">Average</span>
+                                                    <span class="text-warning small">15 GWEI</span>
+                                                </div>
+                                                <p class="mb-0 small text-muted">~1 min</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="gas-option p-2 text-center">
+                                                <div class="d-flex justify-content-between px-1">
+                                                    <span class="text-muted small">Fast</span>
+                                                    <span class="text-danger small">25 GWEI</span>
+                                                </div>
+                                                <p class="mb-0 small text-muted">~30 sec</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="gas-trend mt-3">
+                                    <h6 class="mb-2">24h Gas Trend</h6>
+                                    <div class="chart-mini">
+                                        <canvas id="gasTrendChart" height="60"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="pt-3 mt-4 text-muted border-top">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+                        <p class="mb-2 mb-sm-0">&copy; 2023 CryptoStream. All rights reserved.</p>
+                        <div>
+                            <a href="#" class="text-muted me-3">Privacy Policy</a>
+                            <a href="#" class="text-muted me-3">Terms</a>
+                            <a href="#" class="text-muted">Support</a>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="js/dashboard-2023.js"></script>
+</body>
+
+</html>

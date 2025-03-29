@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Cryptocurrency Streaming Service</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Web3 Cryptocurrency Streaming Service</h1>
+    </header>
+    <main>
+        <section id="stream-creation">
+            <h2>Create a Stream</h2>
+            <form id="create-stream-form">
+                <label for="streamId">Stream ID:</label>
+                <input type="text" id="streamId" required>
+                <label for="streamData">Stream Data:</label>
+                <input type="text" id="streamData" required>
+                <button type="submit">Create Stream</button>
+            </form>
+        </section>
+        <section id="stream-status">
+            <h2>Check Stream Status</h2>
+            <form id="status-form">
+                <label for="statusStreamId">Stream ID:</label>
+                <input type="text" id="statusStreamId" required>
+                <button type="submit">Check Status</button>
+            </form>
+            <div id="status-result"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

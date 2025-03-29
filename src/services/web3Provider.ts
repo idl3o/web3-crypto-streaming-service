@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
 import { networkService } from './networkService';
+import { getCodespaceUrl, isCodespace, getRpcUrl } from '../config/codespace';
 
 // Configuration
 const USE_HTTP2 = process.env.VUE_APP_USE_HTTP2 !== 'false'; // Default to true unless explicitly disabled
@@ -11,6 +12,15 @@ interface Web3ProviderOptions {
   useHttp2?: boolean;
   maxRetries?: number;
   retryDelay?: number;
+}
+
+export function getProviderUrl(): string {
+  if (isCodespace()) {
+    return getRpcUrl();
+  }
+  
+  // Fallback to default provider URLs
+  return process.env.WEB3_PROVIDER || 'http://localhost:8545';
 }
 
 class Web3ProviderService {
@@ -93,7 +103,7 @@ class Web3ProviderService {
 
     // Create provider based on remaining configuration
     const provider = new ethers.providers.JsonRpcProvider({
-      url: `https://${network}.infura.io/v3/${apiKey}`,
+      url: getProviderUrl(),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

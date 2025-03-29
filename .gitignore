@@ -133,3 +133,7 @@ id3o-analysis/
 # Vagrant
 .vagrant/
 provisioning/scripts/bootstrap.sh
+
+# Codespaces
+.devcontainer/.env
+.vscode-server/.env

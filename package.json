@@ -13,7 +13,10 @@
     "launch": "node launcher.js",
     "webserv": "npm run build && node launcher.js",
     "vscode-server": "node vscode-server.js",
-    "vscode-server:install": "npm install code-server open"
+    "vscode-server:install": "npm install code-server open",
+    "prepare": "npm run build",
+    "codespace:dev": "GITHUB_CODESPACES=true npm run dev",
+    "codespace:test": "GITHUB_CODESPACES=true npm test"
   },
   "keywords": [
     "blockchain",

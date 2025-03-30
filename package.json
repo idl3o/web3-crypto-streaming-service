@@ -1,5 +1,5 @@
 {
-  "name": "web3-crypto-streaming-service",
+  "name": "@web3-crypto-streaming/service",
   "version": "1.0.0",
   "description": "Web3 Crypto Streaming Platform with advanced features",
   "main": "server.js",
@@ -29,7 +29,14 @@
     "ios:update": "npx cap update ios",
     "init-ios": "npx cap add ios",
     "build:babel": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps",
-    "build:prod": "NODE_ENV=production babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps false"
+    "build:prod": "NODE_ENV=production babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps false",
+    "publish:npm": "npm publish",
+    "publish:dry-run": "npm publish --dry-run",
+    "setup:github-registry": "node scripts/setup-github-registry.js",
+    "ci:fix-deps": "node scripts/ci/fix-dependencies.js",
+    "postinstall": "node -e \"console.log('\\nSetup completed! If you encounter any issues, run: npm run ci:fix-deps\\n')\"",
+    "setup:homepod": "node scripts/setup/homepod-setup.js",
+    "stream": "node scripts/streaming/stream.js"
   },
   "keywords": [
     "blockchain",
@@ -71,7 +78,10 @@
     "@openzeppelin/contracts": "^4.8.3",
     "qrcode.vue": "^3.4.0",
     "os-browserify": "^0.3.0",
-    "systeminformation": "^5.21.21"
+    "systeminformation": "^5.21.21",
+    "airplay-protocol": "^1.2.0",
+    "bonjour": "^3.5.0",
+    "mdns": "^2.7.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
@@ -125,7 +135,17 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "overrides": {
+    "semver": "^7.5.3"
+  },
   "browser": {
     "os": "os-browserify/browser"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web3-crypto-streaming/web3-crypto-streaming-service.git"
   }
 }

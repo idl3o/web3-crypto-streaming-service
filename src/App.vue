@@ -25,6 +25,13 @@
     </header>
     <WorldStatus />
 
+    <!-- GM Greeting Component -->
+    <GMGreeting 
+      :username="currentUser?.displayName" 
+      :auto-hide="true"
+      :hide-after-seconds="60"
+    />
+
     <!-- Quick Access Floating Button for Content Creation -->
     <div v-if="isWalletConnected && !isContentCreationPage" class="quick-create-btn">
       <router-link to="/create" class="btn btn-primary btn-circle">
@@ -115,6 +122,7 @@ import '@/assets/css/arc-theme.css'
 import '@/assets/css/vacay-theme.css'
 import { useScoreStore } from '@/stores/scoreStore'
 import ThemeToggler from './components/common/ThemeToggler.vue'
+import GMGreeting from './components/greeting/GMGreeting.vue'
 
 // Router
 const route = useRoute()

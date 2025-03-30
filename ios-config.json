@@ -1,0 +1,89 @@
+{
+    "appId": "com.web3crypto.streamingapp",
+    "appName": "Web3 Crypto Streaming",
+    "bundleId": "com.web3crypto.streamingapp",
+    "webDir": "dist",
+    "plugins": {
+        "SplashScreen": {
+            "launchAutoHide": true,
+            "backgroundColor": "#1d1d1d",
+            "androidSplashResourceName": "splash",
+            "androidScaleType": "CENTER_CROP",
+            "showSpinner": true,
+            "spinnerColor": "#f7931a",
+            "spinnerType": "large",
+            "iosSpinnerStyle": "large",
+            "splashFullScreen": true,
+            "splashImmersive": false,
+            "layoutName": "launch_screen",
+            "useDialog": false
+        },
+        "StatusBar": {
+            "style": "dark",
+            "backgroundColor": "#1d1d1d"
+        },
+        "PushNotifications": {
+            "presentationOptions": [
+                "badge",
+                "sound",
+                "alert"
+            ]
+        },
+        "LocalNotifications": {
+            "smallIcon": "ic_stat_icon_notification",
+            "iconColor": "#f7931a"
+        },
+        "Camera": {
+            "promptLabelHeader": "Allow Camera Access",
+            "promptLabelCancel": "Cancel",
+            "promptLabelOk": "OK"
+        },
+        "App": {
+            "backgroundColor": "#1d1d1d"
+        }
+    },
+    "ios": {
+        "contentInset": "automatic",
+        "preferredContentMode": "mobile",
+        "deploymentTarget": "14.0",
+        "minVersion": "14.0",
+        "scheme": "web3cryptoapp",
+        "backgroundColor": "#1d1d1d",
+        "allowsLinkPreview": false,
+        "scrollEnabled": true,
+        "serverBasePath": "/",
+        "limitsNavigationsToAppBoundDomains": false,
+        "appStoreUrl": "https://apps.apple.com/app/id0000000000",
+        "overrideUserInterfaceStyle": "dark",
+        "capacitorFileConfig": {
+            "storage": {
+                "mimeTypes": [
+                    "image/jpeg",
+                    "image/png",
+                    "image/gif",
+                    "video/mp4"
+                ]
+            }
+        },
+        "podConfigs": {
+            "use_frameworks!": true
+        }
+    },
+    "cordova": {},
+    "server": {
+        "hostname": "localhost",
+        "androidScheme": "https",
+        "iosScheme": "https",
+        "cleartext": false
+    },
+    "appStoreSubmission": {
+        "categoryId": "6016", // Finance category
+        "secondaryCategoryId": "6008", // Entertainment category
+        "copyright": "2023 Web3 Crypto Streaming Team",
+        "appStoreTeamId": "",
+        "appStoreTeamName": "",
+        "supportUrl": "https://support.web3cryptostreaming.com",
+        "marketingUrl": "https://www.web3cryptostreaming.com",
+        "privacyPolicyUrl": "https://www.web3cryptostreaming.com/privacy"
+    }
+}

@@ -124,6 +124,8 @@ The platform includes a car NFT marketplace:
 
 Mobile applications are built using Capacitor:
 
+### Android
+
 ```bash
 # Install Android platform
 npm run init-android
@@ -131,6 +133,21 @@ npm run init-android
 # Build for Android
 npm run build-android
 ```
+
+### iOS
+
+```bash
+# Install iOS platform
+npm run init-ios
+
+# Build and prepare for iOS
+npm run ios:build
+
+# Open in Xcode
+npm run ios:open
+```
+
+For detailed instructions on publishing to the App Store, see the [iOS Publishing Guide](./docs/ios-publishing.md).
 
 ## 🐳 Docker Support
 

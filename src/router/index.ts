@@ -71,6 +71,15 @@ const routes: Array<RouteRecordRaw> = [
         name: 'verify-poe',
         component: () => import('../views/VerifyPoE.vue')
     },
+    // News view route
+    {
+        path: '/news',
+        name: 'news',
+        component: () => import('@/views/NewsView.vue'),
+        meta: {
+            title: 'Crypto News - Web3 Crypto Streaming'
+        }
+    },
     // Not found page
     {
         path: '/:pathMatch(.*)*',

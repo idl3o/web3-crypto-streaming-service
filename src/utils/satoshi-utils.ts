@@ -16,7 +16,7 @@ export const MAX_RETRY_ATTEMPTS = 3;
  * @returns Satoshi amount (1 BTC = 100,000,000 satoshi)
  */
 export function btcToSatoshi(btc: number): number {
-    return Math.floor(btc * SATOSHI_PER_BITCOIN);
+  return Math.floor(btc * SATOSHI_PER_BITCOIN);
 }
 
 /**
@@ -25,7 +25,7 @@ export function btcToSatoshi(btc: number): number {
  * @returns Bitcoin amount
  */
 export function satoshiToBtc(satoshi: number): number {
-    return satoshi / SATOSHI_PER_BITCOIN;
+  return satoshi / SATOSHI_PER_BITCOIN;
 }
 
 /**
@@ -35,14 +35,14 @@ export function satoshiToBtc(satoshi: number): number {
  * @returns Formatted string
  */
 export function formatSatoshi(satoshi: number, includeSymbol = true): string {
-    if (satoshi < 1000) {
-        return `${satoshi}${includeSymbol ? ' ' + SATOSHI_SYMBOL : ''}`;
-    } else if (satoshi < SATOSHI_PER_BITCOIN) {
-        return `${(satoshi / 1000).toLocaleString('en-US', { maximumFractionDigits: 2 })}k ${SATOSHI_SYMBOL}`;
-    } else {
-        const btc = satoshiToBtc(satoshi);
-        return `${btc.toLocaleString('en-US', { maximumFractionDigits: 8 })}${includeSymbol ? ' ' + BITCOIN_SYMBOL : ''}`;
-    }
+  if (satoshi < 1000) {
+    return `${satoshi}${includeSymbol ? ' ' + SATOSHI_SYMBOL : ''}`;
+  } else if (satoshi < SATOSHI_PER_BITCOIN) {
+    return `${(satoshi / 1000).toLocaleString('en-US', { maximumFractionDigits: 2 })}k ${SATOSHI_SYMBOL}`;
+  } else {
+    const btc = satoshiToBtc(satoshi);
+    return `${btc.toLocaleString('en-US', { maximumFractionDigits: 8 })}${includeSymbol ? ' ' + BITCOIN_SYMBOL : ''}`;
+  }
 }
 
 /**
@@ -51,14 +51,14 @@ export function formatSatoshi(satoshi: number, includeSymbol = true): string {
  * @returns Boolean indicating if address appears valid
  */
 export function isValidBitcoinAddress(address: string): boolean {
-    // Basic validation - can be enhanced with more complete validation logic
-    if (!address) return false;
-
-    // Check for basic formats
-    const legacyFormat = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/.test(address);
-    const segwitFormat = /^bc1[ac-hj-np-z02-9]{39,59}$/.test(address);
-
-    return legacyFormat || segwitFormat;
+  // Basic validation - can be enhanced with more complete validation logic
+  if (!address) return false;
+  
+  // Check for basic formats
+  const legacyFormat = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/.test(address);
+  const segwitFormat = /^bc1[ac-hj-np-z02-9]{39,59}$/.test(address);
+  
+  return legacyFormat || segwitFormat;
 }
 
 /**
@@ -68,7 +68,7 @@ export function isValidBitcoinAddress(address: string): boolean {
  * @returns Fee in satoshis
  */
 export function calculateTxFee(sizeInBytes: number, satPerByte: number): number {
-    return Math.ceil(sizeInBytes * satPerByte);
+  return Math.ceil(sizeInBytes * satPerByte);
 }
 
 /**
@@ -78,7 +78,7 @@ export function calculateTxFee(sizeInBytes: number, satPerByte: number): number 
  * @returns Boolean indicating if amount is considered dust
  */
 export function isDust(amount: number, dustThreshold = 546): boolean {
-    return amount < dustThreshold;
+  return amount < dustThreshold;
 }
 
 /**
@@ -88,11 +88,11 @@ export function isDust(amount: number, dustThreshold = 546): boolean {
  * @returns Optimized fee for the retry attempt
  */
 export function calculateRetryFee(baseFeeSats: number, retryAttempt: number): number {
-    if (retryAttempt === 0) return baseFeeSats;
-
-    // Apply discount to incentivize retry (up to 30% discount)
-    const discountFactor = Math.min(retryAttempt * 0.1, 0.3);
-    return Math.max(Math.floor(baseFeeSats * (1 - discountFactor)), 1);
+  if (retryAttempt === 0) return baseFeeSats;
+  
+  // Apply discount to incentivize retry (up to 30% discount)
+  const discountFactor = Math.min(retryAttempt * 0.1, 0.3);
+  return Math.max(Math.floor(baseFeeSats * (1 - discountFactor)), 1);
 }
 
 /**
@@ -102,10 +102,10 @@ export function calculateRetryFee(baseFeeSats: number, retryAttempt: number): nu
  * @returns User-friendly message
  */
 export function getRetryMessage(attempt: number, maxAttempts: number = MAX_RETRY_ATTEMPTS): string {
-    if (attempt === 0) return "";
-    if (attempt >= maxAttempts) return "Final retry attempt";
-
-    return `Retry attempt ${attempt} of ${maxAttempts}`;
+  if (attempt === 0) return "";
+  if (attempt >= maxAttempts) return "Final retry attempt";
+  
+  return `Retry attempt ${attempt} of ${maxAttempts}`;
 }
 
 /**
@@ -114,14 +114,14 @@ export function getRetryMessage(attempt: number, maxAttempts: number = MAX_RETRY
  * @returns Whether the transaction should be retried automatically
  */
 export function shouldAutoRetry(errorCode: string): boolean {
-    // List of error codes that should be automatically retried
-    const autoRetryErrors = [
-        'timeout',
-        'network_error',
-        'insufficient_fee',
-        'mempool_conflict',
-        'temporary_failure'
-    ];
-
-    return autoRetryErrors.includes(errorCode);
+  // List of error codes that should be automatically retried
+  const autoRetryErrors = [
+    'timeout',
+    'network_error',
+    'insufficient_fee',
+    'mempool_conflict',
+    'temporary_failure'
+  ];
+  
+  return autoRetryErrors.includes(errorCode);
 }

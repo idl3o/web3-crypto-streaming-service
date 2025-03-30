@@ -21,7 +21,13 @@
     "ai:test-gemini": "node scripts/ai/test-gemini.js",
     "install:cli": "node scripts/external/install-cli.js",
     "cli": "npx web3-cli",
-    "cli:update": "npm run install:cli"
+    "cli:update": "npm run install:cli",
+    "ios:build": "node scripts/ios/build.js",
+    "ios:open": "npx cap open ios",
+    "ios:sync": "npx cap sync ios",
+    "ios:run": "npx cap run ios",
+    "ios:update": "npx cap update ios",
+    "init-ios": "npx cap add ios"
   },
   "keywords": [
     "blockchain",

@@ -14,6 +14,26 @@
       </div>
     </div>
     
+    <!-- User Identity Section (ENS Support) -->
+    <div v-if="ensName || linkedEthAddress" class="identity-section">
+      <div class="identity-content">
+        <img v-if="avatarUrl" :src="avatarUrl" class="ens-avatar" alt="ENS Avatar" />
+        <div v-else class="ens-avatar-placeholder"></div>
+        
+        <div class="identity-details">
+          <div v-if="ensName" class="ens-name">{{ ensName }}</div>
+          <div v-if="linkedEthAddress" class="eth-address">
+            {{ truncateAddress(linkedEthAddress) }}
+          </div>
+        </div>
+      </div>
+      
+      <button v-if="!ensName && !isLoadingENS" @click="linkENS" class="link-ens-button">
+        Link ENS
+      </button>
+      <span v-else-if="isLoadingENS" class="loading-ens">Loading ENS data...</span>
+    </div>
+    
     <div class="wallet-balance-container">
       <div class="wallet-balance">
         <span class="balance-amount">{{ formattedBalance }}</span>
@@ -69,12 +89,41 @@
       <button @click="showSendDialog" class="action-button send-button">Send</button>
       <button @click="showReceiveDialog" class="action-button receive-button">Receive</button>
     </div>
+    
+    <!-- ENS Link Dialog -->
+    <div v-if="showENSLinkDialog" class="ens-link-dialog-overlay">
+      <div class="ens-link-dialog">
+        <h3>Link ENS Name</h3>
+        
+        <div class="ens-link-form">
+          <div class="form-group">
+            <label for="ens-name">Your ENS Name</label>
+            <input 
+              id="ens-name" 
+              v-model="ensInput" 
+              placeholder="yourname.eth"
+              :class="{ 'invalid': ensError }"
+            />
+            <div v-if="ensError" class="ens-error">{{ ensError }}</div>
+          </div>
+          
+          <div class="form-actions">
+            <button @click="closeENSLinkDialog" class="cancel-button">Cancel</button>
+            <button @click="confirmENSLink" class="confirm-button" :disabled="!isValidENS">
+              <span v-if="isLinkingENS" class="loading-spinner"></span>
+              <span v-else>Link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue';
+import { defineComponent, ref, computed, onMounted, watch } from 'vue';
 import { formatSatoshi, satoshiToBtc } from '../../utils/satoshi-utils';
+import { ensService } from '../../services/ENSService';
 
 interface Transaction {
   id: string;
@@ -112,6 +161,10 @@ export default defineComponent({
     btcPrice: {
       type: Number,
       default: 0
+    },
+    linkedEthAddress: {
+      type: String,
+      default: ''
     }
   },
   
@@ -147,6 +200,123 @@ export default defineComponent({
     const formatDate = (timestamp: number) => {
       const date = new Date(timestamp);
       return date.toLocaleDateString();
+    };
+    
+    // ENS related state
+    const ensName = ref('');
+    const avatarUrl = ref('');
+    const ensInput = ref('');
+    const ensError = ref('');
+    const isLoadingENS = ref(false);
+    const isLinkingENS = ref(false);
+    const showENSLinkDialog = ref(false);
+    
+    const isValidENS = computed(() => {
+      return ensInput.value && ensInput.value.endsWith('.eth') && !ensError.value;
+    });
+    
+    // Load ENS data when component mounts or ethereum address changes
+    watch(() => props.linkedEthAddress, async (newAddress) => {
+      if (newAddress) {
+        await loadENSData(newAddress);
+      } else {
+        ensName.value = '';
+        avatarUrl.value = '';
+      }
+    }, { immediate: true });
+    
+    const loadENSData = async (address: string) => {
+      if (!address) return;
+      
+      isLoadingENS.value = true;
+      
+      try {
+        // Initialize ENS service if needed (would normally be done at app startup)
+        if (!ensService.isInitialized) {
+          await ensService.initialize('https://mainnet.infura.io/v3/YOUR_INFURA_KEY');
+        }
+        
+        // Get profile
+        const profile = await ensService.getProfile(address);
+        
+        if (profile) {
+          ensName.value = profile.name;
+          avatarUrl.value = profile.avatar || '';
+        } else {
+          ensName.value = '';
+          avatarUrl.value = '';
+        }
+      } catch (error) {
+        console.error('Error loading ENS data:', error);
+        ensName.value = '';
+        avatarUrl.value = '';
+      } finally {
+        isLoadingENS.value = false;
+      }
+    };
+    
+    const linkENS = () => {
+      showENSLinkDialog.value = true;
+      ensInput.value = '';
+      ensError.value = '';
+    };
+    
+    const closeENSLinkDialog = () => {
+      showENSLinkDialog.value = false;
+      ensInput.value = '';
+      ensError.value = '';
+    };
+    
+    const confirmENSLink = async () => {
+      if (!ensInput.value || !ensInput.value.endsWith('.eth')) {
+        ensError.value = 'Please enter a valid .eth name';
+        return;
+      }
+      
+      isLinkingENS.value = true;
+      
+      try {
+        // Resolve the ENS name to an address
+        const address = await ensService.resolveAddress(ensInput.value);
+        
+        if (!address) {
+          ensError.value = 'ENS name not found or not resolved';
+          return;
+        }
+        
+        // Verify the address matches the linked eth address (if any)
+        if (props.linkedEthAddress && address.toLowerCase() !== props.linkedEthAddress.toLowerCase()) {
+          ensError.value = 'ENS name does not resolve to your address';
+          return;
+        }
+        
+        // Get avatar
+        const avatar = await ensService.getAvatar(ensInput.value);
+        
+        // Update state
+        ensName.value = ensInput.value;
+        avatarUrl.value = avatar || '';
+        
+        // Emit event for parent components
+        emit('ens-linked', { 
+          ensName: ensInput.value, 
+          address: address,
+          avatar: avatar
+        });
+        
+        // Close dialog
+        showENSLinkDialog.value = false;
+      } catch (error) {
+        console.error('Error linking ENS:', error);
+        ensError.value = 'Error linking ENS name';
+      } finally {
+        isLinkingENS.value = false;
+      }
+    };
+    
+    const truncateAddress = (address: string) => {
+      if (!address) return '';
+      return `${address.slice(0, 6)}...${address.slice(-4)}`;
     };
     
     // Methods
@@ -224,7 +394,22 @@ export default defineComponent({
       copyAddress,
       showSendDialog,
       showReceiveDialog,
-      formatSatoshi
+      formatSatoshi,
+      
+      // ENS related
+      ensName,
+      avatarUrl,
+      linkedEthAddress: props.linkedEthAddress,
+      isLoadingENS,
+      ensInput,
+      ensError,
+      isLinkingENS,
+      isValidENS,
+      showENSLinkDialog,
+      linkENS,
+      closeENSLinkDialog,
+      confirmENSLink,
+      truncateAddress
     };
   }
 });
@@ -499,5 +684,160 @@ export default defineComponent({
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* ENS Related Styles */
+.identity-section {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: #f7f9fb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.identity-content {
+  display: flex;
+  align-items: center;
+}
+
+.ens-avatar, .ens-avatar-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  background: #e0e0e0;
+}
+
+.identity-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.ens-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.eth-address {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-family: monospace;
+}
+
+.link-ens-button {
+  padding: 0.4rem 0.75rem;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.link-ens-button:hover {
+  background: #2980b9;
+}
+
+.loading-ens {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.ens-link-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.ens-link-dialog {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.ens-link-dialog h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.ens-link-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.ens-link-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.ens-link-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.ens-link-form input.invalid {
+  border-color: #e74c3c;
+}
+
+.ens-error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.confirm-button {
+  background: #3498db;
+  border: none;
+  color: white;
+}
+
+.cancel-button:hover {
+  background: #e0e0e0;
+}
+
+.confirm-button:hover {
+  background: #2980b9;
+}
+
+.confirm-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
 }
 </style>

@@ -36,7 +36,18 @@
     "ci:fix-deps": "node scripts/ci/fix-dependencies.js",
     "postinstall": "node -e \"console.log('\\nSetup completed! If you encounter any issues, run: npm run ci:fix-deps\\n')\"",
     "setup:homepod": "node scripts/setup/homepod-setup.js",
-    "stream": "node scripts/streaming/stream.js"
+    "stream": "node scripts/streaming/stream.js",
+    "test:sona": "jest --testPathPattern='src/services/.*Sona.*|src/components/sona'",
+    "start:mock-sona-server": "node scripts/mock-sona-server.js",
+    "deploy:dev": "firebase deploy --only hosting:dev",
+    "deploy:staging": "firebase deploy --only hosting:staging",
+    "deploy:production": "firebase deploy --only hosting:production",
+    "auth:token": "node scripts/auth/sign-in-with-token.js",
+    "metrics:collect": "node scripts/metrics/collect-metrics.js",
+    "metrics:analyze": "node scripts/metrics/analyze-metrics.js",
+    "setup:sonos": "node scripts/setup/sonos-setup.js",
+    "setup:monitoring": "node scripts/setup/monitoring-setup.js",
+    "setup:ens": "node scripts/setup/ens-setup.js"
   },
   "keywords": [
     "blockchain",

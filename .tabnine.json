@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "customPatternPaths": [
+    "src/services/**/*.ts",
+    "src/components/**/*.vue",
+    "scripts/**/*.js"
+  ],
+  "suggestions": {
+    "priority": [
+      "SonaAuthenticationService",
+      "SonaStreamingService", 
+      "SonosTarget",
+      "MituSaxService",
+      "BitcoinPaymentService",
+      "StreamingDeviceType",
+      "StreamRequest",
+      "StreamInfo"
+    ],
+    "importPaths": {
+      "SonaAuthenticationService": "src/services/SonaAuthenticationService",
+      "SonaStreamingService": "src/services/SonaStreamingService",
+      "SonosTarget": "src/services/StreamingTargets/SonosTarget",
+      "MituSaxService": "src/services/MituSaxService",
+      "BitcoinPaymentService": "src/services/BitcoinPaymentService"
+    }
+  },
+  "formatOnSave": true,
+  "linting": {
+    "eslintEnabled": true,
+    "tslintEnabled": false,
+    "prettierEnabled": true
+  },
+  "tabnineExtensionSettings": {
+    "enable": true,
+    "tabSize": 2,
+    "semicolons": true,
+    "quotes": "single",
+    "trailingComma": "es5"
+  },
+  "extraIncludePaths": [
+    "src/types/**/*.d.ts",
+    "node_modules/@types"
+  ],
+  "exclusions": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/coverage/**"
+  ],
+  "ignorePatterns": [
+    "**/*.min.js",
+    "**/*.bundle.js"
+  ]
+}

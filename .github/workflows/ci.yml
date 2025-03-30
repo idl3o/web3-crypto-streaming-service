@@ -1,56 +1,90 @@
-name: Web3 Crypto Streaming Service CI
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          cache: 'npm'
+    # Look for dependency issues using the custom fix script
+    - name: Check dependencies
+      run: node scripts/ci/fix-dependencies.js --check
       
-      - name: Debug environment
-        run: |
-          npm --version
-          node --version
-          echo "npm config list"
-          npm config list
+    - name: Build
+      run: npm run build
       
-      - name: Clean npm cache
-        run: npm cache clean --force
+    - name: Test
+      run: npm test
       
-      - name: Install dependencies with detailed logging
-        run: |
-          # First try with standard CI
-          npm ci || (
-            echo "npm ci failed, falling back to alternative installation method"
-            # Remove node_modules if it exists
-            rm -rf node_modules
-            # Remove package-lock and reinstall
-            rm -f package-lock.json
-            # Install with more verbose output
-            npm install --no-fund --verbose
-          )
+    # Add Sona specific tests
+    - name: Test Sona Integration
+      run: npm test -- --testPathPattern="src/services/.*Sona.*|src/components/sona"
       
-      - name: Verify installation
-        run: |
-          ls -la node_modules
-          npm list --depth=0 || echo "Some packages might be missing but continuing anyway"
+  blockchain-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
       
-      - name: Run tests
-        run: npm test
+    - name: Start local blockchain
+      run: npx hardhat node &
       
-      - name: Run quantum simulations
-        run: npm run test:quantum || echo "Quantum simulations skipped"
+    - name: Wait for blockchain to start
+      run: sleep 10
       
-      - name: Check theoretical bounds
-        run: npm run verify:theory || echo "Theory verification skipped"
+    - name: Run blockchain tests
+      run: npx hardhat test
+      
+    - name: Run streaming payment tests
+      run: npx hardhat test test/streaming-payments.test.js
+      
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run npm audit
+      run: npm audit --production
+      continue-on-error: true
+      
+    - name: Run Sona authentication security checks
+      run: |
+        npm install -g auth-security-scanner
+        auth-security-scanner scan ./src/services/SonaAuthenticationService.ts
+      continue-on-error: true
+      
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: security-reports/

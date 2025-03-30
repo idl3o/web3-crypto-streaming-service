@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xrop:configuration xmlns:xrop="http://web3-crypto-streaming.io/schemas/xrop"
+                  xmlns:mr="http://web3-crypto-streaming.io/schemas/media-resources"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://web3-crypto-streaming.io/schemas/xrop xrop-schema.xsd
+                                      http://web3-crypto-streaming.io/schemas/media-resources mr-schema.xsd"
+                  version="1.0">
+
+  <xrop:meta>
+    <xrop:name>Web3 Crypto Streaming Remote Operations</xrop:name>
+    <xrop:description>Cross-platform remote operations configuration for media resources</xrop:description>
+    <xrop:created>2023-08-17T12:00:00Z</xrop:created>
+    <xrop:updated>2023-08-17T12:00:00Z</xrop:updated>
+    <xrop:author>Web3 Crypto Streaming Team</xrop:author>
+  </xrop:meta>
+
+  <xrop:endpoints>
+    <xrop:endpoint id="primary-control" url="https://api.web3cryptostreaming.io/remote/v1">
+      <xrop:auth-method>token</xrop:auth-method>
+      <xrop:timeout>30000</xrop:timeout>
+      <xrop:retry-policy>
+        <xrop:max-attempts>3</xrop:max-attempts>
+        <xrop:backoff-factor>1.5</xrop:backoff-factor>
+        <xrop:initial-delay>1000</xrop:initial-delay>
+      </xrop:retry-policy>
+    </xrop:endpoint>
+    
+    <xrop:endpoint id="backup-control" url="https://backup-api.web3cryptostreaming.io/remote/v1">
+      <xrop:auth-method>token</xrop:auth-method>
+      <xrop:timeout>45000</xrop:timeout>
+      <xrop:retry-policy>
+        <xrop:max-attempts>5</xrop:max-attempts>
+        <xrop:backoff-factor>2.0</xrop:backoff-factor>
+        <xrop:initial-delay>2000</xrop:initial-delay>
+      </xrop:retry-policy>
+    </xrop:endpoint>
+    
+    <xrop:endpoint id="diagnostic" url="https://diagnostic.web3cryptostreaming.io/remote/v1">
+      <xrop:auth-method>basic</xrop:auth-method>
+      <xrop:timeout>10000</xrop:timeout>
+    </xrop:endpoint>
+  </xrop:endpoints>
+  
+  <mr:media-resources>
+    <mr:resource-groups>
+      <mr:group id="video-resources">
+        <mr:description>Video streaming resources</mr:description>
+        <mr:resource id="codec-h264" type="codec">
+          <mr:name>H.264/AVC Codec</mr:name>
+          <mr:parameters>
+            <mr:param name="profile">high</mr:param>
+            <mr:param name="level">5.1</mr:param>
+            <mr:param name="bitrate-range">500000-10000000</mr:param>
+          </mr:parameters>
+        </mr:resource>
+        
+        <mr:resource id="codec-h265" type="codec">
+          <mr:name>H.265/HEVC Codec</mr:name>
+          <mr:parameters>
+            <mr:param name="profile">main</mr:param>
+            <mr:param name="level">5.1</mr:param>
+            <mr:param name="bitrate-range">300000-8000000</mr:param>
+          </mr:parameters>
+        </mr:resource>
+        
+        <mr:resource id="video-container-mp4" type="container">
+          <mr:name>MP4 Container</mr:name>
+          <mr:parameters>
+            <mr:param name="fragmented">true</mr:param>
+            <mr:param name="compatible-codecs">h264,h265,vp9</mr:param>
+          </mr:parameters>
+        </mr:resource>
+      </mr:group>
+      
+      <mr:group id="audio-resources">
+        <mr:description>Audio streaming resources</mr:description>
+        <mr:resource id="codec-aac" type="codec">
+          <mr:name>AAC Audio Codec</mr:name>
+          <mr:parameters>
+            <mr:param name="profile">LC</mr:param>
+            <mr:param name="bitrate-range">64000-256000</mr:param>
+            <mr:param name="channels">2</mr:param>
+          </mr:parameters>
+        </mr:resource>
+        
+        <mr:resource id="codec-opus" type="codec">
+          <mr:name>Opus Audio Codec</mr:name>
+          <mr:parameters>
+            <mr:param name="bitrate-range">32000-192000</mr:param>
+            <mr:param name="channels">2</mr:param>
+          </mr:parameters>
+        </mr:resource>
+      </mr:group>
+      
+      <mr:group id="cdn-resources">
+        <mr:description>Content Delivery Network resources</mr:description>
+        <mr:resource id="cdn-primary" type="cdn">
+          <mr:name>Primary CDN</mr:name>
+          <mr:parameters>
+            <mr:param name="origin">https://origin.web3cryptostreaming.io</mr:param>
+            <mr:param name="edge-locations">global</mr:param>
+            <mr:param name="max-throughput">10000</mr:param>
+          </mr:parameters>
+        </mr:resource>
+        
+        <mr:resource id="cdn-backup" type="cdn">
+          <mr:name>Backup CDN</mr:name>
+          <mr:parameters>
+            <mr:param name="origin">https://backup-origin.web3cryptostreaming.io</mr:param>
+            <mr:param name="edge-locations">na,eu,as</mr:param>
+            <mr:param name="max-throughput">5000</mr:param>
+          </mr:parameters>
+        </mr:resource>
+      </mr:group>
+    </mr:resource-groups>
+    
+    <mr:resource-mappings>
+      <mr:mapping profile="high-quality">
+        <mr:video-codec ref="codec-h264" />
+        <mr:audio-codec ref="codec-aac" />
+        <mr:container ref="video-container-mp4" />
+        <mr:cdn ref="cdn-primary" />
+      </mr:mapping>
+      
+      <mr:mapping profile="ultra-quality">
+        <mr:video-codec ref="codec-h265" />
+        <mr:audio-codec ref="codec-opus" />
+        <mr:container ref="video-container-mp4" />
+        <mr:cdn ref="cdn-primary" />
+      </mr:mapping>
+      
+      <mr:mapping profile="fallback">
+        <mr:video-codec ref="codec-h264" />
+        <mr:audio-codec ref="codec-aac" />
+        <mr:container ref="video-container-mp4" />
+        <mr:cdn ref="cdn-backup" />
+      </mr:mapping>
+    </mr:resource-mappings>
+  </mr:media-resources>
+  
+  <xrop:operations>
+    <xrop:operation id="stream-control">
+      <xrop:command name="start-stream">
+        <xrop:endpoint-ref>primary-control</xrop:endpoint-ref>
+        <xrop:path>/stream/start</xrop:path>
+        <xrop:method>POST</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="contentId" required="true" type="string" />
+          <xrop:param name="resourceProfile" required="true" type="string" />
+          <xrop:param name="startTime" required="false" type="datetime" />
+        </xrop:parameters>
+      </xrop:command>
+      
+      <xrop:command name="stop-stream">
+        <xrop:endpoint-ref>primary-control</xrop:endpoint-ref>
+        <xrop:path>/stream/{streamId}/stop</xrop:path>
+        <xrop:method>POST</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="streamId" required="true" type="string" path="true" />
+        </xrop:parameters>
+      </xrop:command>
+      
+      <xrop:command name="pause-stream">
+        <xrop:endpoint-ref>primary-control</xrop:endpoint-ref>
+        <xrop:path>/stream/{streamId}/pause</xrop:path>
+        <xrop:method>POST</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="streamId" required="true" type="string" path="true" />
+        </xrop:parameters>
+      </xrop:command>
+      
+      <xrop:command name="resume-stream">
+        <xrop:endpoint-ref>primary-control</xrop:endpoint-ref>
+        <xrop:path>/stream/{streamId}/resume</xrop:path>
+        <xrop:method>POST</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="streamId" required="true" type="string" path="true" />
+        </xrop:parameters>
+      </xrop:command>
+    </xrop:operation>
+    
+    <xrop:operation id="resource-management">
+      <xrop:command name="allocate-resources">
+        <xrop:endpoint-ref>primary-control</xrop:endpoint-ref>
+        <xrop:path>/resources/allocate</xrop:path>
+        <xrop:method>POST</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="resourceProfile" required="true" type="string" />
+          <xrop:param name="duration" required="true" type="integer" />
+          <xrop:param name="priority" required="false" type="integer" default="0" />
+        </xrop:parameters>
+      </xrop:command>
+      
+      <xrop:command name="release-resources">
+        <xrop:endpoint-ref>primary-control</xrop:endpoint-ref>
+        <xrop:path>/resources/{resourceId}/release</xrop:path>
+        <xrop:method>POST</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="resourceId" required="true" type="string" path="true" />
+        </xrop:parameters>
+      </xrop:command>
+    </xrop:operation>
+    
+    <xrop:operation id="diagnostics">
+      <xrop:command name="check-status">
+        <xrop:endpoint-ref>diagnostic</xrop:endpoint-ref>
+        <xrop:path>/status</xrop:path>
+        <xrop:method>GET</xrop:method>
+      </xrop:command>
+      
+      <xrop:command name="get-health">
+        <xrop:endpoint-ref>diagnostic</xrop:endpoint-ref>
+        <xrop:path>/health</xrop:path>
+        <xrop:method>GET</xrop:method>
+      </xrop:command>
+      
+      <xrop:command name="get-metrics">
+        <xrop:endpoint-ref>diagnostic</xrop:endpoint-ref>
+        <xrop:path>/metrics</xrop:path>
+        <xrop:method>GET</xrop:method>
+        <xrop:parameters>
+          <xrop:param name="type" required="false" type="string" />
+          <xrop:param name="period" required="false" type="string" default="1h" />
+        </xrop:parameters>
+      </xrop:command>
+    </xrop:operation>
+  </xrop:operations>
+  
+  <xrop:event-handlers>
+    <xrop:handler event="stream-error">
+      <xrop:action>
+        <xrop:operation-ref>diagnostics</xrop:operation-ref>
+        <xrop:command-ref>check-status</xrop:command-ref>
+      </xrop:action>
+      <xrop:action>
+        <xrop:operation-ref>resource-management</xrop:operation-ref>
+        <xrop:command-ref>allocate-resources</xrop:command-ref>
+        <xrop:params>
+          <xrop:param name="resourceProfile">fallback</xrop:param>
+          <xrop:param name="duration">3600</xrop:param>
+          <xrop:param name="priority">10</xrop:param>
+        </xrop:params>
+      </xrop:action>
+      <xrop:action>
+        <xrop:operation-ref>stream-control</xrop:operation-ref>
+        <xrop:command-ref>start-stream</xrop:command-ref>
+      </xrop:action>
+    </xrop:handler>
+    
+    <xrop:handler event="resource-exhaustion">
+      <xrop:action>
+        <xrop:operation-ref>resource-management</xrop:operation-ref>
+        <xrop:command-ref>allocate-resources</xrop:command-ref>
+        <xrop:params>
+          <xrop:param name="resourceProfile">fallback</xrop:param>
+          <xrop:param name="duration">3600</xrop:param>
+          <xrop:param name="priority">5</xrop:param>
+        </xrop:params>
+      </xrop:action>
+    </xrop:handler>
+  </xrop:event-handlers>
+</xrop:configuration>

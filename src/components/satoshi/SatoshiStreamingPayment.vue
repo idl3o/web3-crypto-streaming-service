@@ -15,7 +15,11 @@
       </div>
       <div class="detail-row">
         <span class="detail-label">Creator</span>
-        <span class="detail-value">{{ creatorName }}</span>
+        <span class="detail-value creator-info">
+          <span v-if="creatorEnsName" class="creator-ens">{{ creatorEnsName }}</span>
+          <span v-else>{{ creatorName }}</span>
+          <img v-if="creatorEnsAvatar" :src="creatorEnsAvatar" class="creator-avatar" alt="Creator" />
+        </span>
       </div>
       <div class="detail-row">
         <span class="detail-label">Duration</span>
@@ -105,8 +109,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType } from 'vue';
+import { defineComponent, ref, computed, PropType, onMounted } from 'vue';
 import { formatSatoshi } from '../../utils/satoshi-utils';
+import { ensService } from '../../services/ENSService';
 
 export default defineComponent({
   name: 'SatoshiStreamingPayment',
@@ -131,6 +136,10 @@ export default defineComponent({
     creatorAddress: {
       type: String,
       required: true
+    },
+    creatorEthAddress: {
+      type: String,
+      default: ''
     },
     amount: {
       type: Number,
@@ -253,6 +262,43 @@ export default defineComponent({
       }
     };
     
+    // ENS related state
+    const creatorEnsName = ref('');
+    const creatorEnsAvatar = ref('');
+    const isLoadingEns = ref(false);
+    
+    // Load ENS data if ethereum address is provided
+    onMounted(async () => {
+      if (props.creatorEthAddress) {
+        await loadCreatorEnsData();
+      }
+    });
+    
+    const loadCreatorEnsData = async () => {
+      if (!props.creatorEthAddress) return;
+      
+      isLoadingEns.value = true;
+      
+      try {
+        // Initialize ENS service if needed
+        if (!ensService.isInitialized) {
+          await ensService.initialize('https://mainnet.infura.io/v3/YOUR_INFURA_KEY');
+        }
+        
+        // Get ENS profile
+        const profile = await ensService.getProfile(props.creatorEthAddress);
+        
+        if (profile) {
+          creatorEnsName.value = profile.name;
+          creatorEnsAvatar.value = profile.avatar || '';
+        }
+      } catch (error) {
+        console.error('Error loading creator ENS data:', error);
+      } finally {
+        isLoadingEns.value = false;
+      }
+    };
+    
     return {
       selectedOption,
       isPaymentProcessing,
@@ -262,7 +308,9 @@ export default defineComponent({
       isInsufficientBalance,
       handleWalletPayment,
       retryPayment,
-      formatSatoshi
+      formatSatoshi,
+      creatorEnsName,
+      creatorEnsAvatar
     };
   }
 });
@@ -532,5 +580,23 @@ export default defineComponent({
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* ENS Related Styles */
+.creator-info {
+  display: flex;
+  align-items: center;
+}
+
+.creator-ens {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.creator-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 8px;
 }
 </style>

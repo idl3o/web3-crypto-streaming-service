@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Dashboard from '@/views/Dashboard.vue'
+import supportRoutes from './supportRoutes';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -85,7 +86,9 @@ const routes: Array<RouteRecordRaw> = [
         path: '/:pathMatch(.*)*',
         name: 'not-found',
         component: () => import('../views/NotFound.vue')
-    }
+    },
+    // Add support routes
+    ...supportRoutes
 ]
 
 const router = createRouter({

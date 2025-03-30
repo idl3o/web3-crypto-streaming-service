@@ -17,7 +17,11 @@ export enum IOErrorType {
     IPFS_DOWNLOAD = 'ipfs_download',
     BLOCKCHAIN_READ = 'blockchain_read',
     BLOCKCHAIN_WRITE = 'blockchain_write',
-    UNKNOWN = 'unknown'
+    UNKNOWN = 'unknown',
+    SONA_STREAMING = 'sona_streaming',
+    SONA_CONNECTION = 'sona_connection',
+    SONA_AUTHENTICATION = 'sona_authentication',
+    SONA_PAYMENT = 'sona_payment'
 }
 
 export interface IOError {

@@ -1,81 +1,173 @@
 # Web3 Crypto Streaming Service
 
-A comprehensive platform for Web3 crypto streaming with advanced features.
+A decentralized streaming platform powered by blockchain technology and cryptocurrency payments.
 
-## Table of Contents
+![Web3 Crypto Streaming](./assets/images/platform-preview.png)
 
-- [Setup and Installation](#setup-and-installation)
-- [Available Scripts](#available-scripts)
-- [Project Structure](#project-structure)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+## 🚀 Features
 
-## Setup and Installation
+- **Decentralized Content Streaming**: Stream media content via IPFS and decentralized storage
+- **Bitcoin Payment Integration**: Pay for content using Bitcoin with support for Lightning Network
+- **Creator Economy**: Direct payments to content creators with minimal fees
+- **Smart Contract Management**: Content access controlled via blockchain smart contracts
+- **Proof of Existence**: Verify content authenticity and timestamp using blockchain
+- **Cross-platform Support**: Web, mobile, and desktop applications
+- **NFT Marketplace**: Buy, sell, and collect exclusive car NFTs
+- **Digital Asset Management**: Manage your digital car collection on the blockchain
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/web3-crypto-streaming-service.git
-   cd web3-crypto-streaming-service
-   ```
+## 🛠️ Technologies
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
+- **Frontend**: Vue.js 3, TypeScript
+- **Backend**: Node.js, Express
+- **Blockchain**: Ethereum, Hardhat
+- **Storage**: IPFS
+- **Payments**: Bitcoin, Lightning Network
+- **Mobile**: Capacitor
 
-3. Run the development server:
-   ```
-   npm run dev
-   ```
-   This will start the Vite development server at http://localhost:8080.
+## 📋 Prerequisites
 
-4. Build for production:
-   ```
-   npm run build
-   ```
-   This will create a `dist` directory with production-ready files.
+- Node.js (v16+)
+- npm or yarn
+- Git
+- MetaMask or other Web3 wallet
+- (Optional) IPFS node for local development
 
-5. Start the production server:
-   ```
-   npm start
-   ```
-   This will build the application and start the server at http://localhost:3000.
+## 🔧 Installation
 
-## Available Scripts
+1. **Clone the repository**
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview the production build
-- `npm start` - Build and start the production server
-- `npm run serve` - Start the server without rebuilding
-- `npm test` - Run tests
+```bash
+git clone https://github.com/yourusername/web3-crypto-streaming-service.git
+cd web3-crypto-streaming-service
+```
 
-## Project Structure
+2. **Install dependencies**
 
-- `/src` - Source code
-  - `/components` - Vue components
-  - `/views` - Vue page components
-  - `/services` - Service modules
-  - `/router` - Vue Router configuration
-  - `/assets` - Static assets like CSS, images
-- `/public` - Static files
-- `/dist` - Production build (generated)
-- `/tests` - Test files
+```bash
+npm install
+```
 
-## Features
+3. **Set up environment variables**
 
-- Web3 wallet integration
-- Crypto streaming capabilities
-- Advanced security features with RICE protection
-- Real-time analytics
-- NFT support
-- Multi-chain compatibility
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
-## Contributing
+4. **Build the project**
 
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+```bash
+npm run build
+```
 
-## License
+## 🚀 Development
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+## 🛠️ CLI Tool
+
+This project includes a command-line interface for common operations:
+
+```bash
+# Install the CLI
+npm run install:cli
+
+# Run CLI commands
+npm run cli -- stream list
+npm run cli -- wallet balance
+
+# For more information see
+npm run cli -- help
+```
+
+See the [CLI Usage Guide](./docs/CLI_USAGE.md) for more details.
+
+## 🏗️ Architecture
+
+The platform architecture consists of several key components:
+
+- **Web Frontend**: Vue.js application for user interaction
+- **API Server**: Express.js backend for handling non-blockchain operations
+- **Smart Contracts**: Ethereum contracts for content access and payments
+- **IPFS Integration**: Decentralized storage for content
+- **Bitcoin Payment System**: Handles micropayments for content access
+
+## 🔐 Bitcoin Payment System
+
+The platform uses Bitcoin for microtransactions:
+
+- Standard streaming payment: 40,000 satoshis (~$16 USD at current rates)
+- Supports Lightning Network for instant payments
+- Retry mechanism for failed transactions
+- QR code scanning for external wallet payments
+
+## 🚗 Car NFT Marketplace
+
+The platform includes a car NFT marketplace:
+
+- Collect rare digital car assets backed by blockchain technology
+- Trade limited edition car NFTs with other collectors
+- View detailed car specifications and performance data
+- Powered by ERC-721 standard for true ownership
+
+## 📱 Mobile Support
+
+Mobile applications are built using Capacitor:
+
+```bash
+# Install Android platform
+npm run init-android
+
+# Build for Android
+npm run build-android
+```
+
+## 🐳 Docker Support
+
+```bash
+# Build and run with Docker
+docker-compose up -d
+```
+
+## 🌐 GitHub Codespaces
+
+This project is configured for GitHub Codespaces development. Open in Codespaces for a fully configured environment with all dependencies pre-installed.
+
+## 📚 Documentation
+
+Additional documentation:
+
+- [API Documentation](./docs/api.md)
+- [Smart Contract Documentation](./docs/contracts.md)
+- [Payment Integration Guide](./docs/payments.md)
+- [CLI Usage Guide](./docs/CLI_USAGE.md)
+- [WHITEPAPER](./WHITEPAPER.md)
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+
+This project is licensed under the MIT License - see [LICENSE](./LICENSE) file for details.
+
+## 🔮 Roadmap
+
+- **Q2 2023**: Multi-chain support for payments
+- **Q3 2023**: Live streaming capabilities
+- **Q4 2023**: Content creator dashboard
+- **Q1 2024**: DAO governance implementation
+
+## 📧 Contact
+
+For questions or support, please [open an issue](https://github.com/yourusername/web3-crypto-streaming-service/issues) or contact the maintainers.

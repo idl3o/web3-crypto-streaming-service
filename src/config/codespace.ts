@@ -4,12 +4,12 @@
  */
 
 export const isCodespace = (): boolean => {
-  return process.env.GITHUB_CODESPACES === 'true' || 
+  return process.env.GITHUB_CODESPACES === 'true' ||
     !!process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
 };
 
 export const getCodespaceUrl = (): string => {
-  return process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN || 
+  return process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN ||
     'refactored-winner-x5px57rv9vv939p74.github.dev';
 };
 

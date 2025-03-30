@@ -18,7 +18,7 @@ export function getProviderUrl(): string {
   if (isCodespace()) {
     return getRpcUrl();
   }
-  
+
   // Fallback to default provider URLs
   return process.env.WEB3_PROVIDER || 'http://localhost:8545';
 }
@@ -42,7 +42,7 @@ class Web3ProviderService {
    */
   async getProvider(networkName?: string): Promise<ethers.providers.Provider> {
     const network = networkName || this.options.network;
-    
+
     // Return cached provider if available
     if (this.providers.has(network)) {
       return this.providers.get(network)!;
@@ -55,12 +55,12 @@ class Web3ProviderService {
       return provider;
     } catch (error: any) {
       console.error(`Failed to create provider for ${network}:`, error);
-      
+
       // If HTTP/2 error detected, retry with HTTP/1.1
       if (
-        this.options.useHttp2 && 
-        (error.message?.includes('ERR_HTTP2_PROTOCOL_ERROR') || 
-         error.message?.includes('HTTP/2'))
+        this.options.useHttp2 &&
+        (error.message?.includes('ERR_HTTP2_PROTOCOL_ERROR') ||
+          error.message?.includes('HTTP/2'))
       ) {
         console.warn('HTTP/2 protocol error detected, falling back to HTTP/1.1...');
         const fallbackOptions = { ...this.options, useHttp2: false };
@@ -68,7 +68,7 @@ class Web3ProviderService {
         this.providers.set(network, fallbackProvider);
         return fallbackProvider;
       }
-      
+
       throw error;
     }
   }
@@ -120,7 +120,7 @@ class Web3ProviderService {
           return await originalFetch(method, params);
         } catch (error: any) {
           lastError = error;
-          
+
           // If last attempt, don't wait, just throw
           if (attempt === options.maxRetries) {
             throw error;
@@ -132,7 +132,7 @@ class Web3ProviderService {
           }
 
           // Wait before retry with exponential backoff
-          await new Promise(resolve => 
+          await new Promise(resolve =>
             setTimeout(resolve, options.retryDelay! * Math.pow(2, attempt - 1))
           );
         }

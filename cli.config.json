@@ -1,0 +1,43 @@
+{
+  "name": "web3-crypto-streaming-service",
+  "cli": {
+    "version": "1.0.0",
+    "repository": "https://github.com/andrewflynn20/cli",
+    "commands": {
+      "deploy": {
+        "description": "Deploy the service to specified environment",
+        "options": {
+          "--env": "Environment to deploy to (dev, staging, production)",
+          "--force": "Force deployment even if checks fail"
+        }
+      },
+      "stream": {
+        "description": "Manage streaming content",
+        "subcommands": {
+          "list": "List available streams",
+          "create": "Create a new stream",
+          "delete": "Remove a stream"
+        }
+      },
+      "wallet": {
+        "description": "Manage crypto wallets",
+        "subcommands": {
+          "balance": "Check wallet balance",
+          "send": "Send cryptocurrency",
+          "receive": "Generate receive address"
+        }
+      },
+      "ipfs": {
+        "description": "Interact with IPFS storage",
+        "subcommands": {
+          "upload": "Upload content to IPFS",
+          "pin": "Pin content on IPFS"
+        }
+      }
+    },
+    "defaults": {
+      "environment": "development",
+      "network": "testnet"
+    }
+  }
+}

@@ -16,7 +16,12 @@
     "vscode-server:install": "npm install code-server open",
     "prepare": "npm run build",
     "codespace:dev": "GITHUB_CODESPACES=true npm run dev",
-    "codespace:test": "GITHUB_CODESPACES=true npm test"
+    "codespace:test": "GITHUB_CODESPACES=true npm test",
+    "ai:gemini": "node scripts/ai/test-gemini.js",
+    "ai:test-gemini": "node scripts/ai/test-gemini.js",
+    "install:cli": "node scripts/external/install-cli.js",
+    "cli": "npx web3-cli",
+    "cli:update": "npm run install:cli"
   },
   "keywords": [
     "blockchain",
@@ -53,7 +58,12 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
-    "connect-history-api-fallback": "^2.0.0"
+    "connect-history-api-fallback": "^2.0.0",
+    "axios": "^1.6.7",
+    "@openzeppelin/contracts": "^4.8.3",
+    "qrcode.vue": "^3.4.0",
+    "os-browserify": "^0.3.0",
+    "systeminformation": "^5.21.21"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
@@ -94,5 +104,8 @@
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "browser": {
+    "os": "os-browserify/browser"
   }
 }

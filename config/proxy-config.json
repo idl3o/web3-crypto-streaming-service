@@ -1,0 +1,92 @@
+{
+  "discoveryEndpoints": [
+    "https://proxydiscovery.web3streaming.com/api/nodes",
+    "https://backup-discovery.web3streaming.com/nodes"
+  ],
+  "healthCheckInterval": 60000,
+  "discoveryInterval": 300000,
+  "regions": {
+    "us-east": {
+      "name": "US East",
+      "priority": 1,
+      "maxConnections": 1000
+    },
+    "us-west": {
+      "name": "US West",
+      "priority": 2,
+      "maxConnections": 1000
+    },
+    "eu-west": {
+      "name": "EU West",
+      "priority": 3,
+      "maxConnections": 1000
+    },
+    "eu-central": {
+      "name": "EU Central",
+      "priority": 3,
+      "maxConnections": 1000
+    },
+    "ap-south": {
+      "name": "AP South",
+      "priority": 4,
+      "maxConnections": 500
+    },
+    "ap-east": {
+      "name": "AP East",
+      "priority": 4,
+      "maxConnections": 500
+    },
+    "sa-east": {
+      "name": "SA East",
+      "priority": 5,
+      "maxConnections": 500
+    }
+  },
+  "securityLevels": {
+    "standard": {
+      "capabilities": ["streaming", "encryption"],
+      "encryptionType": "aes-256"
+    },
+    "enhanced": {
+      "capabilities": ["streaming", "encryption", "transcoding"],
+      "encryptionType": "aes-256-gcm"
+    },
+    "maximum": {
+      "capabilities": ["streaming", "encryption", "transcoding", "quantum-resistant"],
+      "encryptionType": "chacha20-poly1305"
+    },
+    "quantum": {
+      "capabilities": ["streaming", "encryption", "transcoding", "quantum-encryption"],
+      "encryptionType": "kyber-1024"
+    }
+  },
+  "staticNodes": [
+    {
+      "id": "proxy-us-east-1",
+      "url": "https://us-east-1.proxy.web3streaming.com",
+      "region": "us-east",
+      "capabilities": ["streaming", "encryption", "transcoding"],
+      "maxConnections": 1000,
+      "securityLevel": "enhanced",
+      "enabled": true
+    },
+    {
+      "id": "proxy-eu-west-1",
+      "url": "https://eu-west-1.proxy.web3streaming.com",
+      "region": "eu-west",
+      "capabilities": ["streaming", "encryption", "quantum-encryption"],
+      "maxConnections": 1000,
+      "securityLevel": "quantum",
+      "enabled": true
+    },
+    {
+      "id": "proxy-ap-south-1",
+      "url": "https://ap-south-1.proxy.web3streaming.com",
+      "region": "ap-south",
+      "capabilities": ["streaming", "encryption"],
+      "maxConnections": 500,
+      "securityLevel": "standard",
+      "enabled": true
+    }
+  ]
+}

@@ -42,7 +42,7 @@ export function formatBtc(btcAmount: number): string {
  * @param satoshis Amount in satoshis
  */
 export function formatSatoshis(satoshis: number): string {
-  return `${satoshis.toLocaleString()} sat`;
+  return satoshis.toLocaleString();
 }
 
 /**
@@ -130,4 +130,82 @@ export function truncateAddress(address: string): string {
  */
 export function calculateTxFee(sizeInBytes: number, satoshisPerByte: number): number {
   return Math.ceil(sizeInBytes * satoshisPerByte);
+}
+
+/**
+ * Convert satoshis to BTC
+ * @param satoshis Amount in satoshis
+ * @returns Equivalent amount in BTC
+ */
+export function satToBtc(satoshis: number): string {
+  return (satoshis / 100000000).toFixed(8);
+}
+
+/**
+ * Convert BTC to satoshis
+ * @param btc Amount in BTC
+ * @returns Equivalent amount in satoshis
+ */
+export function btcToSat(btc: number): number {
+  return Math.floor(btc * 100000000);
+}
+
+/**
+ * Calculate network fee based on transaction size and fee rate
+ * @param txSizeBytes Approximate transaction size in bytes
+ * @param satPerByte Fee rate in satoshis per byte
+ * @returns Fee in satoshis
+ */
+export function calculateNetworkFee(txSizeBytes: number, satPerByte: number): number {
+  return Math.ceil(txSizeBytes * satPerByte);
+}
+
+/**
+ * Get current recommended fee rates from mempool.space API
+ * @returns Promise resolving to object with fee rates
+ */
+export async function getRecommendedFeeRates(): Promise<{ 
+  fastestFee: number;
+  halfHourFee: number;
+  hourFee: number;
+  economyFee: number;
+  minimumFee: number;
+}> {
+  try {
+    const response = await fetch('https://mempool.space/api/v1/fees/recommended');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching fee rates:', error);
+    // Default fallback values
+    return {
+      fastestFee: 10,
+      halfHourFee: 5,
+      hourFee: 3,
+      economyFee: 1,
+      minimumFee: 1
+    };
+  }
+}
+
+/**
+ * Check if a Bitcoin address is valid
+ * @param address Bitcoin address to validate
+ * @returns Boolean indicating if address is valid
+ */
+export function isValidBitcoinAddress(address: string): boolean {
+  // Basic validation for different address formats
+  const legacyAddressPattern = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+  const segwitAddressPattern = /^bc1[ac-hj-np-z02-9]{11,71}$/;
+  
+  return legacyAddressPattern.test(address) || segwitAddressPattern.test(address);
+}
+
+/**
+ * Format transaction hash for display (shortened)
+ * @param txHash Full transaction hash
+ * @returns Shortened transaction hash for display
+ */
+export function formatTransactionHash(txHash: string): string {
+  if (txHash.length <= 16) return txHash;
+  return `${txHash.substring(0, 8)}...${txHash.substring(txHash.length - 8)}`;
 }

@@ -1,0 +1,84 @@
+{
+  "folders": [
+    {
+      "name": "Web3 Crypto Streaming Service",
+      "path": "."
+    },
+    {
+      "name": "Core Services",
+      "path": "./src/services"
+    },
+    {
+      "name": "API",
+      "path": "./src/api"
+    },
+    {
+      "name": "Components",
+      "path": "./src/components"
+    },
+    {
+      "name": "Test Suite",
+      "path": "./src/tests"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "Web3 Crypto Streaming Service/node_modules/typescript/lib",
+    "files.exclude": {
+      "src/services": true,
+      "src/api": true,
+      "src/components": true,
+      "src/tests": true
+    },
+    "search.exclude": {
+      "**/node_modules": true
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "jest.disabledWorkspaceFolders": [
+      "Core Services",
+      "API",
+      "Components"
+    ],
+    "jest.autoRun": {
+      "watch": false
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "orta.vscode-jest",
+      "ms-vscode.powershell",
+      "GitHub.copilot"
+    ]
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "Launch Service",
+        "type": "node",
+        "request": "launch",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+          "run",
+          "dev"
+        ],
+        "internalConsoleOptions": "openOnSessionStart"
+      },
+      {
+        "name": "Debug Tests",
+        "type": "node",
+        "request": "launch",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+          "run",
+          "test"
+        ],
+        "internalConsoleOptions": "openOnSessionStart"
+      }
+    ],
+    "compounds": []
+  }
+}

@@ -1,55 +1,38 @@
+/**
+ * Jest configuration for Web3 Crypto Streaming Service
+ */
 module.exports = {
-  preset: '@vue/cli-plugin-unit-jest',
-  testEnvironment: 'jsdom',
-  
-  // Test file patterns
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src'],
   testMatch: [
-    '**/tests/unit/**/*.spec.[jt]s?(x)',
-    '**/__tests__/*.[jt]s?(x)'
+    '**/__tests__/**/*.+(ts|tsx|js)',
+    '**/?(*.)+(spec|test).+(ts|tsx|js)'
   ],
-  
-  // File transformations
   transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.vue$': '@vue/vue3-jest',
-    '^.+\\js$': 'babel-jest',
-    '^.+\\.jsx?$': 'babel-jest'
   },
-  
-  // Module name mapping
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(css|less|scss|sass)$': '<rootDir>/tests/unit/mocks/styleMock.js',
-    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/tests/unit/mocks/fileMock.js'
+    // Handle CSS imports (with CSS modules)
+    '\\.css$': 'identity-obj-proxy',
+    // Handle native modules
+    '^.+\\.node$': '<rootDir>/src/tests/mocks/native-module-mock.js',
+    // Handle path aliases if you have any in tsconfig.json
+    '^@/(.*)$': '<rootDir>/src/$1'
   },
-  
-  // Coverage collection settings
-  collectCoverage: process.env.COLLECT_COVERAGE === 'true',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'vue', 'node'],
   collectCoverageFrom: [
-    'src/**/*.{js,vue}',
-    '!src/main.js',
-    '!src/router/index.js',
+    'src/**/*.{ts,js,vue}',
+    '!src/dev/**',
     '!**/node_modules/**'
   ],
-  coverageReporters: ['lcov', 'text-summary'],
-  
-  // Configure test setup file
-  setupFilesAfterEnv: ['<rootDir>/tests/unit/setup.js'],
-  
-  // Global variables available in all test files
+  coverageReporters: ['text', 'lcov'],
+  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
   globals: {
-    'vue-jest': {
-      compilerOptions: {
-        isCustomElement: (tag) => tag.startsWith('web3-') || tag.includes('-')
-      }
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.json',
+      diagnostics: false
     }
-  },
-  
-  // Test timeouts
-  testTimeout: 20000, // 20 seconds for blockchain tests that might be slower
-  
-  // Watch settings
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
-  ]
+  }
 };

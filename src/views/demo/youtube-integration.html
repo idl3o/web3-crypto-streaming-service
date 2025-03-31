@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Integration - Web3 Crypto Streaming Service</title>
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --background-color: #f7f9fb;
+      --text-color: #333;
+      --accent-color: #00cec9;
+      --warning-color: #ff7675;
+      --success-color: #55efc4;
+      --border-color: #dfe6e9;
+      --card-bg: #fff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      margin-top: 0.5rem;
+    }
+
+    .nav {
+      margin-top: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .youtube-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+
+    .youtube-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .demo-controls {
+      background-color: #f0f4ff;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .control-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Web3 Crypto Streaming Service</h1>
+    <div class="subtitle">YouTube Integration Demo</div>
+    <div class="nav">
+      <a href="../index.html">Home</a>
+      <a href="../components.html">Components</a>
+      <a href="../tutorials/index.html">Tutorials</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>YouTube Integration Example</h2>
+      <p>This page demonstrates how to integrate YouTube videos into the Web3 Crypto Streaming Service platform.</p>
+
+      <div class="youtube-embed" id="video-container">
+        <iframe 
+          src="https://www.youtube.com/embed/uoCRz6WoY4I?rel=0" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen
+          id="youtube-iframe">
+        </iframe>
+      </div>
+
+      <div class="demo-controls">
+        <h3>Change Video</h3>
+        <div class="control-group">
+          <label for="video-id">YouTube Video ID:</label>
+          <input type="text" id="video-id" placeholder="Enter YouTube Video ID" value="uoCRz6WoY4I">
+        </div>
+        <button id="update-video">Update Video</button>
+      </div>
+
+      <p>
+        <strong>How to use:</strong> Enter a YouTube video ID (the part after <code>v=</code> in a YouTube URL) and click "Update Video" to change the embedded video.
+      </p>
+
+      <h3>Integration Code</h3>
+      <p>To embed a YouTube video in your application, use the following code:</p>
+      <pre><code>&lt;div class="youtube-embed"&gt;
+  &lt;iframe 
+    src="https://www.youtube.com/embed/VIDEO_ID?rel=0" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+
+      <p>Replace <code>VIDEO_ID</code> with the YouTube video ID you want to embed.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Web3 Crypto Streaming Service - YouTube Integration Demo</p>
+    <p>© 2023 Web3 Crypto Streaming Team</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const updateButton = document.getElementById('update-video');
+      const videoIdInput = document.getElementById('video-id');
+      const iframe = document.getElementById('youtube-iframe');
+
+      // Update video when button is clicked
+      updateButton.addEventListener('click', function() {
+        const videoId = videoIdInput.value.trim();
+        if (videoId) {
+          iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

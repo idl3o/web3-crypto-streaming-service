@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel UI Demo - Web3 Crypto Streaming Service</title>
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --background-color: #f7f9fb;
+      --text-color: #333;
+      --accent-color: #00cec9;
+      --warning-color: #ff7675;
+      --success-color: #55efc4;
+      --border-color: #dfe6e9;
+      --card-bg: #fff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      margin-top: 0.5rem;
+    }
+
+    .nav {
+      margin-top: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .nav a.active {
+      opacity: 1;
+      border-bottom: 2px solid white;
+    }
+
+    /* Panel UI Styles */
+    .panel-ui {
+      background-color: var(--card-bg, #fff);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-color, #dfe6e9);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .panel-ui:hover {
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border-color, #dfe6e9);
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-color, #333);
+      flex: 1;
+    }
+
+    .panel-body {
+      padding: 1.5rem;
+    }
+
+    .panel-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-color, #dfe6e9);
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    /* Variants */
+    .panel-ui.primary {
+      border-color: var(--primary-color, #6c5ce7);
+    }
+
+    .panel-ui.primary .panel-header {
+      background-color: var(--primary-color, #6c5ce7);
+      color: white;
+    }
+
+    .panel-ui.primary .panel-title {
+      color: white;
+    }
+
+    .panel-ui.secondary {
+      border-color: var(--secondary-color, #a29bfe);
+    }
+
+    .panel-ui.secondary .panel-header {
+      background-color: var(--secondary-color, #a29bfe);
+      color: white;
+    }
+
+    .panel-ui.secondary .panel-title {
+      color: white;
+    }
+
+    .panel-ui.crypto {
+      border-color: #f7931a; /* Bitcoin orange */
+      border-left-width: 3px;
+    }
+
+    .panel-ui.dark {
+      background-color: #2d3436;
+      border-color: #2d3436;
+    }
+
+    .panel-ui.dark .panel-header {
+      background-color: #1e272e;
+      border-color: #1e272e;
+    }
+
+    .panel-ui.dark .panel-title, 
+    .panel-ui.dark .panel-body,
+    .panel-ui.dark .panel-footer {
+      color: white;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* Panel Content Demo Styles */
+    .demo-content {
+      margin-bottom: 1rem;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Web3 Crypto Streaming Service</h1>
+    <div class="subtitle">Panel UI Component Demo</div>
+    <div class="nav">
+      <a href="../index.html">Home</a>
+      <a href="../components.html">Components</a>
+      <a href="../tutorials/index.html">Tutorials</a>
+      <a href="panel-ui-demo.html" class="active">Panel UI</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Panel UI Component</h2>
+    <p>A versatile and reusable panel component for displaying content in a consistent manner throughout the application.</p>
+
+    <h3>Basic Panel</h3>
+    <div class="panel-ui">
+      <div class="panel-header">
+        <h3 class="panel-title">Basic Panel</h3>
+      </div>
+      <div class="panel-body">
+        <p>This is a basic panel with a header and content area. Use it to group related information.</p>
+      </div>
+    </div>
+
+    <h3>Panel Variants</h3>
+    <div class="grid">
+      <div class="panel-ui primary">
+        <div class="panel-header">
+          <h3 class="panel-title">Primary Panel</h3>
+        </div>
+        <div class="panel-body">
+          <p>This panel uses the primary color theme.</p>
+          <div class="demo-content">
+            <div class="stat-value">1,234</div>
+            <div class="stat-label">Active streams</div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="action-buttons">
+            <button class="btn btn-outline">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-ui secondary">
+        <div class="panel-header">
+          <h3 class="panel-title">Secondary Panel</h3>
+        </div>
+        <div class="panel-body">
+          <p>This panel uses the secondary color theme.</p>
+          <div class="demo-content">
+            <div class="stat-value">56.78 ETH</div>
+            <div class="stat-label">Total balance</div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="action-buttons">
+            <button class="btn btn-outline">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-ui crypto">
+        <div class="panel-header">
+          <h3 class="panel-title">Crypto Panel</h3>
+        </div>
+        <div class="panel-body">
+          <p>This panel uses the bitcoin orange accent for crypto-related information.</p>
+          <div class="demo-content">
+            <div class="stat-value">₿ 0.05234</div>
+            <div class="stat-label">Bitcoin balance</div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="action-buttons">
+            <button class="btn btn-outline">View Transactions</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-ui dark">
+        <div class="panel-header">
+          <h3 class="panel-title">Dark Panel</h3>
+        </div>
+        <div class="panel-body">
+          <p>This panel uses a dark theme for contrast or emphasis.</p>
+          <div class="demo-content">
+            <div class="stat-value">99.9%</div>
+            <div class="stat-label">Secure streaming uptime</div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="action-buttons">
+            <button class="btn btn-outline">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Using Panels in Vue Components</h3>
+    <div class="panel-ui">
+      <div class="panel-header">
+        <h3 class="panel-title">Vue Component Usage</h3>
+      </div>
+      <div class="panel-body">
+        <p>The Panel UI is available as a reusable Vue component that accepts props for customization:</p>
+        <pre><code>&lt;PanelUI
+  title="Dashboard Overview"
+  variant="primary"
+  :collapsible="true"
+&gt;
+  &lt;template #header&gt;
+    &lt;div class="panel-header-actions"&gt;
+      &lt;button&gt;Refresh&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+
+  &lt;div class="panel-content"&gt;
+    Your content here...
+  &lt;/div&gt;
+
+  &lt;template #footer&gt;
+    &lt;div class="panel-footer-actions"&gt;
+      &lt;button&gt;View All&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+&lt;/PanelUI&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Web3 Crypto Streaming Service - UI Component Library</p>
+    <p>© 2023 Web3 Crypto Streaming Team</p>
+  </div>
+</body>
+
+</html>

@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "start": "npm run build && node server.js",
     "serve": "node server.js",
-    "test": "jest",
+    "test": "node node_modules/jest/bin/jest.js",
     "launch": "node launcher.js",
     "webserv": "npm run build && node launcher.js",
     "vscode-server": "node vscode-server.js",
@@ -47,7 +47,25 @@
     "metrics:analyze": "node scripts/metrics/analyze-metrics.js",
     "setup:sonos": "node scripts/setup/sonos-setup.js",
     "setup:monitoring": "node scripts/setup/monitoring-setup.js",
-    "setup:ens": "node scripts/setup/ens-setup.js"
+    "setup:ens": "node scripts/setup/ens-setup.js",
+    "dev:live": "node src/dev/server.js",
+    "start:dev": "npm run dev:live",
+    "dev:serve": "node src/dev/server.js",
+    "dev:html": "npm run dev:live",
+    "build:all": "npm run build:js && npm run build:native",
+    "build:js": "tsc --project tsconfig.json",
+    "build:native": "node scripts/build/build-native-modules.js",
+    "build:win": "powershell -ExecutionPolicy Bypass -File .\\scripts\\build\\build-native-win.ps1",
+    "build:mac": "sh ./scripts/build/build-native-mac.sh",
+    "build:linux": "sh ./scripts/build/build-native-linux.sh",
+    "install": "node scripts/build/install-platform-deps.js",
+    "test:watch": "node node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node node_modules/jest/bin/jest.js --coverage",
+    "test:unit": "node node_modules/jest/bin/jest.js src/tests/services",
+    "test:integration": "node node_modules/jest/bin/jest.js src/tests/integration",
+    "test:e2e": "node node_modules/jest/bin/jest.js src/tests/e2e",
+    "test:clear-cache": "node node_modules/jest/bin/jest.js --clearCache",
+    "setup:jest": "npm install --save-dev jest ts-jest @types/jest identity-obj-proxy @vue/vue3-jest jest-environment-jsdom"
   },
   "keywords": [
     "blockchain",
@@ -141,7 +159,15 @@
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
-    "core-js": "^3.29.0"
+    "core-js": "^3.29.0",
+    "chokidar": "^3.5.3",
+    "lodash.debounce": "^4.0.8",
+    "ws": "^8.13.0",
+    "@types/jest": "^29.5.0",
+    "@vue/vue3-jest": "^29.2.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "ts-jest": "^29.1.0"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -158,5 +184,21 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/web3-crypto-streaming/web3-crypto-streaming-service.git"
+  },
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "binary": {
+    "module_name": "web3_crypto_native",
+    "module_path": "./lib/binding/{platform}-{arch}/",
+    "remote_path": "./v{version}/",
+    "package_name": "{platform}-{arch}.tar.gz",
+    "host": "https://web3-crypto-streaming-service-binaries.example.com"
   }
 }

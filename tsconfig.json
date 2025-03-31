@@ -14,11 +14,16 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "include": [
     "src/**/*"
@@ -26,6 +31,7 @@
   "exclude": [
     "node_modules",
     "**/*.spec.ts",
-    "dist"
+    "dist",
+    "build"
   ]
 }

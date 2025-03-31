@@ -2,278 +2,289 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web3 Crypto Streaming Service</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #00cec9;
-            --accent-color: #fdcb6e;
-            --dark-bg: #2d3436;
-            --light-bg: #f5f6fa;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web3 Crypto Streaming Service - Development</title>
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --background-color: #f7f9fb;
+      --text-color: #333;
+      --accent-color: #00cec9;
+      --warning-color: #ff7675;
+      --success-color: #55efc4;
+      --border-color: #dfe6e9;
+      --card-bg: #fff;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            color: #333;
-            transition: all 0.3s;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
 
-        body.dark-mode {
-            background-color: var(--dark-bg);
-            color: #f5f5f5;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 100px 0;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 50px;
-        }
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-        .wallet-btn {
-            background-color: var(--accent-color);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
 
-        .wallet-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+    .subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      margin-top: 0.5rem;
+    }
 
-        .feature-card {
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
+    .nav {
+      margin-top: 1rem;
+    }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 1rem;
+      font-weight: bold;
+    }
 
-        .dark-mode .feature-card {
-            background-color: #3d3d3d;
-            color: #f5f5f5;
-        }
+    .nav a.active {
+      text-decoration: underline;
+    }
 
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
 
-        .dark-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
+    .card h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
 
-        .chain-badge {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            margin-right: 5px;
-            font-size: 0.8rem;
-        }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
 
-        .streaming-status {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #2ecc71;
-            margin-right: 5px;
-        }
-    </style>
+    .feature-item {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-item h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .status-active {
+      background-color: var(--success-color);
+    }
+
+    .status-inactive {
+      background-color: var(--warning-color);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .dev-notes {
+      background-color: #f0f4ff;
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-broadcast"></i> CryptoStream
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="player.html">Player</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="capabilities.html">Capabilities</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="documentation.html">Documentation</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 dark-toggle" id="darkModeToggle">
-                        <i class="bi bi-moon"></i>
-                    </div>
-                    <button class="wallet-btn" id="connectWallet">
-                        <i class="bi bi-wallet2"></i> Connect Wallet
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
+  <header>
+    <h1>Web3 Crypto Streaming Service</h1>
+    <div class="subtitle">Development Environment</div>
+    <div class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="components.html">Components</a>
+      <a href="tutorials/index.html">Tutorials</a>
+      <a href="satoshi/dashboard.html">Satoshi Dashboard</a>
+      <a href="demo/panel-ui-demo.html">Panel UI</a>
+    </div>
+  </header>
 
-    <section class="hero-section">
-        <div class="container text-center">
-            <h1 class="display-4 fw-bold mb-4">Decentralized Streaming Platform</h1>
-            <p class="lead mb-5">Stream content securely through blockchain technology. Pay-per-view with crypto, store
-                content on IPFS.</p>
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-light btn-lg me-3" onclick="location.href='player.html'">
-                    <i class="bi bi-play-circle"></i> Start Watching
-                </button>
-                <button class="btn btn-outline-light btn-lg" onclick="location.href='documentation.html'">
-                    <i class="bi bi-book"></i> Learn More
-                </button>
-            </div>
-        </div>
-    </section>
+  <div class="container">
+    <div class="card">
+      <h2>Development Server with Live Reload</h2>
+      <p>This page automatically refreshes when you make changes to your HTML, CSS, or JavaScript files.</p>
+      <p>To see it in action, try modifying this HTML file and save your changes.</p>
 
-    <div class="container mb-5">
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card feature-card h-100">
-                    <div class="card-body text-center p-4">
-                        <i class="bi bi-shield-lock feature-icon"></i>
-                        <h3>Secure Streaming</h3>
-                        <p>Encrypted content delivery protected by blockchain verification. Your data remains private
-                            and secure.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card feature-card h-100">
-                    <div class="card-body text-center p-4">
-                        <i class="bi bi-currency-bitcoin feature-icon"></i>
-                        <h3>Crypto Payments</h3>
-                        <p>Pay for content with your favorite cryptocurrency. Microtransactions support content creators
-                            directly.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card feature-card h-100">
-                    <div class="card-body text-center p-4">
-                        <i class="bi bi-hdd-network feature-icon"></i>
-                        <h3>Decentralized Storage</h3>
-                        <p>Content stored on IPFS for maximum availability. No single point of failure ensures your
-                            content is always available.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="dev-notes">
+        <strong>Dev Note:</strong> This text will change when you edit and save the file - <span id="timestamp"></span>
+      </div>
     </div>
 
-    <div class="container mb-5">
-        <div class="card feature-card">
-            <div class="card-body">
-                <h3 class="mb-4">Supported Networks</h3>
-                <div id="supportedNetworks" class="mb-3">
-                    <span class="chain-badge">Ethereum</span>
-                    <span class="chain-badge">Polygon</span>
-                    <span class="chain-badge">Arbitrum</span>
-                    <span class="chain-badge">Optimism</span>
-                    <span class="chain-badge">Binance Smart Chain</span>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="streaming-status"></span>
-                    <span>All systems operational</span>
-                </div>
-            </div>
-        </div>
+    <div class="card">
+      <h2>Service Status</h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="text-align: left; padding: 8px; border-bottom: 1px solid var(--border-color);">Service</th>
+            <th style="text-align: left; padding: 8px; border-bottom: 1px solid var(--border-color);">Status</th>
+            <th style="text-align: left; padding: 8px; border-bottom: 1px solid var(--border-color);">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">Live Reload</td>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">
+              <span class="status-indicator status-active"></span>Active
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">
+              Watching for file changes in src/
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">Development Server</td>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">
+              <span class="status-indicator status-active"></span>Running
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">
+              Port 3000
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">API</td>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">
+              <span class="status-indicator status-inactive"></span>Inactive
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid var(--border-color);">
+              Use <code>npm run start:api</code> to start API services
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <footer class="bg-light py-4 mt-5">
-        <div class="container text-center">
-            <p>&copy; 2023 Web3 Crypto Streaming Service. All rights reserved.</p>
-            <div class="mt-2">
-                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
-                <a href="#" class="text-decoration-none me-3">Terms of Service</a>
-                <a href="#" class="text-decoration-none">Contact</a>
-            </div>
-        </div>
-    </footer>
+    <div class="card">
+      <h2>Bitcoin Payment Features</h2>
+      <p>The platform includes robust cryptocurrency payment features including:</p>
+      <ul>
+        <li>Pay-per-view streaming with satoshi micropayments</li>
+        <li>Bitcoin Lightning Network integration for instant payments</li>
+        <li>Transaction history and payment dashboard</li>
+        <li>Automatic subscription management</li>
+      </ul>
+      <p>
+        <a href="satoshi/dashboard.html" style="color: var(--primary-color);">View Satoshi Payment Dashboard</a>
+      </p>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
-    <script>
-        // Dark mode toggle
-        document.getElementById('darkModeToggle').addEventListener('click', function () {
-            document.body.classList.toggle('dark-mode');
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('bi-moon')) {
-                icon.classList.replace('bi-moon', 'bi-sun');
-            } else {
-                icon.classList.replace('bi-sun', 'bi-moon');
-            }
-        });
+    <div class="card">
+      <h2>UI Components</h2>
+      <p>The platform includes several reusable UI components:</p>
+      <ul>
+        <li><a href="components.html" style="color: var(--primary-color);">Basic Components</a> - Buttons, alerts, and cards</li>
+        <li><a href="demo/panel-ui-demo.html" style="color: var(--primary-color);">Panel UI</a> - Versatile content panels</li>
+        <li><a href="satoshi/dashboard.html" style="color: var(--primary-color);">Satoshi Dashboard</a> - Bitcoin payment interface</li>
+      </ul>
+    </div>
 
-        // Connect wallet functionality
-        document.getElementById('connectWallet').addEventListener('click', async function () {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const account = accounts[0];
-                    this.innerHTML = `<i class="bi bi-wallet2"></i> ${account.slice(0, 6)}...${account.slice(-4)}`;
-                    this.classList.add('btn-success');
+    <h2>Core Features</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h3>Secure Streaming</h3>
+        <p>End-to-end encrypted video and audio streaming with quantum-resistant security layers.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Crypto Payments</h3>
+        <p>Integrated payment systems supporting Bitcoin, Dogecoin, and other cryptocurrencies.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Decentralized Identity</h3>
+        <p>User authentication and identity management using blockchain technologies.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Content Protection</h3>
+        <p>Advanced DRM and content protection systems to secure intellectual property.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Multi-device Support</h3>
+        <p>Seamless streaming across devices with Sonos and HomePod integration.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Philosophical Content</h3>
+        <p>The Dionysian Agent delivers thought-provoking audio content about blockchain technology.</p>
+      </div>
+    </div>
+  </div>
 
-                    // Get network info
-                    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                    console.log(`Connected to chain ${chainId}`);
+  <div class="footer">
+    <p>Web3 Crypto Streaming Service - Development Environment</p>
+    <p>© 2023 Web3 Crypto Streaming Team</p>
+  </div>
 
-                } catch (error) {
-                    console.error(error);
-                    alert('Error connecting wallet: ' + error.message);
-                }
-            } else {
-                alert('MetaMask is not installed. Please install it to use this feature.');
-            }
-        });
+  <script>
+    // Set current timestamp
+    document.getElementById('timestamp').textContent = new Date().toLocaleTimeString();
 
-        // Check if API is reachable
-        async function checkApiStatus() {
-            try {
-                const response = await fetch('/api/status');
-                const data = await response.json();
+    // Function to check WebSocket status
+    function updateWebSocketStatus() {
+      const wsIndicator = document.querySelector('tr:first-child .status-indicator');
 
-                if (data.status === 'ok') {
-                    document.querySelector('.streaming-status').style.backgroundColor = '#2ecc71';
-                } else {
-                    document.querySelector('.streaming-status').style.backgroundColor = '#e74c3c';
-                }
-            } catch (error) {
-                console.error('API check failed:', error);
-                document.querySelector('.streaming-status').style.backgroundColor = '#e74c3c';
-            }
-        }
+      // This will be updated by the live reload system if it's working
+      if (window.WebSocket) {
+        // Check if WebSocket is in window object
+        wsIndicator.classList.add('status-active');
+        wsIndicator.classList.remove('status-inactive');
+      } else {
+        wsIndicator.classList.add('status-inactive');
+        wsIndicator.classList.remove('status-active');
+      }
+    }
 
-        // Run on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            checkApiStatus();
-        });
-    </script>
+    // Update status every 5 seconds
+    setInterval(updateWebSocketStatus, 5000);
+  </script>
 </body>
 
 </html>

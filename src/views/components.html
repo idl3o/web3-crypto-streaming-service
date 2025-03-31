@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web3 Components - Development</title>
+  <style>
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --background-color: #f7f9fb;
+      --text-color: #333;
+      --accent-color: #00cec9;
+      --warning-color: #ff7675;
+      --success-color: #55efc4;
+      --border-color: #dfe6e9;
+      --card-bg: #fff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      margin-top: 0.5rem;
+    }
+
+    .nav {
+      margin-top: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .nav a.active {
+      text-decoration: underline;
+    }
+
+    .component-section {
+      margin-bottom: 3rem;
+    }
+
+    .component-box {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .component-box h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .component-demo {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #fcfcfc;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+
+    .button:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .button-secondary {
+      background-color: var(--accent-color);
+    }
+
+    .button-secondary:hover {
+      background-color: #89d8d3;
+    }
+
+    .alert {
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+
+    .alert-success {
+      background-color: rgba(85, 239, 196, 0.2);
+      border-left: 4px solid var(--success-color);
+    }
+
+    .alert-warning {
+      background-color: rgba(255, 118, 117, 0.2);
+      border-left: 4px solid var(--warning-color);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 150px;
+      background-color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-title {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Web3 Crypto Streaming Components</h1>
+    <div class="subtitle">Development UI Components</div>
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="components.html" class="active">Components</a>
+      <a href="tutorials/index.html">Tutorials</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>UI Component Library</h2>
+    <p>This page showcases various UI components used in the Web3 Crypto Streaming Service. Edit this file to see live
+      reload in action!</p>
+
+    <div class="component-section">
+      <h2>Buttons</h2>
+
+      <div class="component-box">
+        <h3>Primary Button</h3>
+        <div class="component-demo">
+          <button class="button">Connect Wallet</button>
+        </div>
+      </div>
+
+      <div class="component-box">
+        <h3>Secondary Button</h3>
+        <div class="component-demo">
+          <button class="button button-secondary">View Stream</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-section">
+      <h2>Alerts</h2>
+
+      <div class="component-box">
+        <h3>Success Alert</h3>
+        <div class="component-demo">
+          <div class="alert alert-success">
+            <strong>Success!</strong> Your payment was processed successfully.
+          </div>
+        </div>
+      </div>
+
+      <div class="component-box">
+        <h3>Warning Alert</h3>
+        <div class="component-demo">
+          <div class="alert alert-warning">
+            <strong>Warning!</strong> Your session will expire in 5 minutes.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-section">
+      <h2>Content Cards</h2>
+
+      <div class="component-box">
+        <h3>Stream Cards</h3>
+        <div class="component-demo">
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-image">Stream 1</div>
+              <div class="card-content">
+                <h3 class="card-title">Blockchain Basics</h3>
+                <p>An introduction to blockchain technology fundamentals.</p>
+                <button class="button">Watch</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-image">Stream 2</div>
+              <div class="card-content">
+                <h3 class="card-title">Crypto Economics</h3>
+                <p>Deep dive into the economics of cryptocurrency.</p>
+                <button class="button">Watch</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-image">Stream 3</div>
+              <div class="card-content">
+                <h3 class="card-title">DeFi Explained</h3>
+                <p>Understanding decentralized finance applications.</p>
+                <button class="button">Watch</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Web3 Crypto Streaming Service - Component Library</p>
+    <p>© 2023 Web3 Crypto Streaming Team</p>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+  "title": "Introduction to Digital Sovereignty",
+  "fileName": "introduction.mp3",
+  "description": "An exploration of digital sovereignty concepts in the Web3 era",
+  "category": "identity",
+  "duration": 420,
+  "fileSize": 10485760,
+  "format": {
+    "codec": "MP3",
+    "sampleRate": 44100,
+    "bitRate": 320000,
+    "channels": 2
+  },
+  "transcript": "Welcome to an exploration of digital sovereignty in the Web3 era. Today we delve into how blockchain technology and decentralized systems are redefining our digital identities and reshaping our understanding of autonomy in the online world...",
+  "tags": ["sovereignty", "web3", "identity", "introduction"],
+  "credits": {
+    "writer": "Dr. Sophia Chen",
+    "voiceArtist": "Marcus Reynolds",
+    "producer": "Web3 Crypto Streaming Service Audio Team",
+    "music": "Original composition by Eliza Hammond"
+  },
+  "releaseDate": "2023-07-15",
+  "lastModified": "2023-08-02",
+  "cryptographicHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

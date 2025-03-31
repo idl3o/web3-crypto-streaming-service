@@ -1,275 +1,246 @@
+import { EventEmitter } from 'events';
+import { ioErrorService, IOErrorType, IOErrorSeverity } from './IOErrorService';
+import { btcToSatoshi, satoshiToBtc, formatSatoshi, isValidBitcoinAddress } from '../utils/satoshi-utils';
+
+/**
+ * Payment request interface for Bitcoin payments
+ */
+export interface BTCPaymentRequest {
+  paymentId: string;
+  contentId: string;
+  amount: number; // In BTC
+  address: string;
+  timestamp: number;
+  expiresAt: number;
+  paymentUri: string;
+}
+
+/**
+ * Payment status interface
+ */
+export interface BTCPaymentStatus {
+  paymentId: string;
+  status: 'pending' | 'confirmed' | 'failed';
+  confirmations?: number;
+  txid?: string;
+  updatedAt: number;
+}
+
 /**
  * Bitcoin Payment Service
  * Handles Bitcoin payment processing for the streaming service
  */
-
-import { btcToSatoshi, satoshiToBtc, formatSatoshi, isValidBitcoinAddress } from '../utils/satoshi-utils';
-
-export interface BitcoinPaymentOptions {
-  destinationAddress: string;
-  amount: number; // in satoshis
-  memo?: string;
-  includeFeesInAmount?: boolean;
-  feeRate?: number; // satoshis per byte
-  retryAttempt?: number;
-  previousTransactionId?: string;
-}
-
-export interface BitcoinPaymentResult {
-  success: boolean;
-  paymentId?: string;
-  transactionId?: string;
-  amount: number; // in satoshis
-  feesPaid?: number; // in satoshis
-  timestamp: number;
-  error?: string;
-  retryCount?: number;
-  canRetry?: boolean;
-}
-
-export class BitcoinPaymentService {
+export class BitcoinPaymentService extends EventEmitter {
+  private static instance: BitcoinPaymentService;
+  private paymentRequests = new Map<string, BTCPaymentRequest>();
+  private paymentStatuses = new Map<string, BTCPaymentStatus>();
+  private readonly expirationTime = 60 * 60 * 1000; // 1 hour in milliseconds
+  private initialized = false;
   private readonly apiEndpoint: string;
   private readonly apiKey: string;
   private readonly maxRetryAttempts: number = 3;
-  
-  constructor(apiEndpoint: string, apiKey: string, maxRetryAttempts: number = 3) {
+
+  private constructor(apiEndpoint: string, apiKey: string, maxRetryAttempts: number = 3) {
+    super();
     this.apiEndpoint = apiEndpoint;
     this.apiKey = apiKey;
     this.maxRetryAttempts = maxRetryAttempts;
+    this.setMaxListeners(50);
   }
-  
+
   /**
-   * Create a Bitcoin payment request for content streaming
-   * @param contentId The ID of the content being streamed
-   * @param amountBtc Amount in Bitcoin
-   * @param recipientAddress Bitcoin address of the content creator
-   * @returns Payment request details
+   * Get singleton instance
+   */
+  public static getInstance(apiEndpoint: string, apiKey: string, maxRetryAttempts: number = 3): BitcoinPaymentService {
+    if (!BitcoinPaymentService.instance) {
+      BitcoinPaymentService.instance = new BitcoinPaymentService(apiEndpoint, apiKey, maxRetryAttempts);
+    }
+    return BitcoinPaymentService.instance;
+  }
+
+  /**
+   * Initialize the service
+   */
+  public async initialize(): Promise<boolean> {
+    if (this.initialized) {
+      return true;
+    }
+
+    try {
+      // Clean up expired payment requests periodically
+      setInterval(() => this.cleanupExpiredRequests(), 15 * 60 * 1000); // Every 15 minutes
+
+      this.initialized = true;
+      this.emit('initialized');
+      return true;
+    } catch (error) {
+      ioErrorService.reportError({
+        type: IOErrorType.SONA_PAYMENT,
+        severity: IOErrorSeverity.ERROR,
+        message: 'Failed to initialize Bitcoin payment service',
+        details: error instanceof Error ? error.message : String(error),
+        retryable: true,
+        error: error instanceof Error ? error : new Error(String(error))
+      });
+      return false;
+    }
+  }
+
+  /**
+   * Create a new Bitcoin payment request
+   * @param contentId Content identifier
+   * @param amount Amount in BTC
+   * @param address Receiver's Bitcoin address
    */
   public async createPaymentRequest(
-    contentId: string, 
-    amountBtc: number, 
-    recipientAddress: string
-  ): Promise<{ 
-    paymentUri: string; 
-    paymentId: string;
-    amountSatoshi: number;
-    expiresAt: number;
-  }> {
-    // Validate address
-    if (!isValidBitcoinAddress(recipientAddress)) {
-      throw new Error('Invalid Bitcoin recipient address');
+    contentId: string,
+    amount: number,
+    address: string
+  ): Promise<{ paymentId: string; paymentUri: string }> {
+    if (!this.initialized) {
+      await this.initialize();
     }
-    
-    // Convert BTC to satoshis for internal processing
-    const amountSatoshi = btcToSatoshi(amountBtc);
-    
-    // In a real implementation, this would interact with a Bitcoin payment processor API
-    const paymentId = `btc-payment-${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
-    const expiresAt = Date.now() + 30 * 60 * 1000; // 30 minutes from now
-    
-    // Create a Bitcoin payment URI (BIP-21 format)
-    const paymentUri = `bitcoin:${recipientAddress}?amount=${amountBtc}&label=Stream+${contentId}&message=Web3+Crypto+Streaming+Payment`;
-    
-    return {
-      paymentUri,
-      paymentId,
-      amountSatoshi,
-      expiresAt
-    };
-  }
-  
-  /**
-   * Check the status of a Bitcoin payment
-   * @param paymentId The payment ID to check
-   * @returns The current payment status
-   */
-  public async checkPaymentStatus(paymentId: string): Promise<{
-    status: 'pending' | 'confirmed' | 'failed';
-    confirmations: number;
-    transactionId?: string;
-  }> {
-    // In a real implementation, this would query the Bitcoin payment processor API
-    // This is a mock implementation
-    
-    // Simulate API request
-    console.log(`[BitcoinPaymentService] Checking status for payment: ${paymentId}`);
-    
-    // Simulate a random status for demo purposes
-    const randomStatus = Math.floor(Math.random() * 3);
-    let status: 'pending' | 'confirmed' | 'failed';
-    let confirmations = 0;
-    let transactionId: string | undefined = undefined;
-    
-    switch (randomStatus) {
-      case 0:
-        status = 'pending';
-        confirmations = 0;
-        break;
-      case 1:
-        status = 'confirmed';
-        confirmations = Math.floor(Math.random() * 6) + 1;
-        transactionId = `tx-${Date.now().toString(16)}`;
-        break;
-      default:
-        status = 'failed';
-        break;
-    }
-    
-    return {
-      status,
-      confirmations,
-      transactionId
-    };
-  }
-  
-  /**
-   * Process a streamer payout in Bitcoin
-   * @param streamerAddress Streamer's Bitcoin address
-   * @param amountSatoshi Amount to send in satoshis
-   * @returns Payout result
-   */
-  public async processStreamerPayout(
-    streamerAddress: string, 
-    amountSatoshi: number
-  ): Promise<BitcoinPaymentResult> {
-    if (!isValidBitcoinAddress(streamerAddress)) {
-      return {
-        success: false,
-        amount: amountSatoshi,
-        timestamp: Date.now(),
-        error: 'Invalid Bitcoin address'
-      };
-    }
-    
-    // In a production environment, this would integrate with a Bitcoin wallet or payment service
-    console.log(`[BitcoinPaymentService] Processing payout of ${formatSatoshi(amountSatoshi)} to ${streamerAddress}`);
-    
-    // Mock successful payment for demo
-    return {
-      success: true,
-      paymentId: `payout-${Date.now()}`,
-      transactionId: `tx-${Date.now().toString(16)}`,
-      amount: amountSatoshi,
-      feesPaid: 500, // Example fee of 500 satoshis
-      timestamp: Date.now()
-    };
-  }
-  
-  /**
-   * Get the current recommended Bitcoin fee rates
-   * @returns Fee rates in satoshis per byte
-   */
-  public async getFeeEstimates(): Promise<{
-    low: number;
-    medium: number;
-    high: number;
-    timestamp: number;
-  }> {
-    // In production, this would fetch current fee estimates from a Bitcoin fee estimation service
-    // For this demo, we'll return reasonable static values
-    return {
-      low: 5,      // 5 sat/byte
-      medium: 15,  // 15 sat/byte
-      high: 30,    // 30 sat/byte for quick confirmation
-      timestamp: Date.now()
-    };
-  }
-  
-  /**
-   * Retry a failed Bitcoin payment
-   * @param previousPaymentId Previous payment ID that failed
-   * @param retryAttempt Current retry attempt (1-based)
-   * @returns Payment result from retry attempt
-   */
-  public async retryPayment(
-    previousPaymentId: string,
-    retryAttempt: number = 1
-  ): Promise<BitcoinPaymentResult> {
-    if (retryAttempt > this.maxRetryAttempts) {
-      return {
-        success: false,
-        amount: 0,
-        timestamp: Date.now(),
-        error: 'Maximum retry attempts reached',
-        retryCount: retryAttempt,
-        canRetry: false
-      };
-    }
-    
-    try {
-      console.log(`[BitcoinPaymentService] Retrying payment ${previousPaymentId}, attempt ${retryAttempt} of ${this.maxRetryAttempts}`);
-      
-      // In a real implementation, we'd retrieve the original payment and retry it
-      // For this demo, we'll simulate a retry with increasing chance of success
-      
-      // Simulate increasing success probability with each retry
-      const successProbability = 0.5 + (retryAttempt * 0.2);
-      const isSuccessful = Math.random() < successProbability;
-      
-      if (isSuccessful) {
-        // Retry succeeded
-        return {
-          success: true,
-          paymentId: `retry-${previousPaymentId}-${retryAttempt}`,
-          transactionId: `tx-retry-${Date.now().toString(16)}`,
-          amount: 40000, // Using 40k sats as the standard micropayment amount
-          feesPaid: 350, // Lower fee on retry (optimization)
-          timestamp: Date.now(),
-          retryCount: retryAttempt,
-          canRetry: false // No need to retry on success
-        };
-      } else {
-        // Retry failed
-        const canRetryAgain = retryAttempt < this.maxRetryAttempts;
-        return {
-          success: false,
-          amount: 40000,
-          timestamp: Date.now(),
-          error: 'Payment retry failed. Please try again.',
-          retryCount: retryAttempt,
-          canRetry: canRetryAgain
-        };
-      }
-    } catch (error) {
-      return {
-        success: false,
-        amount: 40000,
-        timestamp: Date.now(),
-        error: error instanceof Error ? error.message : 'Unknown error during retry',
-        retryCount: retryAttempt,
-        canRetry: retryAttempt < this.maxRetryAttempts
-      };
-    }
-  }
-  
-  /**
-   * Check if a payment is eligible for retry
-   * @param paymentId The payment ID to check for retry eligibility 
-   * @returns Status including retry eligibility
-   */
-  public async checkRetryEligibility(paymentId: string): Promise<{
-    canRetry: boolean;
-    retryCount: number;
-    maxRetries: number;
-    reason?: string;
-  }> {
-    // In a real implementation, we'd check the payment status from the database/blockchain
-    // For this demo, we'll return simple eligibility
 
-    // Extract retry count from payment ID if it follows our retry-{id}-{count} format
-    let currentRetries = 0;
-    const retryMatch = paymentId.match(/retry-.*-(\d+)/);
-    if (retryMatch && retryMatch[1]) {
-      currentRetries = parseInt(retryMatch[1], 10);
+    try {
+      const now = Date.now();
+      const paymentId = `btc-${now}-${Math.random().toString(36).substring(2, 9)}`;
+
+      // Generate Bitcoin payment URI (BIP21)
+      const paymentUri = `bitcoin:${address}?amount=${amount.toFixed(8)}&message=StreamingPayment&time=${now}`;
+
+      // Create payment request
+      const paymentRequest: BTCPaymentRequest = {
+        paymentId,
+        contentId,
+        amount,
+        address,
+        timestamp: now,
+        expiresAt: now + this.expirationTime,
+        paymentUri
+      };
+
+      // Store payment request
+      this.paymentRequests.set(paymentId, paymentRequest);
+
+      // Initialize payment status
+      this.paymentStatuses.set(paymentId, {
+        paymentId,
+        status: 'pending',
+        updatedAt: now
+      });
+
+      // Emit event
+      this.emit('payment-request-created', { paymentId, contentId, amount });
+
+      return { paymentId, paymentUri };
+    } catch (error) {
+      ioErrorService.reportError({
+        type: IOErrorType.SONA_PAYMENT,
+        severity: IOErrorSeverity.ERROR,
+        message: 'Failed to create Bitcoin payment request',
+        details: error instanceof Error ? error.message : String(error),
+        retryable: true,
+        error: error instanceof Error ? error : new Error(String(error))
+      });
+
+      throw error;
     }
-    
-    const canRetry = currentRetries < this.maxRetryAttempts;
-    
-    return {
-      canRetry,
-      retryCount: currentRetries,
-      maxRetries: this.maxRetryAttempts,
-      reason: canRetry ? undefined : 'Maximum retry attempts reached'
-    };
+  }
+
+  /**
+   * Check payment status
+   * @param paymentId Payment identifier
+   */
+  public async checkPaymentStatus(paymentId: string): Promise<BTCPaymentStatus> {
+    try {
+      const status = this.paymentStatuses.get(paymentId);
+
+      if (!status) {
+        throw new Error(`Payment with ID ${paymentId} not found`);
+      }
+
+      // In a real implementation, this would check the blockchain for payment confirmation
+      // For demonstration, we'll simulate a payment confirmation
+      if (status.status === 'pending') {
+        // Simulate 20% chance of payment being confirmed
+        if (Math.random() < 0.2) {
+          const updatedStatus: BTCPaymentStatus = {
+            ...status,
+            status: 'confirmed',
+            confirmations: Math.floor(Math.random() * 5) + 1, // 1-6 confirmations
+            txid: `bitcoin-tx-${Date.now().toString(16)}`,
+            updatedAt: Date.now()
+          };
+
+          this.paymentStatuses.set(paymentId, updatedStatus);
+
+          // Emit event
+          this.emit('payment-confirmed', {
+            paymentId,
+            txid: updatedStatus.txid,
+            confirmations: updatedStatus.confirmations
+          });
+
+          return updatedStatus;
+        }
+      }
+
+      return status;
+    } catch (error) {
+      ioErrorService.reportError({
+        type: IOErrorType.SONA_PAYMENT,
+        severity: IOErrorSeverity.WARNING,
+        message: 'Failed to check Bitcoin payment status',
+        details: error instanceof Error ? error.message : String(error),
+        retryable: true,
+        error: error instanceof Error ? error : new Error(String(error))
+      });
+
+      throw error;
+    }
+  }
+
+  /**
+   * Get payment request
+   * @param paymentId Payment identifier
+   */
+  public getPaymentRequest(paymentId: string): BTCPaymentRequest | undefined {
+    return this.paymentRequests.get(paymentId);
+  }
+
+  /**
+   * Clean up expired payment requests
+   */
+  private cleanupExpiredRequests(): void {
+    const now = Date.now();
+    let expiredCount = 0;
+
+    for (const [paymentId, request] of this.paymentRequests.entries()) {
+      if (request.expiresAt < now) {
+        this.paymentRequests.delete(paymentId);
+        expiredCount++;
+
+        // If status is still pending, mark it as failed
+        const status = this.paymentStatuses.get(paymentId);
+        if (status && status.status === 'pending') {
+          this.paymentStatuses.set(paymentId, {
+            ...status,
+            status: 'failed',
+            updatedAt: now
+          });
+
+          // Emit event
+          this.emit('payment-expired', { paymentId });
+        }
+      }
+    }
+
+    if (expiredCount > 0) {
+      console.log(`Cleaned up ${expiredCount} expired Bitcoin payment requests`);
+    }
   }
 }
+
+// Export singleton instance
+export const bitcoinPaymentService = BitcoinPaymentService.getInstance('', '', 3);
+export default bitcoinPaymentService;

@@ -1,8 +1,8 @@
 <template>
   <div class="tabnine-contact-page">
     <div class="page-header">
-      <h1>Contact Us</h1>
-      <p class="subtitle">Get support for your Web3 Crypto Streaming experience</p>
+      <h1>Contact Support</h1>
+      <p class="subtitle">Get help with your Web3 Crypto Streaming service</p>
     </div>
     
     <TabNineContactForm />
@@ -12,20 +12,18 @@
       <div class="resources-grid">
         <div class="resource-card">
           <h4>Documentation</h4>
-          <p>Browse our comprehensive guides and tutorials</p>
-          <a href="/docs" class="resource-link">View Documentation</a>
+          <p>Browse our comprehensive documentation to find answers.</p>
+          <a href="/docs" class="resource-link">View Docs</a>
         </div>
-        
-        <div class="resource-card">
-          <h4>FAQ</h4>
-          <p>Find answers to frequently asked questions</p>
-          <a href="/faq" class="resource-link">Visit FAQ</a>
-        </div>
-        
         <div class="resource-card">
           <h4>Community Forum</h4>
-          <p>Join discussions with other users and our team</p>
-          <a href="/community" class="resource-link">Join Community</a>
+          <p>Join our community discussion and get help from other users.</p>
+          <a href="/community" class="resource-link">Visit Forum</a>
+        </div>
+        <div class="resource-card">
+          <h4>FAQ</h4>
+          <p>Find answers to frequently asked questions.</p>
+          <a href="/faq" class="resource-link">Read FAQ</a>
         </div>
       </div>
     </div>
@@ -125,6 +123,10 @@ export default defineComponent({
   
   .subtitle {
     font-size: 1rem;
+  }
+  
+  .resources-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

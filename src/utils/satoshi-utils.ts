@@ -11,117 +11,123 @@ export const STANDARD_STREAMING_AMOUNT = 40_000; // 40k sats standard payment
 export const MAX_RETRY_ATTEMPTS = 3;
 
 /**
- * Convert Bitcoin to Satoshi
- * @param btc Bitcoin amount
- * @returns Satoshi amount (1 BTC = 100,000,000 satoshi)
+ * Convert BTC to satoshis
+ * @param btcAmount Amount in BTC
  */
-export function btcToSatoshi(btc: number): number {
-  return Math.floor(btc * SATOSHI_PER_BITCOIN);
+export function btcToSatoshis(btcAmount: number): number {
+  return Math.floor(btcAmount * 100000000);
 }
 
 /**
- * Convert Satoshi to Bitcoin
- * @param satoshi Satoshi amount
- * @returns Bitcoin amount
+ * Convert satoshis to BTC
+ * @param satoshis Amount in satoshis
  */
-export function satoshiToBtc(satoshi: number): number {
-  return satoshi / SATOSHI_PER_BITCOIN;
+export function satoshisToBtc(satoshis: number): number {
+  return satoshis / 100000000;
 }
 
 /**
- * Format a Satoshi amount with appropriate units
- * @param satoshi Satoshi amount
- * @param includeSymbol Whether to include the symbol in the output
- * @returns Formatted string
+ * Format BTC amount for display
+ * @param btcAmount Amount in BTC
  */
-export function formatSatoshi(satoshi: number, includeSymbol = true): string {
-  if (satoshi < 1000) {
-    return `${satoshi}${includeSymbol ? ' ' + SATOSHI_SYMBOL : ''}`;
-  } else if (satoshi < SATOSHI_PER_BITCOIN) {
-    return `${(satoshi / 1000).toLocaleString('en-US', { maximumFractionDigits: 2 })}k ${SATOSHI_SYMBOL}`;
-  } else {
-    const btc = satoshiToBtc(satoshi);
-    return `${btc.toLocaleString('en-US', { maximumFractionDigits: 8 })}${includeSymbol ? ' ' + BITCOIN_SYMBOL : ''}`;
-  }
+export function formatBtc(btcAmount: number): string {
+  return `₿${btcAmount.toLocaleString(undefined, { 
+    minimumFractionDigits: 8,
+    maximumFractionDigits: 8
+  })}`;
 }
 
 /**
- * Validate Bitcoin address (basic validation)
+ * Format satoshi amount for display
+ * @param satoshis Amount in satoshis
+ */
+export function formatSatoshis(satoshis: number): string {
+  return `${satoshis.toLocaleString()} sat`;
+}
+
+/**
+ * Convert BTC to fiat currency
+ * @param btcAmount Amount in BTC
+ * @param btcPrice Price of 1 BTC in fiat currency
+ * @param currency Fiat currency code
+ */
+export function btcToFiat(
+  btcAmount: number, 
+  btcPrice: number, 
+  currency = 'USD'
+): string {
+  const fiatAmount = btcAmount * btcPrice;
+  return new Intl.NumberFormat(undefined, {
+    style: 'currency',
+    currency,
+  }).format(fiatAmount);
+}
+
+/**
+ * Convert fiat to BTC amount
+ * @param fiatAmount Amount in fiat currency
+ * @param btcPrice Price of 1 BTC in fiat currency
+ */
+export function fiatToBtc(fiatAmount: number, btcPrice: number): number {
+  return fiatAmount / btcPrice;
+}
+
+/**
+ * Validate a Bitcoin address
  * @param address Bitcoin address to validate
- * @returns Boolean indicating if address appears valid
  */
-export function isValidBitcoinAddress(address: string): boolean {
-  // Basic validation - can be enhanced with more complete validation logic
-  if (!address) return false;
+export function isValidBtcAddress(address: string): boolean {
+  // Basic validation: Legacy, SegWit, or Native SegWit
+  const legacyRegex = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+  const segwitRegex = /^3[a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+  const bech32Regex = /^(bc1)[a-zA-HJ-NP-Z0-9]{25,90}$/;
   
-  // Check for basic formats
-  const legacyFormat = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/.test(address);
-  const segwitFormat = /^bc1[ac-hj-np-z02-9]{39,59}$/.test(address);
-  
-  return legacyFormat || segwitFormat;
+  return legacyRegex.test(address) || segwitRegex.test(address) || bech32Regex.test(address);
 }
 
 /**
- * Calculate transaction fee in satoshis
+ * Generate a QR code value for a Bitcoin payment
+ * @param address Bitcoin address
+ * @param amount Amount in BTC
+ * @param label Optional label
+ */
+export function generateBtcQrValue(
+  address: string, 
+  amount?: number, 
+  label?: string
+): string {
+  let qrValue = `bitcoin:${address}`;
+  const params = [];
+  
+  if (amount !== undefined && amount > 0) {
+    params.push(`amount=${amount.toFixed(8)}`);
+  }
+  
+  if (label) {
+    params.push(`label=${encodeURIComponent(label)}`);
+  }
+  
+  if (params.length > 0) {
+    qrValue += `?${params.join('&')}`;
+  }
+  
+  return qrValue;
+}
+
+/**
+ * Truncate a Bitcoin address for display
+ * @param address Bitcoin address
+ */
+export function truncateAddress(address: string): string {
+  if (!address || address.length < 10) return address;
+  return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+}
+
+/**
+ * Calculate estimated transaction fee
  * @param sizeInBytes Transaction size in bytes
- * @param satPerByte Fee rate in satoshis per byte
- * @returns Fee in satoshis
+ * @param satoshisPerByte Fee rate in satoshis per byte
  */
-export function calculateTxFee(sizeInBytes: number, satPerByte: number): number {
-  return Math.ceil(sizeInBytes * satPerByte);
-}
-
-/**
- * Determine if a satoshi amount is dust (economically unviable to spend)
- * @param amount Amount in satoshis
- * @param dustThreshold Threshold in satoshis (default: 546, common Bitcoin dust threshold)
- * @returns Boolean indicating if amount is considered dust
- */
-export function isDust(amount: number, dustThreshold = 546): boolean {
-  return amount < dustThreshold;
-}
-
-/**
- * Calculates optimized fee for retry attempts (generally lower on retries)
- * @param baseFeeSats Base fee in satoshis
- * @param retryAttempt The retry attempt number (0 = original attempt)
- * @returns Optimized fee for the retry attempt
- */
-export function calculateRetryFee(baseFeeSats: number, retryAttempt: number): number {
-  if (retryAttempt === 0) return baseFeeSats;
-  
-  // Apply discount to incentivize retry (up to 30% discount)
-  const discountFactor = Math.min(retryAttempt * 0.1, 0.3);
-  return Math.max(Math.floor(baseFeeSats * (1 - discountFactor)), 1);
-}
-
-/**
- * Generate a human-readable message for retry attempts
- * @param attempt Current retry attempt (0 = initial attempt)
- * @param maxAttempts Maximum number of attempts allowed
- * @returns User-friendly message
- */
-export function getRetryMessage(attempt: number, maxAttempts: number = MAX_RETRY_ATTEMPTS): string {
-  if (attempt === 0) return "";
-  if (attempt >= maxAttempts) return "Final retry attempt";
-  
-  return `Retry attempt ${attempt} of ${maxAttempts}`;
-}
-
-/**
- * Check if a transaction should be retried automatically
- * @param errorCode Error code from failed transaction
- * @returns Whether the transaction should be retried automatically
- */
-export function shouldAutoRetry(errorCode: string): boolean {
-  // List of error codes that should be automatically retried
-  const autoRetryErrors = [
-    'timeout',
-    'network_error',
-    'insufficient_fee',
-    'mempool_conflict',
-    'temporary_failure'
-  ];
-  
-  return autoRetryErrors.includes(errorCode);
+export function calculateTxFee(sizeInBytes: number, satoshisPerByte: number): number {
+  return Math.ceil(sizeInBytes * satoshisPerByte);
 }

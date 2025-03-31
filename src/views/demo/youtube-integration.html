@@ -168,13 +168,9 @@
       <p>This page demonstrates how to integrate YouTube videos into the Web3 Crypto Streaming Service platform.</p>
 
       <div class="youtube-embed" id="video-container">
-        <iframe 
-          src="https://www.youtube.com/embed/uoCRz6WoY4I?rel=0" 
-          title="YouTube video player" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          allowfullscreen
-          id="youtube-iframe">
+        <iframe src="https://www.youtube.com/embed/uoCRz6WoY4I?rel=0" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen id="youtube-iframe">
         </iframe>
       </div>
 
@@ -188,7 +184,8 @@
       </div>
 
       <p>
-        <strong>How to use:</strong> Enter a YouTube video ID (the part after <code>v=</code> in a YouTube URL) and click "Update Video" to change the embedded video.
+        <strong>How to use:</strong> Enter a YouTube video ID (the part after <code>v=</code> in a YouTube URL) and
+        click "Update Video" to change the embedded video.
       </p>
 
       <h3>Integration Code</h3>
@@ -212,13 +209,13 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const updateButton = document.getElementById('update-video');
       const videoIdInput = document.getElementById('video-id');
       const iframe = document.getElementById('youtube-iframe');
 
       // Update video when button is clicked
-      updateButton.addEventListener('click', function() {
+      updateButton.addEventListener('click', function () {
         const videoId = videoIdInput.value.trim();
         if (videoId) {
           iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
